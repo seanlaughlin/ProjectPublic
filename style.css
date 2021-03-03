@@ -45,6 +45,16 @@ h2 {
     padding-bottom: 1rem;
 }
 
+small a {
+    color: #0065BF;
+    text-decoration: none;
+    margin: 0 0.2rem;
+}
+
+small a:hover{
+    text-decoration: underline;
+}
+
 nav {
     position: fixed;
     top: 0px;
@@ -435,10 +445,12 @@ button:active {
   
   .image-box-content{
       width: 90vw;
+      height: auto;
   }
   
     .form-box-content{
       width: 90vw;
+      height: auto;
   }
   
   h1 {
@@ -449,6 +461,8 @@ button:active {
       font-size: 1rem;
       text-align: center;
   }
+  
+  
   nav {
       display: flex;
       flex-direction: column;
@@ -467,6 +481,8 @@ button:active {
   }
   nav ul{
   }
+  
+  
 }
 
 @media screen and (max-height: 900px){
@@ -534,5 +550,6 @@ button:active {
   .form-box-content{
       margin-top: 3rem;
       width: 90vw;
+      height: 100vh;
   }
 }
