@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Register | GCU_Skills</title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="style.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <nav id="navbar">
+            <img src="GCU_SkillsLogoWordsSmall.png" alt="GCU Skills"/>
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="index.html#about">About Us</a></li>
+              <li><a href="#contact" id="contactlink">Contact</a></li>
+              <li><a href="lessons.html">Lessons</a></li>
+              <li><a href="login.html">Login</a></li>
+              <li><a href="register.html">Register</a></li>
+            </ul>
+        </nav>
+        <div id="section-container">
+           <section class="image-section" id="register">
+                <div class="form-box-content">
+                    <h2>Register a new Student Account</h2>
+                    <form action="processregistration.jsp" method="POST">    
+                        <label>     
+                            <input type="text" class="input" name="fname" placeholder="First name"/>                   
+                            <div class="line-box">          
+                            <div class="line"></div>        
+                            </div>    
+                        </label> 
+                        <label>     
+                            <input type="text" class="input" name="surname" placeholder="Surname"/>                   
+                            <div class="line-box">          
+                            <div class="line"></div>        
+                            </div>    
+                        </label>
+                        <label>     
+                            <input type="text" class="input" name="dob" onclick="(this.type = 'date')" onblur="(this.type='text')" placeholder="Date of birth"/>                   
+                            <div class="line-box">          
+                            <div class="line"></div>        
+                            </div>    
+                        </label> 
+                        <label>     
+                            <input type="text" class="input" name="address" placeholder="Address"/>                   
+                            <div class="line-box">          
+                            <div class="line"></div>        
+                            </div>    
+                        </label> 
+                        <label>
+                           <input type="text" class="input" name="postcode" placeholder="Postcode"/>                   
+                            <div class="line-box">          
+                            <div class="line"></div>        
+                            </div>    
+                        </label>                         
+                        <label>     
+                          <input type="text" class="input" name="email" placeholder="Email"/>                   
+                          <div class="line-box">          
+                          <div class="line"></div>        
+                          </div>    
+                        </label>         
+                        <label>     
+                            <input type="password" class="input" name="password" placeholder="Password"/>        
+                                <div class="line-box">          
+                                <div class="line"></div>        
+                            </div>    
+                        </label>          
+                        <button type="submit">Register</button>  
+                    </form> 
+                </div>
+            </section>
+        </div>
+    </body>
+</html>
