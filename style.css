@@ -24,7 +24,7 @@ padding: 0;}
     box-sizing: border-box;
 }
 body {
-    height: 100vh;
+    height: 100%;
     max-height: 100vh;
     margin: 0;
     padding: 0;
@@ -32,8 +32,7 @@ body {
     background-color: lightgray;
     background-image: url('back_pattern.png');
     background-repeat: repeat;
-        overflow: hidden;
-/*    overflow: hidden;*/
+    overflow: hidden;
 }
 
 h1 {
@@ -56,9 +55,9 @@ small a:hover{
 }
 
 nav {
-    position: fixed;
+    position: fixed !important;
     top: 0px;
-    width: 100%;
+    width: 100vw;
     background-color: #0065BF;
     box-shadow: 0 0.15rem 3px black;
     color: white;
@@ -224,18 +223,17 @@ nav a:hover {
 
 .form-box-content{
     width: auto;
-    max-width: 70vw;
-    min-width: 400px;
-    width: 30%;
+    width: 450px;
+    min-width: 300px;
+    max-width: 450px;
     height: auto;
     background-color: rgba(0, 0, 0, 0.8);
     color: white;
     text-align: center;
     padding-top: 2rem;
     padding-bottom: 2rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    margin-top: 2rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
 }
 
 .scroll-down {
@@ -431,9 +429,6 @@ button:active {
   .scroll-down {
    display: none;
   }*/
-  .image-box-content{
-      margin: 0 auto;
-  }
   
   
   #about{
@@ -446,13 +441,18 @@ button:active {
   }
   
   .image-box-content{
-      width: 90vw;
+      width: 98vw;
       height: auto;
+  }
+  
+  body{
+      font-size: 0.8rem;
   }
   
     .form-box-content{
       width: 90vw;
       height: auto;
+      padding-top: 2rem;
   }
   
   h1 {
@@ -503,11 +503,11 @@ button:active {
   
   
   #about{
-      padding-top: 10vh;
+      //padding-top: 10vh;
+      padding-top: 4rem;
   }
   
   #contact{
-      padding-top: 10vh;
   }
   
   #welcome img {
@@ -519,8 +519,8 @@ button:active {
       margin-top: 3rem;
   }
   
-  .image-box-content{
-      width: 90vw;
+  #apara{
+            min-width: 95vw;
   }
   
   h1 {
@@ -531,7 +531,10 @@ button:active {
       font-size: 1rem;
       text-align: center;
   }
+  
       nav {
+      position: fixed;
+      top: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -541,7 +544,7 @@ button:active {
   
   
   nav a{
-      font-size: 0.8rem;
+      font-size: 0.65rem;
       padding: 0.5rem;
   }
   nav img{
@@ -549,9 +552,9 @@ button:active {
   }
   nav ul{
   }
+  
   .form-box-content{
-      margin-top: 3rem;
-      width: 90vw;
-      height: 100vh;
+      margin-top: 4rem;
   }
 }
+
