@@ -532,19 +532,19 @@ button:active {
       text-align: center;
   }
   
-      nav {
-      position: fixed;
-      top: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 75px;
+nav {
+    position: fixed;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 75px;
   }
   
   
   nav a{
-      font-size: 0.65rem;
+      font-size: 0.6rem;
       padding: 0.5rem;
   }
   nav img{
