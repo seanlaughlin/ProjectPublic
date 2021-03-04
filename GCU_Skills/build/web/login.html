@@ -16,25 +16,41 @@ and open the template in the editor.
             <img src="GCU_SkillsLogoWordsSmall.png" alt="GCU Skills"/>
             <ul>
               <li><a href="index.html">Home</a></li>
-              <li><a href="index.html#about">About Us</a></li>
-              <li><a href="index.html#contact">Contact Us</a></li>
+              <li><a href="index.html#about">About</a></li>
+              <li><a href="index.html#contact" id="contactlink">Contact</a></li>
+              <li><a href="lessons.html">Lessons</a></li>
               <li><a href="login.html">Login</a></li>
               <li><a href="register.html">Register</a></li>
             </ul>
         </nav>
-        <div id="container">
-            <section class="normal-section">
-                <div class="form-content">
-                    <h2>Login to your GCU_Skills Student Account</h2>
-                        <form action="login.jsp" method="POST">
-                            <label for="email">Email: </label>
-                            <input type="email" name="email" id="email">
-                            <label for="password">Password: </label>
-                            <input type="password" name="password" id="password">
-                            <input type="submit" value="Log in" class="submitbutton">
-                        </form>
+            <section class="image-section" id="login">
+                <div class="form-box-content">
+                    <h2>Log in to your Student Account</h2>
+                    <form action="processlogin.jsp" method="POST">    
+                        <label>     
+                          <input type="text" class="input" name="email" placeholder="Email"/>                   
+                            <div class="line-box">          
+                          <div class="line"></div>        
+                          </div>    
+                        </label>
+                        <label>     
+                            <input type="password" class="input" name="password" placeholder="Password"/>        
+                            <div class="line-box">          
+                                <div class="line"></div>        
+                            </div>    
+                        </label>     
+                        <label>     
+                            <input type="password" class="input" name="confirm" placeholder="Confirm password"/>      
+                            <div class="line-box">        
+                            <div class="line"></div>      
+                            </div>    
+                        </label>     
+                        <button type="submit">Log in</button>
+                        <label>
+                        <small>Don't have an account? <a href="register.html">Register</a></small>
+                        </label>
+                    </form> 
                 </div>
             </section>
-        </div>
     </body>
 </html>
