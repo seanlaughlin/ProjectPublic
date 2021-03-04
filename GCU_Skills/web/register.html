@@ -10,37 +10,81 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <link rel="stylesheet" href="style.css">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script>
+            function addHyphon(){
+                var dob = document.getElementById("dob");
+                var doblength = document.getElementById("dob").length;
+                    if(dob.value.length === 2 || dob.value.length === 5) {
+                    dob.value += "-";
+                }
+            }
+        </script>
     </head>
     <body>
         <nav id="navbar">
             <img src="GCU_SkillsLogoWordsSmall.png" alt="GCU Skills"/>
             <ul>
               <li><a href="index.html">Home</a></li>
-              <li><a href="index.html#about">About Us</a></li>
-              <li><a href="index.html#contact">Contact Us</a></li>
+              <li><a href="index.html#about">About</a></li>
+              <li><a href="index.html#contact" id="contactlink">Contact</a></li>
+              <li><a href="lessons.html">Lessons</a></li>
               <li><a href="login.html">Login</a></li>
               <li><a href="register.html">Register</a></li>
             </ul>
         </nav>
-        <div id="container">
-            <section class="normal-section">
-                <div class="form-content">
+        <div id="section-container">
+           <section class="image-section" id="register">
+                <div class="form-box-content">
                     <h2>Register a new Student Account</h2>
-                        <form action="register.jsp" method="POST">
-                            <label for="email">Email Address: </label>
-                            <input type="email" name="email" id="email">
-                            <label for="firstName">First Name: </label>
-                            <input type="text" name="firstName" id="firstName">
-                            <label for="lastName">Last Name: </label>
-                            <input type="text" name="lastName" id="lastName">
-                            <label for="password">Password: </label>
-                            <input type="password" name="password" id="password">
-                            <label for="dob">Date of Birth: </label>
-                            <input type="text" name="dob" id="dob">
-                            <label for="phoneNumber">Phone Number: </label>
-                            <input type="number" name="phoneNumber" id="phoneNumber">
-                            <input type="submit" value="Submit" class="submitbutton">
-                        </form>
+                    <form action="processregistration.jsp" method="POST">    
+                        <label>     
+                            <input type="text" class="input" name="fname" placeholder="First name"/>                   
+                            <div class="line-box">          
+                            <div class="line"></div>        
+                            </div>    
+                        </label> 
+                        <label>     
+                            <input type="text" class="input" name="surname" placeholder="Surname"/>                   
+                            <div class="line-box">          
+                            <div class="line"></div>        
+                            </div>    
+                        </label>
+                        <label>     
+                            <input type="text" class="input" name="dob" onkeyup="addHyphon();" id="dob" placeholder="Date of birth (DDMMYYYY)" 
+                            pattern="(0[1-9]|1[0-9]|2[0-9]|3[01])-(0[1-9]|1[012])-[0-9]{4}" required  title="Enter a date in this format DD-MM-YYYY"/>               
+                            <div class="line-box">          
+                            <div class="line"></div>        
+                            </div>    
+                        </label> 
+                        <label>     
+                            <input type="text" class="input" name="address" placeholder="Address"/>                   
+                            <div class="line-box">          
+                            <div class="line"></div>        
+                            </div>    
+                        </label> 
+                        <label>
+                           <input type="text" class="input" name="postcode" placeholder="Postcode"/>                   
+                            <div class="line-box">          
+                            <div class="line"></div>        
+                            </div>    
+                        </label>                         
+                        <label>     
+                          <input type="text" class="input" name="email" placeholder="Email"/>                   
+                          <div class="line-box">          
+                          <div class="line"></div>        
+                          </div>    
+                        </label>         
+                        <label>     
+                            <input type="password" class="input" name="password" placeholder="Password"/>        
+                                <div class="line-box">          
+                                <div class="line"></div>        
+                            </div>    
+                        </label>          
+                        <button type="submit">Register</button>
+                        <label>
+                            <small>Already have an account? <a href="login.html">Log in</a></small>
+                        </label>
+                    </form> 
                 </div>
             </section>
         </div>
