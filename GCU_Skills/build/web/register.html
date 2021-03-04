@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Register | GCU_Skills</title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="style.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <nav id="navbar">
+            <img src="GCU_SkillsLogoWordsSmall.png" alt="GCU Skills"/>
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="index.html#about">About Us</a></li>
+              <li><a href="index.html#contact">Contact Us</a></li>
+              <li><a href="login.html">Login</a></li>
+              <li><a href="register.html">Register</a></li>
+            </ul>
+        </nav>
+        <div id="container">
+            <section class="normal-section">
+                <div class="form-content">
+                    <h2>Register a new Student Account</h2>
+                        <form action="register.jsp" method="POST">
+                            <label for="email">Email Address: </label>
+                            <input type="email" name="email" id="email">
+                            <label for="firstName">First Name: </label>
+                            <input type="text" name="firstName" id="firstName">
+                            <label for="lastName">Last Name: </label>
+                            <input type="text" name="lastName" id="lastName">
+                            <label for="password">Password: </label>
+                            <input type="password" name="password" id="password">
+                            <label for="dob">Date of Birth: </label>
+                            <input type="text" name="dob" id="dob">
+                            <label for="phoneNumber">Phone Number: </label>
+                            <input type="number" name="phoneNumber" id="phoneNumber">
+                            <input type="submit" value="Submit" class="submitbutton">
+                        </form>
+                </div>
+            </section>
+        </div>
+    </body>
+</html>
