@@ -143,6 +143,7 @@ nav a:hover {
   min-height: 100vh;
   color: black;
   margin: 0 auto;
+  padding-top: 2.5rem;
 }
 
 #welcome{
@@ -431,8 +432,8 @@ button:active {
   }*/
   
   
-  #about{
-      padding-top: 10vh;
+  .image-section{
+      padding-top: 4rem;
   }
   
   #welcome img {
@@ -553,8 +554,8 @@ nav {
   nav ul{
   }
   
-  .form-box-content{
+/*  .form-box-content{
       margin-top: 4rem;
-  }
+  }*/
 }
 
