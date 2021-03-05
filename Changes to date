@@ -1,0 +1,8 @@
+Working with SQLite pending me sorting my issues with ucanaccess JDBC.
+Moved some stuff into different folders within 'web' to make it a bit neater.
+Created StudentRegistrationServlet and StudentLoginServlet to act as controller classes for registration and login.
+HTML files have now been replaced with jsp files to allow dynamic processing, old HTML files are still in a folder in 'web'.
+Changed login method and included encryption for passwords.
+Added some logic within pages that check whether user is logged in.
+Temporarily have made new Student objects initialise with a blank 'new Date ();' because sqlite doesn't seem to support read/write of date objects.
+Navbar is now a seperate file to minimise code duplication. It's included in all pages.
