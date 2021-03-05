@@ -1,0 +1,780 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 2 Mar 2021, 15:44:17
+    Author     : seanl
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+
+html {
+  scroll-behavior: smooth;
+}
+
+div { 
+margin: 0;
+padding: 0;}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    height: 100%;
+    max-height: 100vh;
+    margin: 0;
+    padding: 0;
+    font-family: 'Varela Round', Arial;
+    background-color: lightgray;
+    background-image: url('../images/back_pattern.png');
+    background-repeat: repeat;
+    overflow: hidden;
+}
+
+h1 {
+    font-size: 3rem;
+    margin: 0;
+}
+
+
+h2 {
+    padding-bottom: 1rem;
+}
+
+h3 a {
+    color: #0065BF;
+    text-decoration: none;
+    margin: 0 0.2rem;
+}
+
+h3 a:hover {
+    text-decoration: underline;
+}
+
+small a {
+    color: #0065BF;
+    text-decoration: none;
+    margin: 0 0.2rem;
+}
+
+
+small a:hover{
+    text-decoration: underline;
+}
+
+nav {
+    position: fixed !important;
+    top: 0px;
+    width: 100vw;
+    background-color: #0065BF;
+    box-shadow: 0 0.15rem 3px black;
+    color: white;
+    margin: 0 auto;
+    padding: 0;
+    z-index: 100;
+    max-height: 20%;
+    min-height: 3rem;
+}
+
+nav ul {
+    float: right;
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin: 0;
+}
+
+nav li {
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 0.5rem;
+    margin-right: 0;
+}
+
+nav a {
+    display: block;
+    text-decoration: none;
+    color: white;
+    font-size: 1rem;
+    padding: 0.85rem;
+    text-shadow: 1px 1px 2px #000;
+}
+
+nav a:hover {
+    background-color: #0072d9;
+}
+
+.section-container{
+    margin: 0 auto;
+    padding: 0;
+    width: 100vw;
+    min-height: 100vh;
+    height: auto;
+}
+
+.section-container a {
+    margin: 0 auto;
+    padding: 0;
+    display: block;
+}
+
+.pageline{
+    width: 100vw;
+    height: 0.2rem;
+    background-color: grey;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.welcome-image-section {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 80%;
+    min-height: 80vh;
+    background-color: none;
+    color: black;
+    display: flex;
+    margin: 0 auto;
+    padding: 2vh;
+}
+
+.image-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: auto;
+  min-height: 100vh;
+  color: black;
+  margin: 0 auto;
+  padding-top: 2.5rem;
+}
+
+#welcome{
+    padding-top: 15vh;
+    padding-bottom: 5rem;
+    max-width: 800px;
+    height: auto;
+    background-repeat: repeat;
+}
+
+#about {
+  background-image: url('../images/gcu.jpg');
+  background-size: cover;
+}
+
+#lessons{
+  background-image: url('../images/working-on-code.jpg');
+  background-size: cover;
+}
+
+#login {
+    background-image: url('../images/studentlogin.jpg');
+    background-size: cover;
+}
+
+#register {
+    background-image: url('../images/gculib.jpg');
+    background-size: cover;
+}
+
+#contact{
+    background-image: url('../images/gcu2.jpg');
+    background-size: cover;
+}
+
+#enquiry {
+    height: 8rem;
+}
+
+.image-box-content{
+    width: auto;
+    max-width: 70vw;
+    height: auto;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    margin: 0 auto;
+    text-align: center;
+    padding: 2rem;
+}
+
+.lessons-content{
+    width: auto;
+    width: 70vw;
+    max-width: 70vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    margin: 0 auto;
+    text-align: center;
+    padding: 4rem;
+}
+
+.lesson-box {
+    width: 100%;
+    min-height: 8rem;
+    padding: 1rem;
+    margin: 1rem auto;
+    box-shadow: #000 2px 2px 5px;
+    border-radius: 1vh;
+    background-color: white;
+}
+
+.image-box-content img{
+    margin: 0 auto;
+    padding: 0;
+}
+
+.form-box-content{
+    width: auto;
+    max-width: 450px;
+    height: auto;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    text-align: center;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+.scroll-down {
+    margin: 0 auto;
+    padding-top: 8vh;
+    text-align: center;
+    z-index: 100;
+}
+
+/* start of form stuff */
+form{
+   width: 70%;  
+   margin: 1rem auto;    
+   text-align: center;
+}
+
+::placeholder {
+    color: white;
+}
+label {  
+  display: block;  
+  position: relative;  
+  margin: 40px 0px; 
+}
+
+ .label-txt {  
+   position: absolute;  
+   top: -1.6rem;  
+   padding: 10px;  
+   font-family: sans-serif; 
+   font-size: .8rem;  
+   letter-spacing: 1px;  
+   color: #0065BF;  
+   transition: ease .3s; 
+}
+
+ .input {  
+   width: 100%;  
+   padding: 10px;  
+   background: transparent;  
+   border: none;  
+   outline: none; 
+}
+
+textarea {
+   width: 100%;  
+   padding-top: 1rem; 
+   padding-left: 10px;
+   padding-right: 10px;
+   background: transparent;  
+   border: none;  
+   outline: none; 
+   color: white;
+   font-family: 'Varela Round', Arial; 
+   resize: none;
+}
+
+textarea::placeholder{
+    padding-top: 5.5rem;
+}
+
+.line-box {  
+  position: relative;  
+  width: 100%;  
+  height: 2px;  
+  background: #fff; 
+}
+
+ .line {  
+   position: absolute;  
+   width: 0%;  
+   height: 2px;  
+   top: 0px;  
+   left: 50%;  
+   transform: translateX(-50%);  
+   background: #0065BF;  
+   transition: ease .6s; 
+}  
+
+ .input:focus + .line-box .line {  
+   width: 100%; 
+}
+
+ .label-active {  
+   top: -3rem; 
+}
+
+input {
+    color: white;
+    font-family: 'Varela Round', Arial;
+}
+
+ button { 
+   font-family: 'Varela Round', Arial;     
+   display: inline-block; 
+   padding: 12px 24px;  
+   background: #0065BF;  
+   font-weight: bold;
+   width: 10rem;
+   color: #fff;  
+   border: none;  
+   outline: none;   
+   cursor: pointer;  
+   transition: ease .3s; 
+}  
+
+ button:hover {  
+   background: #0072d9;;  
+   color: #ffffff; 
+}
+
+button:active {  
+   background: #0072d9;;  
+   color: #ffffff; 
+}
+
+
+
+/* end of form stuff */
+
+.scroll-down img {
+    display: inline-block;
+    padding: 0;
+    height: inherit;
+    width: inherit;
+    animation: pulse 1.5s infinite;
+                -webkit-animation-duration: 1.5s;
+            -webkit-animation-timing-function: linear;
+            -webkit-animation-delay: 1.6s;
+            -webkit-animation-iteration-count: infinite;
+            -webkit-animation-direction: normal;
+            -webkit-animation-fill-mode: forwards;
+            -webkit-animation-play-state: running;
+            -webkit-animation-name: pulse;
+}
+
+.scroll-up {
+    margin: 0 auto;
+    padding-bottom: 8vh;
+    text-align: center;
+    z-index: 100;
+}
+
+.scroll-up img {
+    display: inline-block;
+  //  margin-top: -10vh;
+    padding: 0;
+    height: inherit;
+    width: inherit;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% {
+	transform: scale(0.90);
+    }
+
+    50% {
+	transform: scale(1);
+    }
+
+    100% {
+        transform: scale(0.90);
+    }
+}
+
+ @media screen and (max-width: 1600px){
+/* .scroll-up {
+    padding-bottom: 2vh;
+    padding-top: 2vh;
+  }
+  .scroll-down {
+   padding-bottom: 2vh;
+   padding-top: 2vh;
+  }*/
+ }
+
+@media screen and (max-width: 1200px){
+    body {
+        overflow-y: visible;
+    }
+/* .scroll-up {
+   display: none;
+  }
+  .scroll-down {
+   display: none;
+  }*/
+  .image-box-content{
+      margin: 0 auto;
+  }
+  
+}
+
+@media screen and (max-width: 750px){
+    body {
+        overflow-y: visible;
+    }
+/* .scroll-up {
+   display: none;
+  }
+  .scroll-down {
+   display: none;
+  }*/
+  
+  
+  .image-section{
+      padding-top: 3.6rem;
+  }
+  
+  #welcome img {
+      width: 60%;
+      height: auto;
+  }
+  
+  .image-box-content{
+      height: auto;
+  }
+  
+  body{
+      font-size: 0.8rem;
+  }
+  
+    .form-box-content{
+      height: auto;
+  }
+  
+  h1 {
+      font-size: 1.5rem;
+  }
+  
+  h2 {
+      font-size: 1rem;
+      text-align: center;
+  }
+  
+  
+  nav {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 75px;
+  }
+  
+  
+  nav a{
+      font-size: 0.6rem;
+      padding: 0.6rem;
+  }
+  nav img{
+      margin: 0 auto;
+  }
+  nav ul{
+  }
+  
+   #apara{
+       min-width: 90vw;
+  }
+  
+  
+}
+
+@media screen and (max-height: 900px){
+      body {
+        overflow-y: visible;
+    }
+/* .scroll-up {
+   display: none;
+  }
+  .scroll-down {
+   display: none;
+  }*/
+  .image-box-content{
+      margin: 0 auto;
+  }
+  
+  
+  #about{
+      //padding-top: 10vh;
+      padding-top: 4rem;
+      font-size: 0.6rem;
+  }
+  
+  #contact{
+  }
+  
+  #welcome img {
+      width: 60%;
+      height: auto;
+  }
+  
+  
+  #welcome h1 {
+      margin-top: 3rem;
+  }
+  
+  
+  h1 {
+      font-size: 1.5rem;
+  }
+  
+  h2 {
+      font-size: 1rem;
+      text-align: center;
+  }
+  
+  .form-box-content{
+        max-width: 350px;
+  }
+  
+/*nav {
+    position: fixed;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 75px;
+  }
+  
+  
+  nav a{
+      font-size: 0.6rem;
+      padding: 0.6rem;
+  }
+  nav img{
+      margin: 0 auto;
+  }
+  nav ul{
+  }*/
+  
+  form{
+   margin: 1rem auto;    
+   text-align: center;
+}
+
+::placeholder {
+    color: white;
+}
+label {  
+  display: block;  
+  position: relative;  
+  margin: 20px 0px; 
+}
+
+ .label-txt {  
+   position: absolute;  
+   top: -0.8rem;  
+   padding: 5px;  
+   font-family: sans-serif; 
+   font-size: .4rem;  
+   letter-spacing: 0.5px;  
+   color: #0065BF;  
+   transition: ease .3s; 
+}
+
+ .input {  
+   width: 100%;  
+   padding: 5px;  
+   background: transparent;  
+   border: none;  
+   outline: none; 
+}
+
+textarea {
+   width: 100%;  
+   padding-top: 0.5rem; 
+   padding-left: 5px;
+   padding-right: 5px;
+   background: transparent;  
+   border: none;  
+   outline: none; 
+   color: white;
+   font-family: 'Varela Round', Arial; 
+   resize: none;
+}
+
+textarea::placeholder{
+    padding-top: 2.75rem;
+}
+
+.line-box {  
+  position: relative;  
+  width: 100%;  
+  height: 1px;  
+  background: #fff; 
+}
+
+ .line {  
+   position: absolute;  
+   width: 0%;  
+   height: 1px;  
+   top: 0px;  
+   left: 50%;  
+   transform: translateX(-50%);  
+   background: #0065BF;  
+   transition: ease .6s; 
+}  
+}
+
+@media screen and (max-width: 440px){
+    
+    .scroll-down {
+        padding-top: 10rem;
+    }
+    #contact{
+        background-image: url('../images/gcu2Mobile.jpg');
+    }
+    
+    #about {
+        background-image: url('../images/gcuMobile.jpg');
+              padding-top: 8rem;
+    }
+    
+    #lessons {
+        padding-top: 12rem;
+    }
+    
+    .image-box-content {
+        padding: 1rem;
+        width: auto;
+        height: auto;
+    }
+    
+    .image-box-content h2 {
+        padding: 0;
+        margin: 0 auto;
+    }
+    
+    .form-box-content{
+        max-width: 70vw;
+        padding: 1rem;
+        margin: 0 auto;
+    }
+    
+    .image-section{
+        padding-bottom: 8rem;
+    }
+    
+    button{
+        width: 5rem;
+        font-size: 0.6rem;
+        padding: 0.3rem;
+        font-weight: 400;
+    }
+    
+    ::placeholder {
+        font-size: 0.6rem;
+    }
+    
+    h2 {
+        font-size: 0.8rem;
+    }
+    
+    body {
+        font-size: 0.6rem;
+    }
+    
+      form{
+   margin: 0.5rem auto;    
+   text-align: center;
+}
+
+::placeholder {
+    color: white;
+}
+label {  
+  display: block;  
+  position: relative;  
+  margin: 10px 0px; 
+}
+
+ .label-txt {  
+   position: absolute;  
+   top: -0.4rem;  
+   padding: 2.5px;  
+   font-family: sans-serif; 
+   font-size: 0.2rem;  
+   letter-spacing: 0.2.5px;  
+   color: #0065BF;  
+   transition: ease .3s; 
+}
+
+ .input {  
+   width: 100%;  
+   padding: 2.5px;  
+   background: transparent;  
+   border: none;  
+   outline: none; 
+}
+
+textarea {
+   width: 100%;  
+   padding-top: 0.25rem; 
+   padding-left: 2.5px;
+   padding-right: 2.5px;
+   background: transparent;  
+   border: none;  
+   outline: none; 
+   color: white;
+   font-family: 'Varela Round', Arial; 
+   resize: none;
+}
+
+textarea::placeholder{
+    padding-top: 1.375rem;
+}
+
+.line-box {  
+  position: relative;  
+  width: 100%;  
+  height: 1px;  
+  background: #fff; 
+}
+
+ .line {  
+   position: absolute;  
+   width: 0%;  
+   height: 1px;  
+   top: 0px;  
+   left: 50%;  
+   transform: translateX(-50%);  
+   background: #0065BF;  
+   transition: ease .6s; 
+}  
+}
+
+@media screen and (max-width: 330px){
+    nav a{
+        padding-left: 0.3rem;
+        padding-right: 0.3rem;
+    }
+}
+
