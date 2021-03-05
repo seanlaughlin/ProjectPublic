@@ -21,7 +21,7 @@
                         <h1>Lessons at GCU_Skills</h1> 
                         <h2>Click below for available lessons</h2>
                     </div>
-                    <div class="scroll-down"><a href="#lessons-list"><img src='downArrowWhiteSmall.png' alt='scroll down'/></a></div>
+                    <div class="scroll-down"><a href="#lessons-list"><img src='images/downArrowWhiteSmall.png' alt='scroll down'/></a></div>
                 </section>
         </div>
             <div class="section-container">
