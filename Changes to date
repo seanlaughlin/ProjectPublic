@@ -2,7 +2,8 @@
 
 Changed database (and JDBC) to MS access
 Removed address attribute from servlets, webforms and other classes
-Added account details page and related servlet which uses 'toggle.js' - jQUery script i've written/adapted to write to database and confirm without need to reload the page
+Added account details page and related servlet which uses 'toggle.js' - jQUery script i've written/adapted to send info to servlet to be written to database and 
+confirm without need to reload the page.
 Some CSS tweaks including making sure new page and functionality is neat on mobiles and tablet as well as desktop
 Added a favicon
 Updated files are in Data, src and web folders, can be copied directly to the GCU_Skills project folder
