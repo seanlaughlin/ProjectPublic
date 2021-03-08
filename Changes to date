@@ -7,6 +7,13 @@ Some CSS tweaks including making sure new page and functionality is neat on mobi
 Added a favicon
 Updated files are in Data, src and web folders, can be copied directly to the GCU_Skills project folder
 
+**IMPORTANT**
+You'll need to change the path to the database file in the UserManager and PassHash methods to match the location on your computer.
+
+You'll need to add all the libraries I've put in the 'lib' folder to the project for it to run, and your netbeans server will need to be set to Apache TomCat
+which you may have to install. Jack or myself will be able to help with this if needed since we've both got it up and running.
+Once TomCat is set up and all libraries have been added just press the play button in netbeans and the project should open in browser.
+
 05/03/21
 
 Working with SQLite pending me sorting my issues with ucanaccess JDBC.
