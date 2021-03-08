@@ -11,7 +11,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import static java.lang.System.out;
 import java.sql.SQLException;
+import java.util.Enumeration;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,7 +21,7 @@ import java.util.logging.Logger;
  *
  * @author seanl
  */
-public class StudentLoginServlet extends HttpServlet {
+public class StudentDetailsServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -29,23 +31,38 @@ public class StudentLoginServlet extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
-     * @throws java.sql.SQLException
-     * @throws java.lang.ClassNotFoundException
      */
+    private Student student;
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException, ClassNotFoundException {
-        UserManager userManager = new UserManager();
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-        Student student = userManager.logInStudent(email, password);
-        if (student != null) {
+        try (out) {
+            UserManager userManager = new UserManager();
             HttpSession session = request.getSession();
-            session.setAttribute("student", student);
-            session.setAttribute("loggedIn", "true");
-            response.sendRedirect("account.jsp");
-        } else {
-            response.sendRedirect("login.jsp?error=true");
+            student = (Student) session.getAttribute("student");
+            Enumeration enumeration = request.getParameterNames();
+            String parameterName = "";
+            response.setContentType("text/html");
+            response.setHeader("Cache-control", "no-cache, no-store");
+            response.setHeader("Pragma", "no-cache");
+            response.setHeader("Expires", "-1");
+            
+            response.setHeader("Access-Control-Allow-Origin", "*");
+            response.setHeader("Access-Control-Allow-Methods", "POST");
+            response.setHeader("Access-Control-Allow-Headers", "Content-Type");
+            response.setHeader("Access-Control-Max-Age", "86400");
+            
+            
+            
+            while (enumeration.hasMoreElements()) {
+                parameterName = (String) enumeration.nextElement();
+            }
+            String parameter = request.getParameter(parameterName);
+            student = userManager.updateAttribute(parameterName, parameter, student);
+            
+            response.getWriter().write("Success");
         }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -62,10 +79,8 @@ public class StudentLoginServlet extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
-        } catch (SQLException ex) {
-            response.sendRedirect("login.jsp?error=true");
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(StudentLoginServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(StudentDetailsServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -82,10 +97,8 @@ public class StudentLoginServlet extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
-        } catch (SQLException ex) {
-            response.sendRedirect("login.jsp?error=true");
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(StudentLoginServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(StudentDetailsServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

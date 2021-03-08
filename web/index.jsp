@@ -12,7 +12,8 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="css/style.css"> 
-        
+        <link rel="icon" type="image/png" href="images/favicon32.png" sizes="32x32"/>
+        <link rel="icon" type="image/png" href="images/favicon16.png" sizes="16x16">
     </head>
     <body>
         <%@ include file="navbar.jsp" %> 
@@ -62,7 +63,7 @@
                             <div class="line"></div>      
                             </div>    
                       <label>     
-                            <textarea name="enquiry" id="enquiry"/></textarea>      
+                            <textarea name="enquiry" id="enquiry" class="input"/></textarea>      
                             <div class="line-box">        
                             <div class="line"></div>      
                             </div>    

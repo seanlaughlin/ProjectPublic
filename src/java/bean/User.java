@@ -14,6 +14,7 @@ public class User {
     private String firstName;
     private String lastName;
     private Date dob;
+    private String address;
 
     //Zero-Parameter Constructor
     public User()
@@ -24,6 +25,8 @@ public class User {
         firstName = "";
         lastName = "";
         dob = new Date();
+        address="";
+        
 
     }
 
@@ -49,6 +52,8 @@ public class User {
     public String getLastName() {return lastName;}
 
     public Date getDob() {return dob;}
+    
+    public String getAddress() { return address;}
 
     //Setters
     public void setEmail(String emailIn) {email = emailIn;}
@@ -60,4 +65,7 @@ public class User {
     public void setLastName(String lastNameIn) {lastName = lastNameIn;}
 
     public void setDob(Date dobIn) {dob=dobIn;}
+    
+    public void setAddress(String addressIn){ address=addressIn;}
 }
+

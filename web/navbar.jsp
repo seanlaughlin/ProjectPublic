@@ -15,7 +15,7 @@
               <li><a href="lessons.jsp">Lessons</a></li>
                <% if(session.getAttribute("loggedIn")!=null){ 
                    out.println("<li><a href=\"account.jsp\">Account</a></li>"
-                           + "<li><a href=\"logout.jsp\">Log out</a></li>");
+                           + "<li><a href=\"logout.jsp\">Logout</a></li>");
                }
                     else{
                         out.println("<li><a href=\"register.jsp\">Register</a></li>"

@@ -12,6 +12,8 @@
         <title>Register | GCU_Skills</title>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="css/style.css">
+        <link rel="icon" type="image/png" href="images/favicon32.png" sizes="32x32"/>
+        <link rel="icon" type="image/png" href="images/favicon16.png" sizes="16x16">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script>
             function addHyphon(){
@@ -48,13 +50,7 @@
                             <div class="line-box">          
                             <div class="line"></div>        
                             </div>    
-                        </label> 
-                        <label>     
-                            <input type="text" class="input" name="address" placeholder="Address"/>                   
-                            <div class="line-box">          
-                            <div class="line"></div>        
-                            </div>    
-                        </label> 
+                        </label>  
                         <label>
                            <input type="text" class="input" name="contactno" placeholder="Phone number"/>                   
                             <div class="line-box">          
