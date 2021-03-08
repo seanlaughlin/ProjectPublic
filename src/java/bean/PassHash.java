@@ -28,7 +28,7 @@ public class PassHash implements java.io.Serializable {
             }
 
             return BCrypt.checkpw(password, dataPass);
-        } catch (ClassNotFoundException e) {
+        } catch (ClassNotFoundException | StringIndexOutOfBoundsException e ) {
             return false;
         }
     }
