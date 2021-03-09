@@ -1,7 +1,7 @@
 09/03/21
 
 Added form validation for registration form to prevent submission when some fields are blank.
-Changed the addHyphon js function that adds in hyphons in date of birth. The function now clears the whole field when the backspace key is pressed, prevents double hyphons
+Changed the addHyphon js function that adds in hyphons in date of birth. The function now clears the whole field when the backspace key is pressed, to prevent double hyphons
 occuring when someone tries to delete and retype characters.
 
 08/03/21
