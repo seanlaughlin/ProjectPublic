@@ -56,7 +56,6 @@ h3 a:hover {
 }
 
 p {
-    max-width: 70vw;
     padding: 1rem 0;
 }
 
@@ -223,6 +222,10 @@ nav img {
 #contact{
     background-image: url('../images/gcu2.jpg');
     background-size: cover;
+}
+
+#contactbox {
+    max-width: 25vw;
 }
 
 #enquiry {
@@ -557,6 +560,12 @@ button:active {
     nav a {
         padding: 1rem 0.8rem;
     }
+    
+    #contactbox {
+    max-width: 60vw;
+}
+
+
 
 }
 
@@ -764,6 +773,10 @@ button:active {
         background: #0065BF;  
         transition: ease .6s; 
     }  
+    
+    #contactbox {
+    max-width: 70vw;
+}
 
 }
 
@@ -975,5 +988,11 @@ button:active {
         padding-left: 0.3rem;
         padding-right: 0.3rem;
     }
+    
+    #contactbox {
+    max-width: 80vw;
+}
+
+
 }
 
