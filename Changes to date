@@ -7,6 +7,8 @@ Comments added to the code for
   -StudentRegisterServlet.java
   -StudentDetailsServlet.java
   
+  Minor CSS tweaking for contact box to make it more responsive across devices
+  
 Files are in src/java/bean
 
 09/03/21
