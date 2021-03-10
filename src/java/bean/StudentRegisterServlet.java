@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package bean;
 
 import java.io.IOException;
@@ -14,9 +9,6 @@ import jakarta.servlet.http.HttpSession;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Enumeration;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 
 /**
@@ -38,6 +30,8 @@ public class StudentRegisterServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
+    //No doGet() method as will not be used in registration (not secure method of transmitting data)
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -55,30 +49,42 @@ public class StudentRegisterServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            int i = 0;
-            String email = request.getParameter("email");
+            
+            
+            //Read variables in from web form request and trim any whitespace
+            String email = request.getParameter("email").trim();
             String password = passHash.hashPassword(request.getParameter("password"));
-            String firstName = request.getParameter("fname");
-            String lastName = request.getParameter("surname");
+            String firstName = request.getParameter("fname").trim();
+            String lastName = request.getParameter("surname").trim();
+            String phone = request.getParameter("contactno").trim();
             String sDob = request.getParameter("dob");
+            
+            //Convert sDob string from request to Date object
             Date dob = new SimpleDateFormat("dd-MM-yyyy").parse(sDob);
-            String phone = request.getParameter("contactno");
+            
+            //Create new student object with details read in
             Student student = new Student(email, password, firstName, lastName, dob, phone);
-            Enumeration enumeration = request.getParameterNames();
-            i = userManager.registerStudent(student);
+            
+            //Register student in database, if successful will return studentId which is > 0
+            int i = userManager.registerStudent(student);
+            
+            //Send error message if registration was unsuccessful
             if(i == 0){
                 HttpSession session = request.getSession(false);
                 response.sendRedirect("register.jsp?registerError=true");
             }
+            
+            //Return studentId in request and redirect to page confirming registration
             else{
                 HttpSession session = request.getSession(false);
                 request.setAttribute("studentid", i);
                 RequestDispatcher rd = request.getRequestDispatcher("success.jsp");
                 rd.forward(request, response);
-//                response.sendRedirect("dashboard.jsp");
             }
+            
+            //Send error message if exception occurs
         } catch (ParseException ex) {
-            Logger.getLogger(StudentRegisterServlet.class.getName()).log(Level.SEVERE, null, ex);
+            response.sendRedirect("register.jsp?registerError=true");;
         }
     }
 

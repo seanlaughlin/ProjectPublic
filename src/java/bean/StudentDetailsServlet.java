@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package bean;
 
 import java.io.IOException;
@@ -38,28 +33,34 @@ public class StudentDetailsServlet extends HttpServlet {
             throws ServletException, IOException, SQLException, ClassNotFoundException {
         try (out) {
             UserManager userManager = new UserManager();
+            
+            //Get session object and extract student attribute stored in it by StudentLoginServlet
             HttpSession session = request.getSession();
             student = (Student) session.getAttribute("student");
+            
+            //Get the name of the parameter passed from web form
             Enumeration enumeration = request.getParameterNames();
             String parameterName = "";
+            
+            //Settings for this servlets response
             response.setContentType("text/html");
             response.setHeader("Cache-control", "no-cache, no-store");
             response.setHeader("Pragma", "no-cache");
-            response.setHeader("Expires", "-1");
-            
+            response.setHeader("Expires", "-1");            
             response.setHeader("Access-Control-Allow-Origin", "*");
             response.setHeader("Access-Control-Allow-Methods", "POST");
             response.setHeader("Access-Control-Allow-Headers", "Content-Type");
             response.setHeader("Access-Control-Max-Age", "86400");
             
             
-            
-            while (enumeration.hasMoreElements()) {
-                parameterName = (String) enumeration.nextElement();
-            }
+            //Convert parameterName into String and get the parameter value from the web form request
+            parameterName = (String) enumeration.nextElement();
             String parameter = request.getParameter(parameterName);
+            
+            //Send variables to updateAttribute method to update database and overwrite student with new values
             student = userManager.updateAttribute(parameterName, parameter, student);
             
+            //Output message to confirm operation has been completed (read by toggle.js)
             response.getWriter().write("Success");
         }
 

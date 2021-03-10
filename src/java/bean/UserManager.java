@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package bean;
 
 import java.sql.Connection;
@@ -95,6 +90,8 @@ public class UserManager {
     }
 
     public Student updateAttribute(String parameterName, String parameter, Student student) throws SQLException, ClassNotFoundException {
+        
+        //Check name of parameter submitted from web form (through servlet) and update student object
         switch (parameterName) {
             case "emailaddress":
                 student.setEmail(parameter);
@@ -109,15 +106,19 @@ public class UserManager {
                 parameter = passHash.hashPassword(parameter);
                 break;
         }
-
+        
+        //Connect to database and update parameter
         Class.forName(driver);
         Connection conn = DriverManager.getConnection(connectionString);
         Statement stmt = conn.createStatement();
 
         stmt.executeUpdate("UPDATE Students SET " + parameterName + " = " + "\"" + parameter + "\" " + "WHERE StudentId= " + student.getStudentId());
         conn.close();
+        
+        //Return updated student object
         return student;
     }
+    
 }
 
 //    public HashMap<Integer, Student> loadAllStudents(){

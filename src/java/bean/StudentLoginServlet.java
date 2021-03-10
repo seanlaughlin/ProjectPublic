@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package bean;
 
 import java.io.IOException;
@@ -35,9 +30,15 @@ public class StudentLoginServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException, ClassNotFoundException {
         UserManager userManager = new UserManager();
+        
+        //Read in variables from web form request
         String email = request.getParameter("email");
         String password = request.getParameter("password");
+        
+        //Create student object and attempt to retrieve details 
         Student student = userManager.logInStudent(email, password);
+        
+        //Create student session variable and send to account.jsp if login successful, otherwise send error message
         if (student != null) {
             HttpSession session = request.getSession();
             session.setAttribute("student", student);
