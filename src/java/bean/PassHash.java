@@ -7,7 +7,7 @@ public class PassHash implements java.io.Serializable {
 
     //Driver and connection string with absolute path to db
     private final String driver = "net.ucanaccess.jdbc.UcanaccessDriver";
-    private final String connectionString = "jdbc:ucanaccess://C:\\Users\\seanl\\Documents\\NetBeansProjects\\GCU_Skills\\data\\GCU_SkillsDB.accdb";
+    private final String connectionString = "jdbc:ucanaccess://C:\\Users\\seanl\\Documents\\NetBeansProjects\\GCU\\data\\GCU_SkillsDB.accdb";
     private String generatedPassword = null;
 
     //Returns hashed password encrypted by BCrypt

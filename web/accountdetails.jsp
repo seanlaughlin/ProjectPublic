@@ -5,8 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
- <%@ page import="bean.Student"%>
- <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="bean.Student"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -31,9 +31,9 @@
                 <div class="image-box-content" id="detailsformbox">
                     <h2>Account details</h2>
                     <p>View and amend your account details below.<br>
-                        To view your lessons and timetable <a href="timetable.jsp">click here.</a></p>
+                        To view your lesson and course information <a href="yourlessons.jsp">click here.</a></p>
                     <form class="detailsform" id="detailsform">
-                        <table style="width:100%">
+                        <table id="detailstable">
                             <tr>
                               <th>Student ID:</th>
                               <td id="studentid">${student.studentId}</td>
@@ -67,6 +67,7 @@
                         </table>                          
                     </form>
                     <small>* - Not editable. Please <a href="index.jsp#contact">contact support</a> to request a change.</small>
+                    <h3><a href="account.jsp">&#x21a9; Back to account home</a></h3>
                 </div>
             </section>
         </div>

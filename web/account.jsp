@@ -30,7 +30,8 @@
                             } 
                     %>        
                     
-                    <h3><a href="accountdetails.jsp" class="dashlink">View your account details</a></h3>
+                    <h3><a href="accountdetails.jsp" class="dashlink">Account Details</a></h3>
+                    <h3><a href="yourlessons.jsp" class="dashlink">Your Lessons</a></h3>
                 </div>
             </section>
         </div>

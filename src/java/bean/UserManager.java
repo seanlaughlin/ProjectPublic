@@ -15,7 +15,7 @@ import java.util.Date;
 public class UserManager {
 
     private final String driver = "net.ucanaccess.jdbc.UcanaccessDriver";
-    private final String connectionString = "jdbc:ucanaccess://C:\\Users\\seanl\\Documents\\NetBeansProjects\\GCU_Skills\\data\\GCU_SkillsDB.accdb";
+    private final String connectionString = "jdbc:ucanaccess://C:\\Users\\seanl\\Documents\\NetBeansProjects\\GCU\\data\\GCU_SkillsDB.accdb";
     PassHash passHash = new PassHash();
 
     public int registerStudent(Student student) {

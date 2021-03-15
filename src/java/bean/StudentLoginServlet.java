@@ -32,7 +32,7 @@ public class StudentLoginServlet extends HttpServlet {
         UserManager userManager = new UserManager();
         
         //Read in variables from web form request
-        String email = request.getParameter("email");
+        String email = request.getParameter("emailaddress");
         String password = request.getParameter("password");
         
         //Create student object and attempt to retrieve details 

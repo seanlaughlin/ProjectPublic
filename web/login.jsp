@@ -24,7 +24,7 @@
                 <h2>Log in to your Student Account</h2>
                 <form action="<%= request.getContextPath() %>/login" method="POST">    
                     <label>     
-                        <input type="text" class="input" name="email" placeholder="Email"/>                   
+                        <input type="text" class="input" name="emailaddress" placeholder="Email"/>                   
                         <div class="line-box">          
                             <div class="line"></div>        
                         </div>    

@@ -12,7 +12,7 @@
               <li><a href="index.jsp">Home</a></li>
               <li><a href="index.jsp#about">About</a></li>
               <li><a href="index.jsp#contact" id="contactlink">Contact</a></li>
-              <li><a href="lessons.jsp">Lessons</a></li>
+              <li><a href="courses.jsp#start">Courses</a></li>
                 <li><a href="register.jsp">Register</a></li>
               <li><a href="login.jsp">Log in</a></li>
             </ul>
