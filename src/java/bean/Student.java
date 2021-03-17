@@ -1,5 +1,6 @@
 package bean;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -9,7 +10,7 @@ public class Student extends User {
 
     int studentId;
     private String phoneNumber;
-    private Course course;
+    private ArrayList<Course> course;
 
     //Zero-Parameter Constructor
     public Student() {
@@ -17,7 +18,7 @@ public class Student extends User {
         super();
         studentId = 0;
         phoneNumber = "";
-        course = new Course();
+        course = new ArrayList();
 
     }
 
@@ -27,12 +28,12 @@ public class Student extends User {
         super(emailIn, passwordIn, firstNameIn, lastNameIn, dobIn);
         studentId = 0;
         phoneNumber = phoneNumberIn;
-        course = new Course();
+        course = new ArrayList();
 
     }
 
     //Overloaded Constructor
-    public Student(String emailIn, String passwordIn, String firstNameIn, String lastNameIn, Date dobIn, int studentIdIn, String phoneNumberIn, Course courseIn) {
+    public Student(String emailIn, String passwordIn, String firstNameIn, String lastNameIn, Date dobIn, int studentIdIn, String phoneNumberIn, ArrayList<Course> courseIn) {
 
         super(emailIn, passwordIn, firstNameIn, lastNameIn, dobIn);
         studentId = studentIdIn;
@@ -50,7 +51,7 @@ public class Student extends User {
         return phoneNumber;
     }
 
-    public Course getCourse() {
+    public ArrayList<Course> getCourse() {
         return course;
     }
 
@@ -63,7 +64,7 @@ public class Student extends User {
         phoneNumber = phoneNumberIn;
     }
 
-    public void setCourse(Course courseIn) {
+    public void setCourse(ArrayList<Course> courseIn) {
         course = courseIn;
     }
 

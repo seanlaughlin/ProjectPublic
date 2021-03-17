@@ -371,15 +371,28 @@ td, th {
 
 .course-box {
     width: 90%;
+    display: flex;
+    flex-direction: row;
     min-width: 35vw;
+    max-width: 50vw;
     min-height: 8rem;
     background-color: rgba(0, 0, 0, 0.8);
     border: #0065BF 2px solid;
-    color: black;
+    color: #fff;
     border-radius: 10px 10px 10px 10px;
     box-shadow: #0065BF 0 5px 0 0;
-    margin: 1.5rem auto;    
+    margin: 1.5rem auto;   
+    text-align: left;
+    padding-left: 1rem;
+    font-size: 0.8rem;
 }
+
+.course-box h3, .course-box p{
+    padding-left: 0;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
 
 
 

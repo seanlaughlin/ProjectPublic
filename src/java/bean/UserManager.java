@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -52,6 +53,10 @@ public class UserManager {
 
     public Student logInStudent(String emailAddress, String password) throws SQLException, ClassNotFoundException {
 
+        Class.forName(driver);
+        Connection conn = DriverManager.getConnection(connectionString);
+        Statement stmt = conn.createStatement();
+
         int studentId = 0;
         String realPassword = "";
         String firstName = "";
@@ -59,15 +64,13 @@ public class UserManager {
         Date dob = new Date();
         String phoneNumber = "";
 
-        Class.forName(driver);
-        Connection conn = DriverManager.getConnection(connectionString);
-        Statement stmt = conn.createStatement();
-
         //Selects every matching entry in the customers table in the database
         ResultSet rs = stmt.executeQuery("SELECT * FROM Students WHERE EmailAddress= '" + emailAddress + "'");
 
         //Executes for every entry ing the results set
-        while (rs.next()) {
+        while (rs.next())
+        {
+
             //Gets the values from the result set entry 
             studentId = rs.getInt("studentId");
             realPassword = rs.getString("Password");
@@ -77,14 +80,28 @@ public class UserManager {
             phoneNumber = rs.getString("PhoneNumber");
 
         }
+
         conn.close();
+
         //Compares encrypted password in database to plaintext password for equality using bCrypt and returns student if valid
         boolean isPassValid = passHash.checkPassword(emailAddress, password);
-        if (isPassValid) {
-            Student student = new Student(emailAddress, password, firstName, lastName, dob, phoneNumber);
+
+        if (isPassValid)
+        {
+            CourseManager cm = new CourseManager();
+            ArrayList<Course> studentCourses = cm.loadStudentCourses(studentId);
+            Student student = new Student(emailAddress, password, firstName, lastName, dob, studentId, phoneNumber, studentCourses);
+
+            //Loads the students course and the course's lessons
+
+            //Returns the completed student object
             student.setStudentId(studentId);
             return student;
-        } else {
+            
+        }
+
+        else
+        {
             return null;
         }
     }
@@ -120,66 +137,3 @@ public class UserManager {
     }
     
 }
-
-//    public HashMap<Integer, Student> loadAllStudents(){
-//
-//    //String as key is the Customers Username
-//    HashMap<Integer, Student> studentsHashMap = new HashMap();
-//
-//    try
-//    {       
-//
-//       Class.forName(driver);
-//       Connection conn = DriverManager.getConnection(connectionString);
-//       Statement stmt = conn.createStatement();
-//
-//       //Selects every entry in the customers table in the database
-//       ResultSet rs= stmt.executeQuery("SELECT * FROM Students;");
-//
-//       //Executes for every entry ing the results set
-//       while(rs.next())
-//       {
-//
-//           //Gets the values from the result set entry and creates a customer object using them
-//           int studentId = rs.getInt("id");
-//           String email = rs.getString("EmailAddress");
-//           String password = rs.getString("Password");
-//           String firstName = rs.getString("FirstName");
-//           String lastName = rs.getString("LastName");
-//           String dob = rs.getString("DateOfBirth");
-//           String phoneNumber = rs.getString("PhoneNumber");
-////           int courseId = rs.getInt(1);
-////
-////           Course studentCourse = new Course(courseId);
-//Student students = new Student(email, password, firstName, lastName, dob, phoneNumber);
-////          Student students = new Student(email, password, firstName, lastName, dob, studentId, phoneNumber, studentCourse);
-//
-//           //Puts the student object into the hashmap
-//           studentsHashMap.put(studentId, students);          
-//
-//       }
-//
-//       conn.close();
-//
-//    }
-//
-//    catch(ClassNotFoundException | SQLException ex)
-//    {
-//
-//        String message = ex.getMessage();
-//
-//    }
-//
-//    finally
-//    {
-//
-//        //Loads the orders and orderlines into the customerHashMap and returns it
-//        CourseManager cm = new CourseManager();
-//        studentsHashMap = cm.loadStudentCourse(studentsHashMap);
-//        studentsHashMap = cm.loadCourseLessons(studentsHashMap);
-//        return studentsHashMap;
-//
-//    }    
-//}
-//    
-//}

@@ -5,6 +5,7 @@
 --%>
  <%@page contentType="text/html" pageEncoding="UTF-8"%>
  <%@ page import="bean.Student"%>
+ <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html>
@@ -29,7 +30,6 @@
                              response.sendRedirect("login.jsp");
                             } 
                     %>        
-                    
                     <h3><a href="accountdetails.jsp" class="dashlink">Account Details</a></h3>
                     <h3><a href="yourlessons.jsp" class="dashlink">Your Lessons</a></h3>
                 </div>

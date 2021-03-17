@@ -25,6 +25,17 @@ public class Tutor extends User
     }
 
     //Overloaded Constructor
+    public Tutor(String usernameIn, String firstNameIn, String lastNameIn, Date dobIn, String roleIn, String departmentIn, int tutorIdIn, int payGradeIn) {
+
+        super(usernameIn, firstNameIn, lastNameIn, dobIn);
+        tutorId = tutorIdIn;
+        role = roleIn;
+        department = departmentIn;
+        payGrade = payGradeIn;
+
+    }
+
+    //Overloaded Constructor
     public Tutor(String usernameIn, String passwordIn, String firstNameIn, String lastNameIn, Date dobIn, String roleIn, String departmentIn, int tutorIdIn, int payGradeIn) {
 
         super(usernameIn, passwordIn, firstNameIn, lastNameIn, dobIn);

@@ -1,7 +1,6 @@
 package bean;
 
-import java.util.HashMap;
-import java.util.HashSet;
+import java.util.ArrayList;
 
 /**
  * @author jackb
@@ -11,7 +10,8 @@ public class Course {
     private int courseId;
     private String courseName;
     private String courseStatus;
-    private HashMap<Integer, Lesson> lessons;
+    private ArrayList<Lesson> lessons;
+    private Tutor courseTutor;
 
     //Zero-Parameter Constructor
     public Course()
@@ -20,7 +20,8 @@ public class Course {
         courseId = 0;
         courseName = "";
         courseStatus = "";
-        lessons = new HashMap<Integer, Lesson>();
+        lessons = new ArrayList<>();
+        courseTutor = new Tutor();
 
     }
 
@@ -30,29 +31,32 @@ public class Course {
         courseId = courseIdIn;
         courseName = "";
         courseStatus = "";
-        lessons = new HashMap<Integer, Lesson>();
+        lessons = new ArrayList<>();
+        courseTutor = new Tutor();
 
     }
     
     //Overloaded Constructor
-    public Course(int courseIdIn, String courseNameIn, String courseStatusIn)
+    public Course(int courseIdIn, String courseNameIn, String courseStatusIn, Tutor courseTutorIn)
     {
 
         courseId = courseIdIn;
         courseName = courseNameIn;
         courseStatus = courseStatusIn;
-        lessons = new HashMap();
+        lessons = new ArrayList<>();
+        courseTutor = courseTutorIn;
 
     }
     
     //Overloaded Constructor
-    public Course(int courseIdIn, String courseNameIn, String courseStatusIn, HashMap<Integer, Lesson> lessonsIn)
+    public Course(int courseIdIn, String courseNameIn, String courseStatusIn, ArrayList<Lesson> lessonsIn, Tutor courseTutorIn)
     {
 
         courseId = courseIdIn;
         courseName = courseNameIn;
         courseStatus = courseStatusIn;
         lessons = lessonsIn;
+        courseTutor = courseTutorIn;
 
     }
 
@@ -63,7 +67,9 @@ public class Course {
 
     public String getCourseStatus() {return courseStatus;}
 
-    public HashMap<Integer, Lesson> getLessons() {return lessons;}
+    public ArrayList<Lesson> getLessons() {return lessons;}
+
+    public Tutor getCourseTutor() {return courseTutor;}
 
     //Setters
     public void setCourseId(int courseIdIn) {courseId = courseIdIn;}
@@ -72,6 +78,7 @@ public class Course {
 
     public void setCourseStatus(String courseStatusIn) {courseStatus= courseStatusIn;}
 
-    public void setLessons(HashMap<Integer, Lesson> lessonsIn) {lessons = lessonsIn;}
+    public void setLessons(ArrayList<Lesson> lessonsIn) {lessons = lessonsIn;}
 
+    public void setCourseTutor(Tutor courseTutorIn) {courseTutor = courseTutorIn;}
 }

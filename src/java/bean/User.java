@@ -31,6 +31,18 @@ public class User {
     }
 
     //Overloaded Constructor
+    public User(String emailIn, String firstNameIn, String lastNameIn, Date dobIn)
+    {
+
+        email = emailIn;
+        password = "";
+        firstName = firstNameIn;
+        lastName = lastNameIn;
+        dob = dobIn;
+
+    }
+
+    //Overloaded Constructor
     public User(String emailIn, String passwordIn, String firstNameIn, String lastNameIn, Date dobIn)
     {
 
@@ -68,4 +80,3 @@ public class User {
     
     public void setAddress(String addressIn){ address=addressIn;}
 }
-

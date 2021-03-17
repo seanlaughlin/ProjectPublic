@@ -12,6 +12,10 @@
         <servlet-name>StudentDetailsServlet</servlet-name>
         <servlet-class>bean.StudentDetailsServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>StudentLessonsServlet</servlet-name>
+        <servlet-class>bean.StudentLessonsServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>StudentRegisterServlet</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -23,6 +27,10 @@
     <servlet-mapping>
         <servlet-name>StudentDetailsServlet</servlet-name>
         <url-pattern>/studentdetails</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StudentLessonsServlet</servlet-name>
+        <url-pattern>/StudentLessonsServlet</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>

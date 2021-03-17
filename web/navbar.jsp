@@ -5,7 +5,6 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
         <nav id="navbar">
             <img src="images/GCU_SkillsLogoWordsSmall.png" alt="GCU Skills"/>
             <ul>
