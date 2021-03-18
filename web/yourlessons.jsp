@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -24,7 +25,7 @@
         <section class="image-section" id="lessons">
             <div class="image-box-content" id="yourlessons">
                 <h2>Your Lessons</h2>    
-                    <jsp:include page="/StudentLessonsServlet" />
+                    <c:import url="StudentLessonsServlet" />
                 <h3><a href="account.jsp">&#x21a9; Back to account home</a></h3>
             </div>
         </section>
