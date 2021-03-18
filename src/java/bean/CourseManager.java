@@ -179,10 +179,36 @@ public class CourseManager {
         //Creates a condition which will be used select only the lessons for an associated courseId
         Predicate<Lesson> byCourseId = lesson -> lesson.getCourseId() == courseId;
 
-        //Filters all lessons by courseId and selects those that mach the students course
+        //Filters all lessons by courseId and selects those that match the students course
         ArrayList<Lesson> result = (ArrayList<Lesson>) allLessons.stream().filter(byCourseId).collect(Collectors.toList());
 
         //returns the lessons for the students course in the form of an ArrayList
         return result;
+    }
+    
+    public Course updateAttribute(String parameterName, String parameter, Course course) throws SQLException, ClassNotFoundException {
+        
+        //Check name of parameter submitted from web form (through servlet) and update course object
+        switch (parameterName) {
+            case "coursestatus":
+                course.setCourseStatus(parameter);
+                break;
+
+            case "coursename":
+                course.setCourseName(parameter);
+                break;
+
+        }
+        
+        //Connect to database and update parameter
+        Class.forName(driver);
+        Connection conn = DriverManager.getConnection(connectionString);
+        Statement stmt = conn.createStatement();
+
+        stmt.executeUpdate("UPDATE Courses SET " + parameterName + " = " + "\"" + parameter + "\" " + "WHERE CourseId= " + course.getCourseId());
+        conn.close();
+        
+        //Return updated student object
+        return course;
     }
 }

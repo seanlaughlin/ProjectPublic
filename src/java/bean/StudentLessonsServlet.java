@@ -27,47 +27,76 @@ public class StudentLessonsServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        
+        //Get session object so session attributes such as student object can be read
         HttpSession session = request.getSession();
-        if(session.getAttribute("student")!=null){
-        Student student = (Student) session.getAttribute("student");
-        ArrayList<Course> courses = student.getCourse();
-        try (PrintWriter out = response.getWriter()) {
-            for (Course course : courses){
-                ArrayList<Lesson> lessons = course.getLessons();
-                out.println("<table class=\"lessonstable\">");
-                out.println("<tr>");
-                out.println("<th>Date</th>");
-                out.println("<th>Time</th>");
-                out.println("<th>Course</th>");
-                out.println("<th>Lesson no.</th>");
-                out.println("<th>Tutor</th>");
-                out.println("<th>Course Status</th>");
-                out.println("</tr>");
-            for (Lesson lesson : lessons) {
-                SimpleDateFormat sdf1 = new SimpleDateFormat("HH:mm:ss");
-                String time = sdf1.format(lesson.getTimeSlot().getTime());
-                SimpleDateFormat sdf2 = new SimpleDateFormat("dd/MM/yyyy");
-                String lessonDate = sdf2.format(lesson.getTimeSlot());
-                out.println("<tr>");
-                out.println("<td>"+lessonDate+"</td>");
-                out.println("<td>"+time+"</td>");
-                out.println("<td>"+course.getCourseName()+"</td>");
-                out.println("<td>"+lesson.getLessonId()+"</td>");
-                out.println("<td>"+course.getCourseTutor().getFirstName()+" "+ course.getCourseTutor().getLastName()+"</td>");
-                out.println("<td>"+course.getCourseStatus()+"</td>");
-                out.println("</tr>");
+        
+        //Check that user is logged in by checking student object exists
+        if (session.getAttribute("student") != null) {
+            
+            //Get student object from session and load courses from it
+            Student student = (Student) session.getAttribute("student");
+            ArrayList<Course> courses = student.getCourse();
+            response.setContentType("text/html;charset=UTF-8");
+            try (PrintWriter out = response.getWriter()) {
+                
+                //Display message if student isn't registered on a course
+                if (courses.isEmpty()) {
+                    out.println("There are no courses to display.");
+                }
+                
+                //Generate table for each course in the array
+                for (Course course : courses) {
+                    ArrayList<Lesson> lessons = course.getLessons();
+                    out.println("<table class=\"lessonstable\">");
+                    out.println("<tr>");
+                    out.println("<th colspan=\"4\">"+ course.getCourseName() + "</th>");
+                    out.println("</tr>");
+                    out.println("<tr>");
+                    out.println("<th>Date</th>");
+                    out.println("<th>Time</th>");
+                    out.println("<th>Lesson no.</th>");
+                    out.println("<th>Tutor</th>");
+                    out.println("</tr>");
+                    
+                    //Generate rows and populate with each lessons info from courses Lesson ArrayList
+                    for (Lesson lesson : lessons) {
+                        SimpleDateFormat sdf1 = new SimpleDateFormat("HH:mm:ss");
+                        String time = sdf1.format(lesson.getTimeSlot().getTime());
+                        SimpleDateFormat sdf2 = new SimpleDateFormat("dd/MM/yyyy");
+                        String lessonDate = sdf2.format(lesson.getTimeSlot());
+                        out.println("<tr>");
+                        out.println("<td>" + lessonDate + "</td>");
+                        out.println("<td>" + time + "</td>");
+                        out.println("<td>" + lesson.getLessonId() + "</td>");
+                        out.println("<td>" + course.getCourseTutor().getFirstName() + " " + course.getCourseTutor().getLastName() + "</td>");
+                        out.println("</tr>");
+                    }
+                    out.println("</table>");
+                    out.println("Course status: ");
+                    
+                    //Display course status with different font colours depending on status
+                    switch(course.getCourseStatus()){
+                        case "Beginner":
+                            out.println("<span style=\"color: green\">"+course.getCourseStatus()+"</span>");
+                            break;
+                            
+                        case "On-Going":
+                            out.println("<span style=\"color: #0065BF\">"+course.getCourseStatus()+"</span>");
+                            break;
+                            
+                        case "Not-complete":
+                            out.println("<span style=\"color: red\">"+course.getCourseStatus()+"</span>");
+                            break;
+                    }
+                    
+                    //Display option to end lessons if course has yet to begin or is currently underway. Link calls the EndLessonsServlet and sends the servlet the course ID.
+                    if (course.getCourseStatus().equals("On-Going") || course.getCourseStatus().equals("Beginner")) {
+                        out.println("<a href=\"" + request.getContextPath() + "/EndLessonsServlet?courseId=" + course.getCourseId() + "\" class=\"bottomlink\"  style=\"color: red\">End Lessons</a>");
+                    }
+                }
             }
-                out.println("</table>");
-            }
-            out.println("<h3><a href=\"account.jsp\">&#x21a9; Back to account home</a></h3>");
-            out.println("</div>");
-            out.println("</section>");
-            out.println("</body>");
-            out.println("</html>"); 
-        }
-        }
-        else{
+        } else {
             response.sendRedirect("login.jsp");
         }
     }
