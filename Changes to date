@@ -1,3 +1,9 @@
+18/03/21
+
+yourlessons.jsp page now generates lesson table dynamically based on Courses/Lessons db tables.
+Added updateAttribute method for Course objects in CourseManager to allow for end lessons function.
+Created two new servlets, StudentLessonsServlet, which generates the HTML table, and EndLessonsServlet, which handles the request to end lessons and updates lesson status.
+
 15/03/21
 
 Bugfixes
