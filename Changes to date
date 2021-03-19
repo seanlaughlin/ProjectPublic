@@ -1,3 +1,18 @@
+19/03/21
+
+User.java added dobString, to easily output date in dd/mm/yy format when details are displayed
+Added two new methods to CourseManager:
+	- loadFutureCourses() to populate courses page with courses starting after current date
+	- enrollStudent() adds studentId and courseId to enrollment table and returns boolean to confirm if completed successfully
+
+Created CourseEnrollmentServlet, to enroll students on courses from the courses page. 
+Created FutureCoursesServlet, to generate the HTML to display courses starting after current date (using loadFutureCourses() method)
+Updated StudentLessonsServlet to display message when no courses available
+Minor tweak to StudentLoginServlet, functions the same.
+
+Some new HTML as well, wee bits here and there.
+Think that's everything that's new/been changed, but have updated my entire src and web folders to be safe., probs best download the lot just to be sure.
+
 18/03/21
 
 yourlessons.jsp page now generates lesson table dynamically based on Courses/Lessons db tables.
