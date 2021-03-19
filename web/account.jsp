@@ -32,6 +32,7 @@
                     %>        
                     <h3><a href="accountdetails.jsp" class="dashlink">Account Details</a></h3>
                     <h3><a href="yourlessons.jsp" class="dashlink">Your Lessons</a></h3>
+                    <h3><a href="courses.jsp" class="dashlink">View/Register for Courses</a></h3>
                 </div>
             </section>
         </div>

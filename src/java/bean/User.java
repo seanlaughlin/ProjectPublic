@@ -1,5 +1,6 @@
 package bean;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -15,6 +16,8 @@ public class User {
     private String lastName;
     private Date dob;
     private String address;
+    private String dobString;
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
     //Zero-Parameter Constructor
     public User()
@@ -39,6 +42,7 @@ public class User {
         firstName = firstNameIn;
         lastName = lastNameIn;
         dob = dobIn;
+        dobString = sdf.format(dobIn);
 
     }
 
@@ -51,6 +55,7 @@ public class User {
         firstName = firstNameIn;
         lastName = lastNameIn;
         dob = dobIn;
+        dobString = sdf.format(dobIn);
 
     }
 
@@ -66,6 +71,8 @@ public class User {
     public Date getDob() {return dob;}
     
     public String getAddress() { return address;}
+    
+    public String getDobString() { return dobString; }
 
     //Setters
     public void setEmail(String emailIn) {email = emailIn;}

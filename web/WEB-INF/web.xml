@@ -16,6 +16,18 @@
         <servlet-name>StudentLessonsServlet</servlet-name>
         <servlet-class>bean.StudentLessonsServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EndLessonsServlet</servlet-name>
+        <servlet-class>bean.EndLessonsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>FutureCoursesServlet</servlet-name>
+        <servlet-class>bean.FutureCoursesServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CourseEnrollmentServlet</servlet-name>
+        <servlet-class>bean.CourseEnrollmentServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>StudentRegisterServlet</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -31,6 +43,18 @@
     <servlet-mapping>
         <servlet-name>StudentLessonsServlet</servlet-name>
         <url-pattern>/StudentLessonsServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EndLessonsServlet</servlet-name>
+        <url-pattern>/EndLessonsServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FutureCoursesServlet</servlet-name>
+        <url-pattern>/FutureCoursesServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CourseEnrollmentServlet</servlet-name>
+        <url-pattern>/CourseEnrollmentServlet</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>

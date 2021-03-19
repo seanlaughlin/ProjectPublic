@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -18,26 +19,78 @@ public class CourseManager {
 
     private final String driver = "net.ucanaccess.jdbc.UcanaccessDriver";
     private final String connectionString = "jdbc:ucanaccess://C:\\Users\\seanl\\Documents\\NetBeansProjects\\GCU\\data\\GCU_SkillsDB.accdb";
+    
+    //Returns all courses starting in the future, for display to prospective students
+    public ArrayList<Course> loadFutureCourses() throws SQLException, ClassNotFoundException {
+
+        ArrayList<Course> allCourses = new ArrayList();
+
+        Class.forName(driver);
+        Connection conn = DriverManager.getConnection(connectionString);
+        Statement stmt = conn.createStatement();
+
+        //Selects all entries in the Courses table of the database
+        ResultSet rs = stmt.executeQuery("SELECT * FROM Courses");
+
+        while (rs.next()) {
+
+            //Loads all values for an entry into an course object
+            int courseId = rs.getInt("CourseId");
+            String courseName = rs.getString("CourseName");
+            String courseStatus = rs.getString("CourseStatus");
+
+            Tutor courseTutor;
+            courseTutor = loadCourseTutor(courseId);
+
+            //Creates a course object with the data from the database and calls the loadCourseLessons method to populate that course with its associated lessons
+            Course loadedCourse = new Course(courseId, courseName, courseStatus, loadCourseLessons(courseId), courseTutor);
+            Calendar today = Calendar.getInstance();
+            today.set(Calendar.HOUR_OF_DAY, 0);
+            
+            //Check if course date is later than today and add course to array
+            if(loadedCourse.getLessons().get(0).getTimeSlot().after(today.getTime())){
+            allCourses.add(loadedCourse);
+            }
+        }
+
+        conn.close();
+        
+        return allCourses;
+    }
+    
+    public boolean enrollStudent(int studentId, int courseId) throws SQLException, ClassNotFoundException{
+        
+        //Connect to database and insert studentid and courseid to table to record enrollment
+        Class.forName(driver);
+        Connection conn = DriverManager.getConnection(connectionString);
+        Statement stmt = conn.createStatement();
+         stmt.executeUpdate("INSERT INTO Enrollments(StudentId, CourseId) " + "VALUES('" + studentId + "', '" + courseId + "')");
+        
+        //If key was generated from statement, return true to confirm enrollment success, otherwise return false
+        ResultSet rs = stmt.getGeneratedKeys();
+        if(rs.next()){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 
     public ArrayList<Course> loadStudentCourses(int studentIdIn) {
 
         ArrayList<Course> studentCourses = new ArrayList();
 
-        try
-        {
+        try {
 
             Class.forName(driver);
             Connection conn = DriverManager.getConnection(connectionString);
             Statement stmt = conn.createStatement();
 
             //Selects all entries in the Courses table of the database
-            ResultSet rs = stmt.executeQuery("SELECT Enrollments.StudentId, Enrollments.CourseId, Courses.CourseId, Courses.CourseName, Courses.CourseStatus, Courses.TutorId FROM Courses INNER JOIN Enrollments ON Courses.CourseId = Enrollments.CourseId WHERE Enrollments.CourseId = Courses.CourseId AND Enrollments.StudentId = '" +  studentIdIn + "'");
-
-
+            ResultSet rs = stmt.executeQuery("SELECT Enrollments.StudentId, Enrollments.CourseId, Courses.CourseId, Courses.CourseName, Courses.CourseStatus, Courses.TutorId FROM Courses INNER JOIN Enrollments ON Courses.CourseId = Enrollments.CourseId WHERE Enrollments.CourseId = Courses.CourseId AND Enrollments.StudentId = '" + studentIdIn + "'");
 
             //Executes while the results set has a next value
-            while (rs.next())
-            {
+            while (rs.next()) {
 
                 //Loads all values for an entry into an course object
                 int courseId = rs.getInt("CourseId");
@@ -58,17 +111,11 @@ public class CourseManager {
 
             conn.close();
 
-        }
-
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
 
             String message = ex.getMessage();
 
-        }
-
-        finally
-        {
+        } finally {
 
             //returns the student object populated with a course
             return studentCourses;
@@ -77,13 +124,11 @@ public class CourseManager {
 
     }
 
-    public Tutor loadCourseTutor(int courseId)
-    {
+    public Tutor loadCourseTutor(int courseId) {
 
         Tutor courseTutor = new Tutor();
 
-        try
-        {
+        try {
 
             Class.forName(driver);
             Connection conn = DriverManager.getConnection(connectionString);
@@ -92,8 +137,7 @@ public class CourseManager {
             //Selects all entries in the Courses table of the database
             ResultSet rs = stmt.executeQuery("SELECT * FROM Tutors INNER JOIN Courses ON Tutors.TutorId = Courses.TutorId WHERE CourseId = '" + courseId + "'");
 
-            while (rs.next())
-            {
+            while (rs.next()) {
 
                 int tutorId = rs.getInt("TutorId");
                 String emailAddress = rs.getString("EmailAddress");
@@ -108,15 +152,9 @@ public class CourseManager {
 
             }
 
-        }
-
-        catch (ClassNotFoundException | SQLException ex)
-        {
+        } catch (ClassNotFoundException | SQLException ex) {
             String message = ex.getMessage();
-        }
-
-        finally
-        {
+        } finally {
             return courseTutor;
         }
 
@@ -127,8 +165,7 @@ public class CourseManager {
         //Initialises an ArrayList object
         ArrayList<Lesson> lessonsArrayList = new ArrayList<>();
 
-        try
-        {
+        try {
 
             Class.forName(driver);
             Connection conn = DriverManager.getConnection(connectionString);
@@ -152,17 +189,11 @@ public class CourseManager {
 
             }
 
-        }
-
-        catch (ClassNotFoundException | SQLException ex)
-        {
+        } catch (ClassNotFoundException | SQLException ex) {
 
             String message = ex.getMessage();
 
-        }
-
-        finally
-        {
+        } finally {
 
             //Returns an ArrayList of all objects in the database
             return lessonsArrayList;
@@ -185,9 +216,9 @@ public class CourseManager {
         //returns the lessons for the students course in the form of an ArrayList
         return result;
     }
-    
+
     public Course updateAttribute(String parameterName, String parameter, Course course) throws SQLException, ClassNotFoundException {
-        
+
         //Check name of parameter submitted from web form (through servlet) and update course object
         switch (parameterName) {
             case "coursestatus":
@@ -199,7 +230,7 @@ public class CourseManager {
                 break;
 
         }
-        
+
         //Connect to database and update parameter
         Class.forName(driver);
         Connection conn = DriverManager.getConnection(connectionString);
@@ -207,7 +238,7 @@ public class CourseManager {
 
         stmt.executeUpdate("UPDATE Courses SET " + parameterName + " = " + "\"" + parameter + "\" " + "WHERE CourseId= " + course.getCourseId());
         conn.close();
-        
+
         //Return updated student object
         return course;
     }

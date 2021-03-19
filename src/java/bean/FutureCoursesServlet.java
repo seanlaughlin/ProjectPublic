@@ -1,12 +1,19 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package bean;
 
 import java.io.IOException;
-import jakarta.servlet.*;
+import java.io.PrintWriter;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -14,7 +21,7 @@ import java.util.logging.Logger;
  *
  * @author seanl
  */
-public class StudentLoginServlet extends HttpServlet {
+public class FutureCoursesServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -29,23 +36,29 @@ public class StudentLoginServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException, ClassNotFoundException {
-        UserManager userManager = new UserManager();
         
-        //Read in variables from web form request
-        String email = request.getParameter("emailaddress");
-        String password = request.getParameter("password");
+        CourseManager cm = new CourseManager();
         
-        //Create student object and attempt to retrieve details 
-        Student student = userManager.logInStudent(email, password);
+        //Load all courses with a date later than todays
+        ArrayList<Course> futureCourses = cm.loadFutureCourses();
         
-        //Create student session variable and send to account.jsp if login successful, otherwise send error message
-        if (student != null) {
-            HttpSession session = request.getSession();
-            session.setAttribute("student", student);
-            session.setAttribute("loggedIn", "true");
-            response.sendRedirect("account.jsp");
-        } else {
-            response.sendRedirect("login.jsp?error=login");
+        //Initialise date and time formatters for displaying course date/time
+        SimpleDateFormat sdf1 = new SimpleDateFormat("HH:mm");
+        SimpleDateFormat sdf2 = new SimpleDateFormat("dd/MM/yyyy");
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            
+            //Generate HTML to display each course that's currently available for registration, looping through futureCourses arraylist.
+            for(Course course : futureCourses){
+                String startDate = sdf2.format(course.getLessons().get(0).getTimeSlot());
+                String startTime = sdf1.format(course.getLessons().get(0).getTimeSlot().getTime());
+                out.println("<div class=\"course-box\"><div style=\"width: 20%\"><h3>" + course.getCourseName() + "</h3>");
+                out.println("<p><b>Start Date: </b>" + startDate + " " + startTime + "</p>");
+                out.println("<p> <b>Tutor: </b>" + course.getCourseTutor().getFirstName() + " " + course.getCourseTutor().getLastName() + "</p>");
+                out.println("<p><b>No. of lessons: </b>" + course.getLessons().size() +"</p></div>");
+                out.println("<div><p><b>Description: </b><br><p>Course Description</p>");
+                out.println("<small><a href=\"CourseEnrollmentServlet?courseid=" + course.getCourseId() +"\">Register for course</a></small></div></div>");
+            }
         }
     }
 
@@ -63,10 +76,8 @@ public class StudentLoginServlet extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
-        } catch (SQLException ex) {
-            response.sendRedirect("login.jsp?error=true");
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(StudentLoginServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(FutureCoursesServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -83,10 +94,8 @@ public class StudentLoginServlet extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
-        } catch (SQLException ex) {
-            response.sendRedirect("login.jsp?error=true");
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(StudentLoginServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(FutureCoursesServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

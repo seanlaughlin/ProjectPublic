@@ -46,7 +46,7 @@
                             </tr>
                             <tr>
                               <th>Date of birth:</th>
-                              <td><input type="text" class="input" name="dob" id="dobfield" value="${student.dob}" readonly /></td>
+                              <td><input type="text" class="input" name="dob" id="dobfield" value="${student.dobString}" readonly /></td>
                               <td><small>*</small></td>
                             </tr>
                             <tr>

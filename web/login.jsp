@@ -36,8 +36,9 @@
                         </div>    
                     </label>         
                     <button type="submit">Log in</button>
-                    <% if(request.getParameter("error")==null){}
-                        else{out.println("<label><small style=\"color:red\">Invalid login details</small></label>");}%>
+                    <%  if(request.getParameter("error")==null){}
+                        else if(request.getParameter("error").equals("login")){out.println("<label><small style=\"color:red\">Invalid login details</small></label>");}
+                        else if(request.getParameter("error").equals("register")){out.println("<label><small style=\"color:red\">Please log in to register for courses</small></label>");}%>
                     <label>
                         <small>Don't have an account? <a href="register.jsp">Register</a></small>
                     </label>

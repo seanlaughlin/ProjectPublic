@@ -31,7 +31,7 @@ public class StudentLessonsServlet extends HttpServlet {
         //Get session object so session attributes such as student object can be read
         HttpSession session = request.getSession();
         
-        //Check that user is logged in by checking student object exists
+        //Check that user is logged in by checking student object exists, redirect to login if not logged in
         if (session.getAttribute("student") != null) {
             
             //Get student object from session and load courses from it
@@ -42,7 +42,7 @@ public class StudentLessonsServlet extends HttpServlet {
                 
                 //Display message if student isn't registered on a course
                 if (courses.isEmpty()) {
-                    out.println("There are no courses to display.");
+                    out.println("<p>There are no lessons to display.</p><p>Visit <a href=\"courses.jsp\">Courses</a> to view and register for available courses.</p>");
                 }
                 
                 //Generate table for each course in the array
@@ -68,7 +68,7 @@ public class StudentLessonsServlet extends HttpServlet {
                         out.println("<tr>");
                         out.println("<td>" + lessonDate + "</td>");
                         out.println("<td>" + time + "</td>");
-                        out.println("<td>" + lesson.getLessonId() + "</td>");
+                        out.println("<td>" + (lessons.indexOf(lesson)+1) + "</td>");
                         out.println("<td>" + course.getCourseTutor().getFirstName() + " " + course.getCourseTutor().getLastName() + "</td>");
                         out.println("</tr>");
                     }
@@ -78,21 +78,25 @@ public class StudentLessonsServlet extends HttpServlet {
                     //Display course status with different font colours depending on status
                     switch(course.getCourseStatus()){
                         case "Beginner":
-                            out.println("<span style=\"color: green\">"+course.getCourseStatus()+"</span>");
+                            out.println("<span style=\"color: #0065BF\">"+course.getCourseStatus()+"</span>");
                             break;
                             
                         case "On-Going":
-                            out.println("<span style=\"color: #0065BF\">"+course.getCourseStatus()+"</span>");
+                            out.println("<span style=\"color: orange\">"+course.getCourseStatus()+"</span>");
                             break;
                             
                         case "Not-complete":
                             out.println("<span style=\"color: red\">"+course.getCourseStatus()+"</span>");
                             break;
+                            
+                        case "Completed":
+                            out.println("<span style=\"color: green\">"+course.getCourseStatus()+"</span>");
+                            break;
                     }
                     
                     //Display option to end lessons if course has yet to begin or is currently underway. Link calls the EndLessonsServlet and sends the servlet the course ID.
                     if (course.getCourseStatus().equals("On-Going") || course.getCourseStatus().equals("Beginner")) {
-                        out.println("<a href=\"" + request.getContextPath() + "/EndLessonsServlet?courseId=" + course.getCourseId() + "\" class=\"bottomlink\"  style=\"color: red\">End Lessons</a>");
+                        out.println("<a href=\"" + request.getContextPath() + "/EndLessonsServlet?courseId=" + course.getCourseId() + "\" class=\"bottomlink\" style=\"color: red\">End Lessons</a>");
                     }
                 }
             }
