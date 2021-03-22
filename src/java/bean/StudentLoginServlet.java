@@ -43,9 +43,9 @@ public class StudentLoginServlet extends HttpServlet {
             HttpSession session = request.getSession();
             session.setAttribute("student", student);
             session.setAttribute("loggedIn", "true");
-            response.sendRedirect("account.jsp");
+            response.sendRedirect("student/account.jsp");
         } else {
-            response.sendRedirect("login.jsp?error=login");
+            request.setAttribute("error", "Invalid login details.");
         }
     }
 

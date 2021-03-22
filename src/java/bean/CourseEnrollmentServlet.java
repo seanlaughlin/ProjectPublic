@@ -5,8 +5,8 @@
  */
 package bean;
 
+import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -41,15 +41,17 @@ public class CourseEnrollmentServlet extends HttpServlet {
         HttpSession session = request.getSession();
 
         //Check that user is logged in by checking student object exists, redirect to login if not logged in
-        if (session.getAttribute("student") != null) {
-            CourseManager cm = new CourseManager();
+        CourseManager cm = new CourseManager();
 
-            //Get student object from session
-            Student student = (Student) session.getAttribute("student");
+        //Get student object from session
+        Student student = (Student) session.getAttribute("student");
+
+        if (student != null) {
 
             //Get courseid from courses page request and studentid from student object
             int courseId = Integer.parseInt(request.getParameter("courseid"));
             int studentId = student.getStudentId();
+            RequestDispatcher dispatcher; 
 
             //Get array of student courses to check if already registered
             ArrayList<Course> courses = student.getCourse();
@@ -64,7 +66,9 @@ public class CourseEnrollmentServlet extends HttpServlet {
 
             //Redirect with message advising already registered
             if (isAlreadyRegistered) {
-                response.sendRedirect("enroll.jsp?enrollment=registered");
+                dispatcher = request.getRequestDispatcher("student/enroll.jsp");
+                    request.setAttribute("enrollment", "You are already enrolled on this course.");
+                    dispatcher.forward(request, response);
             } 
             else {
 
@@ -76,14 +80,22 @@ public class CourseEnrollmentServlet extends HttpServlet {
                     ArrayList<Course> updatedCourses = cm.loadStudentCourses(studentId);
                     student.setCourse(updatedCourses);
                     session.setAttribute("student", student);
-                    response.sendRedirect("enroll.jsp?enrollment=true");
+                    request.setAttribute("enrollment", "Enrolled successfully.");
+                    
                 } //Redirect to page confirming failure to enroll
                 else {
-                    response.sendRedirect("enroll.jsp?enrollment=false");
+                    request.setAttribute("enrollment", "An error occurred. Please contact support.");
                 }
+                dispatcher = request.getRequestDispatcher("student/enroll.jsp");
+                dispatcher.forward(request, response);
             }
-        } else {
-            response.sendRedirect("login.jsp?error=register");
+        } 
+        
+        //Send to login with message if not logged in
+        else {
+            RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
+            request.setAttribute("error", "Please log in to continue");
+            dispatcher.forward(request, response);
         }
     }
 

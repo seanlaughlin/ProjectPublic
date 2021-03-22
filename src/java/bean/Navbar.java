@@ -1,22 +1,23 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package bean;
 
 import java.io.IOException;
-import jakarta.servlet.*;
+import java.io.PrintWriter;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import static java.lang.System.out;
-import java.sql.SQLException;
-import java.util.Enumeration;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
  * @author seanl
  */
-public class StudentDetailsServlet extends HttpServlet {
+public class Navbar extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -27,36 +28,31 @@ public class StudentDetailsServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    private Student student;
-
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException, ClassNotFoundException {
-        try (out) {
-            UserManager userManager = new UserManager();
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
             
-            //Get session object and extract student attribute stored in it by StudentLoginServlet
+            //Get session object
             HttpSession session = request.getSession();
-            student = (Student) session.getAttribute("student");
+            out.println("<nav id=\"navbar\">\n"
+                    + "           <img src=\"" + request.getContextPath() + "/images/GCU_SkillsLogoWordsSmall.png\" alt=\"GCU Skills\"/><ul>");
+            out.println("<li><a href=\"" + request.getContextPath() + "/index.jsp\">Home</a></li> "
+                        + "<li><a href=\"" + request.getContextPath() + "/index.jsp#about\">About</a></li>"
+                        + "<li><a href=\"" + request.getContextPath() + "/index.jsp#contact\" id=\"contactlink\">Contact</a></li> "
+                        + "<li><a href=\"" + request.getContextPath() + "/courses.jsp#start\">Courses</a></li>");
             
-            //Get the name of the parameter passed from web form
-            Enumeration enumeration = request.getParameterNames();
-            String parameterName = "";
-            
-            //Settings for this servlets response
-            response.setContentType("text/html");
-            
-            
-            //Convert parameterName into String and get the parameter value from the web form request
-            parameterName = (String) enumeration.nextElement();
-            String parameter = request.getParameter(parameterName);
-            
-            //Send variables to updateAttribute method to update database and overwrite student with new values
-            student = userManager.updateAttribute(parameterName, parameter, student);
-            
-            //Output message to confirm operation has been completed (read by toggle.js)
-            response.getWriter().write("Success");
+            //Check if user logged in and print out different links for logged in and not logged in users
+            if (session.getAttribute("loggedIn") != null) {
+                        out.println("<li><a href=\"" + request.getContextPath() + "/student/account.jsp\">Account</a></li>"
+                        + "<li><a href=\"" + request.getContextPath() + "/logout\">Logout</a></li>");
+            } else {
+                out.println("<li><a href=\"" + request.getContextPath() + "/register.jsp\">Register</a></li>"
+                        + "<li><a href=\"" + request.getContextPath() + "/login.jsp\">Log in</a></li>");
+            }
+            out.println("</ul>\n"
+                    + "        </nav>");
         }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -71,11 +67,7 @@ public class StudentDetailsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (SQLException | ClassNotFoundException ex) {
-            Logger.getLogger(StudentDetailsServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -89,11 +81,7 @@ public class StudentDetailsServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (SQLException | ClassNotFoundException ex) {
-            Logger.getLogger(StudentDetailsServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**
