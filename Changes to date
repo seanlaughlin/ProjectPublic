@@ -1,3 +1,11 @@
+22/03/21
+
+All Java scriptlets removed from .jsp pages and replaced with JSTL/EL to reduce error likelihood and conform to best practice.
+Navbar is no longer a .jsp, now generates dynamically from Navbar servlet to fix issue with display on logout page.
+Logout servlet added (in place of java that was in logout.jsp)
+Student auth filter added, all student account related .jsps moved to /student folder, which is the path that the student auth filter protects.
+Some code tidying and commenting in servlets.
+
 19/03/21
 
 User.java added dobString, to easily output date in dd/mm/yy format when details are displayed
