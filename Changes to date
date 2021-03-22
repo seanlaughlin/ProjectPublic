@@ -1,5 +1,6 @@
 22/03/21
 
+Added in jakarta servlet jar, missing from lib previously.
 All Java scriptlets removed from .jsp pages and replaced with JSTL/EL to reduce error likelihood and conform to best practice.
 Navbar is no longer a .jsp, now generates dynamically from Navbar servlet to fix issue with display on logout page.
 Logout servlet added (in place of java that was in logout.jsp)
