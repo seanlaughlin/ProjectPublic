@@ -11,22 +11,23 @@
 --%>
 
 <%@page contentType = "text/html" pageEncoding = "UTF-8"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
         <title>Tutor Login | GCU_Skills</title>
         <meta charset="UTF-8">
-        <link rel="stylesheet" href="css/style.css">
-        <link rel="icon" type="image/png" href="images/favicon32.png" sizes="32x32"/>
-        <link rel="icon" type="image/png" href="images/favicon16.png" sizes="16x16">      
+        <link rel="stylesheet" href="<c:out value="${pageContext.servletContext.contextPath}" />/css/style.css">
+        <link rel="icon" type="image/png" href="<c:out value="${pageContext.servletContext.contextPath}" />/images/favicon32.png" sizes="32x32"/>
+        <link rel="icon" type="image/png" href="<c:out value="${pageContext.servletContext.contextPath}" />/images/favicon16.png" sizes="16x16">   
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <%@ include file="navbar.jsp" %> 
+        <c:import url="Navbar" />
         <section class="image-section" id="login">
             <div class="form-box-content">
                 <h2>Log in as a Tutor</h2>
-                <form action="<%= request.getContextPath() %>/tutorlogin" method="POST">    
+                <form action="<c:out value="${pageContext.servletContext.contextPath}" />/tutorlogin" method="POST">    
                     <label>     
                         <input type="text" class="input" name="emailaddress" placeholder="Email"/>                   
                         <div class="line-box">          
@@ -40,8 +41,7 @@
                         </div>    
                     </label>         
                     <button type="submit">Log in</button>
-                    <% if(request.getParameter("error")==null){}
-                        else{out.println("<label><small style=\"color:red\">Invalid login details</small></label>");}%>
+                    <label><small style="color:red">${requestScope.error}</small></label>
                 </form> 
                     <small><a href="login.jsp" class="bottomlink">Student login</a></small>
                     <small><a href="adminlogin.jsp" class="bottomlink">Administrator login</a></small>

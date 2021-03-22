@@ -9,15 +9,15 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Lessons | GCU_Skills</title>
+        <title>Courses | GCU_Skills</title>
         <meta charset="UTF-8">
-        <link rel="stylesheet" href="css/style.css">
-        <link rel="icon" type="image/png" href="images/favicon32.png" sizes="32x32"/>
-        <link rel="icon" type="image/png" href="images/favicon16.png" sizes="16x16">       
+        <link rel="stylesheet" href="<c:out value="${pageContext.servletContext.contextPath}" />/css/style.css">
+        <link rel="icon" type="image/png" href="<c:out value="${pageContext.servletContext.contextPath}" />/images/favicon32.png" sizes="32x32"/>
+        <link rel="icon" type="image/png" href="<c:out value="${pageContext.servletContext.contextPath}" />/images/favicon16.png" sizes="16x16">      
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <%@ include file="navbar.jsp" %> 
+        <c:import url="Navbar" />  
         <div class="section-container" id="start">
             <section class="image-section" id="courses">
                 <div class="image-box-content">

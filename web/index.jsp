@@ -12,16 +12,16 @@
         <title>Home | GCU_Skills</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="css/style.css"> 
-        <link rel="icon" type="image/png" href="images/favicon32.png" sizes="32x32"/>
-        <link rel="icon" type="image/png" href="images/favicon16.png" sizes="16x16">
+        <link rel="stylesheet" href="<c:out value="${pageContext.servletContext.contextPath}" />/css/style.css">
+        <link rel="icon" type="image/png" href="<c:out value="${pageContext.servletContext.contextPath}" />/images/favicon32.png" sizes="32x32"/>
+        <link rel="icon" type="image/png" href="<c:out value="${pageContext.servletContext.contextPath}" />/images/favicon16.png" sizes="16x16">
     </head>
     <body>
-        <%@ include file="navbar.jsp" %> 
+        <c:import url="Navbar" />
         <div class="section-container">
             <section class="welcome-image-section" id="welcome">
                     <h1>Welcome to GCU_Skills</h1>
-                 <img src="GCU_SkillsLogoMed.png" alt="GCU_Skills"/>
+                 <img src="images/GCU_SkillsLogoMed.png" alt="GCU_Skills"/>
                     <h2>Please create an account or login to register for lessons</h2>
             </section>  
         </div>

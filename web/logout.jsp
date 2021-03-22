@@ -4,30 +4,23 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
     <head>
         <title>Register | GCU_Skills</title>
         <meta charset="UTF-8">
-        <link rel="stylesheet" href="css/style.css">
-        <link rel="icon" type="image/png" href="images/favicon32.png" sizes="32x32"/>
-        <link rel="icon" type="image/png" href="images/favicon16.png" sizes="16x16">
+        <link rel="stylesheet" href="<c:out value="${pageContext.servletContext.contextPath}" />/css/style.css">
+        <link rel="icon" type="image/png" href="<c:out value="${pageContext.servletContext.contextPath}" />/images/favicon32.png" sizes="32x32"/>
+        <link rel="icon" type="image/png" href="<c:out value="${pageContext.servletContext.contextPath}" />/images/favicon16.png" sizes="16x16">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <%@ include file="outnavbar.jsp" %> 
+        <c:import url="Navbar" /> 
         <div id="section-container">
-           <section class="image-section" id="register">
+            <section class="image-section" id="register">
                 <div class="image-box-content">
-                          <% 
-               if(session.getAttribute("loggedIn")!=null){ 
-                                session.invalidate();
-                out.println("<h2>Logged out successfully.</h2>");
-            }
-            else{
-                   out.println("You are not logged in.");
-            } 
-        %>  
+                    <h2>${message}</h2>
                 </div>
             </section>
         </div>

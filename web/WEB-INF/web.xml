@@ -28,6 +28,14 @@
         <servlet-name>CourseEnrollmentServlet</servlet-name>
         <servlet-class>bean.CourseEnrollmentServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LogoutServlet</servlet-name>
+        <servlet-class>bean.LogoutServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Navbar</servlet-name>
+        <servlet-class>bean.Navbar</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>StudentRegisterServlet</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -55,6 +63,14 @@
     <servlet-mapping>
         <servlet-name>CourseEnrollmentServlet</servlet-name>
         <url-pattern>/CourseEnrollmentServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LogoutServlet</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Navbar</servlet-name>
+        <url-pattern>/Navbar</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>

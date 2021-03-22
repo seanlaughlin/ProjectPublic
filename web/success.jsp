@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -15,18 +16,18 @@ and open the template in the editor.
     <head>
         <title>Register | GCU_Skills</title>
         <meta charset="UTF-8">
-        <link rel="stylesheet" href="css/style.css">
-        <link rel="icon" type="image/png" href="images/favicon32.png" sizes="32x32"/>
-        <link rel="icon" type="image/png" href="images/favicon16.png" sizes="16x16">
+        <link rel="stylesheet" href="<c:out value="${pageContext.servletContext.contextPath}" />/css/style.css">
+        <link rel="icon" type="image/png" href="<c:out value="${pageContext.servletContext.contextPath}" />/images/favicon32.png" sizes="32x32"/>
+        <link rel="icon" type="image/png" href="<c:out value="${pageContext.servletContext.contextPath}" />/images/favicon16.png" sizes="16x16">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <%@ include file="navbar.jsp" %> 
+        <c:import url="Navbar" /> 
         <div id="section-container">
-           <section class="image-section" id="register">
+            <section class="image-section" id="register">
                 <div class="form-box-content">
                     <h2>Registration successful. You can now <a href="login.jsp">log in.</a></h2>
-                    <p>Your student ID number is: <b><% out.println(request.getAttribute("studentid"));%></b></p>
+                    <p>Your student ID number is: <b>${studentid}</b></p>
                 </div>
             </section>
         </div>
