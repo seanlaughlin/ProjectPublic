@@ -17,19 +17,19 @@ public class PassHash implements java.io.Serializable {
     }
     
     //Compares equality between plaintext password input by user and hashed password in database
-    public boolean checkPassword(String email, String password) throws SQLException {
+    public boolean checkPassword(String email, String password, String table) throws SQLException {
         String dataPass = "";
         try {
             Class.forName(driver);
             try (Connection conn = DriverManager.getConnection(connectionString)) {
                 Statement stat = conn.createStatement();
-                ResultSet rs = stat.executeQuery("SELECT * FROM Students WHERE EmailAddress=\"" + email + "\"");
+                ResultSet rs = stat.executeQuery("SELECT * FROM "+ table +" WHERE EmailAddress=\"" + email + "\"");
                 while (rs.next()) {
                     dataPass = rs.getString("Password");
                 }
             }
-
             return BCrypt.checkpw(password, dataPass);
+            
             //Return as invalid if exception occurs
         } catch (ClassNotFoundException | StringIndexOutOfBoundsException e ) {
             return false;

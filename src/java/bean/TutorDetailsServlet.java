@@ -1,11 +1,16 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package bean;
 
-import java.io.IOException;
-import jakarta.servlet.*;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.io.IOException;
 import static java.lang.System.out;
 import java.sql.SQLException;
 import java.util.Enumeration;
@@ -16,7 +21,7 @@ import java.util.logging.Logger;
  *
  * @author seanl
  */
-public class StudentDetailsServlet extends HttpServlet {
+public class TutorDetailsServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -27,16 +32,16 @@ public class StudentDetailsServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    private Student student;
+   private Tutor tutor;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException, ClassNotFoundException {
         try (out) {
             UserManager userManager = new UserManager();
             
-            //Get session object and extract student attribute stored in it by StudentLoginServlet
+            //Get session object and extract tutor attribute stored in it
             HttpSession session = request.getSession();
-            student = (Student) session.getAttribute("student");
+            tutor = (Tutor) session.getAttribute("tutor");
             
             //Get the name of the parameter passed from web form
             Enumeration enumeration = request.getParameterNames();
@@ -46,8 +51,8 @@ public class StudentDetailsServlet extends HttpServlet {
             parameterName = (String) enumeration.nextElement();
             String parameter = request.getParameter(parameterName);
             
-            //Send variables to updateAttribute method to update database and overwrite student object with new values
-            student = userManager.updateAttribute(parameterName, parameter, student);
+            //Send variables to updateAttribute method to update database and overwrite tutor object with new values
+            tutor = userManager.updateAttribute(parameterName, parameter, tutor);
             
             //Output message to confirm operation has been completed (read by toggle.js)
             response.getWriter().write("Success");
@@ -67,11 +72,11 @@ public class StudentDetailsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (SQLException | ClassNotFoundException ex) {
-            Logger.getLogger(StudentDetailsServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+       try {
+           processRequest(request, response);
+       } catch (SQLException | ClassNotFoundException ex) {
+           Logger.getLogger(TutorDetailsServlet.class.getName()).log(Level.SEVERE, null, ex);
+       }
     }
 
     /**
@@ -85,11 +90,11 @@ public class StudentDetailsServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (SQLException | ClassNotFoundException ex) {
-            Logger.getLogger(StudentDetailsServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+       try {
+           processRequest(request, response);
+       } catch (SQLException | ClassNotFoundException ex) {
+           Logger.getLogger(TutorDetailsServlet.class.getName()).log(Level.SEVERE, null, ex);
+       }
     }
 
     /**

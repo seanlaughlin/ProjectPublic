@@ -16,8 +16,8 @@ import jakarta.servlet.http.HttpSession;
  *
  * @author seanl
  */
-@WebFilter("/student/*")
-public class StudentAuthFilter implements Filter {
+@WebFilter("/tutor/*")
+public class TutorAuthFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -28,30 +28,24 @@ public class StudentAuthFilter implements Filter {
         HttpSession session = httpRequest.getSession(false);
 
         //Check if logged in
-        boolean isLoggedIn = (session != null && session.getAttribute("student") != null);
-        boolean loggedInAsStaff = ((session.getAttribute("tutor") != null) || (session.getAttribute("admin") != null));
-        String loginURI = httpRequest.getContextPath() + "/login";
+        boolean isLoggedIn = (session != null && session.getAttribute("tutor") != null);
+        String loginURI = httpRequest.getContextPath() + "/tutorlogin";
         boolean isLoginRequest = httpRequest.getRequestURI().equals(loginURI);
-        boolean isLoginPage = httpRequest.getRequestURI().endsWith("login.jsp");
+        boolean isLoginPage = httpRequest.getRequestURI().endsWith("tutorlogin.jsp");
 
-        // Forwards to student home if already logged in
+        // Forwards to tutor home if already logged in
         if (isLoggedIn && (isLoginRequest || isLoginPage)) {
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/student/account.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/tutor/account.jsp");
             dispatcher.forward(request, response);
 
             // Send to page as logged in user if logged in
         } else if (isLoggedIn || isLoginRequest) {
             chain.doFilter(request, response);
 
-            // Forward to login page if not logged in or if logged in as staff
+            // Forward to login page if not logged in
         } else {
-            RequestDispatcher dispatcher = request.getRequestDispatcher("../login.jsp");
-            if(loggedInAsStaff){
-                request.setAttribute("error", "You are already logged in.");
-            }
-            else {
-                request.setAttribute("error", "Please log in to continue");
-            }
+            RequestDispatcher dispatcher = request.getRequestDispatcher("../tutorlogin.jsp");
+            request.setAttribute("error", "Please log in to continue");
             dispatcher.forward(request, response);
         }
 

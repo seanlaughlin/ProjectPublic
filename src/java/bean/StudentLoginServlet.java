@@ -30,6 +30,7 @@ public class StudentLoginServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException, ClassNotFoundException {
         UserManager userManager = new UserManager();
+        RequestDispatcher dispatcher;
         
         //Read in variables from web form request
         String email = request.getParameter("emailaddress");
@@ -38,14 +39,26 @@ public class StudentLoginServlet extends HttpServlet {
         //Create student object and attempt to retrieve details 
         Student student = userManager.logInStudent(email, password);
         
+        //Get other user objects from session to make sure no other user is logged in
+        HttpSession session = request.getSession();
+        Tutor tutor = (Tutor) session.getAttribute("tutor");
+        Admin admin = (Admin) session.getAttribute("admin");
+            
         //Create student session variable and send to account.jsp if login successful, otherwise send error message
-        if (student != null) {
-            HttpSession session = request.getSession();
+        if (student != null && (tutor == null && admin == null)) {
             session.setAttribute("student", student);
             session.setAttribute("loggedIn", "true");
             response.sendRedirect("student/account.jsp");
-        } else {
+        } 
+        else if(tutor != null || admin != null) {
+            dispatcher = request.getRequestDispatcher("login.jsp");
+            request.setAttribute("error", "You are already logged in.");
+            dispatcher.forward(request, response);
+        }
+        else {
+            dispatcher = request.getRequestDispatcher("login.jsp");
             request.setAttribute("error", "Invalid login details.");
+            dispatcher.forward(request, response);
         }
     }
 

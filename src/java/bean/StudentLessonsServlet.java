@@ -32,7 +32,6 @@ public class StudentLessonsServlet extends HttpServlet {
         //Get session object so session attributes such as student object can be read
         HttpSession session = request.getSession();
 
-        //Check that user is logged in by checking student object exists, redirect to login if not logged in
         //Get student object from session and load courses from it
         Student student = (Student) session.getAttribute("student");
         ArrayList<Course> courses = student.getCourse();

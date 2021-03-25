@@ -52,7 +52,7 @@ public class EndLessonsServlet extends HttpServlet {
             if (course.getCourseId() == Integer.parseInt(request.getParameter("courseId"))) {
                 studentCourse = course;
             }
-            studentCourse = cm.updateAttribute("coursestatus", "Not-complete", studentCourse);
+            studentCourse = cm.updateAttribute("coursestatus", "Not-complete", studentCourse, student.getStudentId());
         }
         
         //Create ArrayList of student's current courses from DB, now that update has been completed
@@ -62,7 +62,7 @@ public class EndLessonsServlet extends HttpServlet {
         student.setCourse(studentCourses);
         session.setAttribute("student", student);
         
-        //Send back to page (same as refreshing to reflect changes)
+        //Send back to page 
         response.sendRedirect("student/yourlessons.jsp");
     }
 

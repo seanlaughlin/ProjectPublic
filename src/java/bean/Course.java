@@ -12,6 +12,7 @@ public class Course {
     private String courseStatus;
     private ArrayList<Lesson> lessons;
     private Tutor courseTutor;
+    private String description;
 
     //Zero-Parameter Constructor
     public Course()
@@ -22,6 +23,7 @@ public class Course {
         courseStatus = "";
         lessons = new ArrayList<>();
         courseTutor = new Tutor();
+        description = "";
 
     }
 
@@ -33,6 +35,7 @@ public class Course {
         courseStatus = "";
         lessons = new ArrayList<>();
         courseTutor = new Tutor();
+        description = "";
 
     }
     
@@ -49,7 +52,7 @@ public class Course {
     }
     
     //Overloaded Constructor
-    public Course(int courseIdIn, String courseNameIn, String courseStatusIn, ArrayList<Lesson> lessonsIn, Tutor courseTutorIn)
+    public Course(int courseIdIn, String courseNameIn, String courseStatusIn, ArrayList<Lesson> lessonsIn, Tutor courseTutorIn, String descriptionIn)
     {
 
         courseId = courseIdIn;
@@ -57,6 +60,7 @@ public class Course {
         courseStatus = courseStatusIn;
         lessons = lessonsIn;
         courseTutor = courseTutorIn;
+        description = descriptionIn;
 
     }
 
@@ -70,6 +74,8 @@ public class Course {
     public ArrayList<Lesson> getLessons() {return lessons;}
 
     public Tutor getCourseTutor() {return courseTutor;}
+    
+    public String getDescription() {return description;}
 
     //Setters
     public void setCourseId(int courseIdIn) {courseId = courseIdIn;}
@@ -81,4 +87,6 @@ public class Course {
     public void setLessons(ArrayList<Lesson> lessonsIn) {lessons = lessonsIn;}
 
     public void setCourseTutor(Tutor courseTutorIn) {courseTutor = courseTutorIn;}
+    
+    public void setDescription(String descriptionIn) {description = descriptionIn;}
 }

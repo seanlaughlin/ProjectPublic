@@ -67,9 +67,8 @@ public class UserManager {
         //Selects every matching entry in the customers table in the database
         ResultSet rs = stmt.executeQuery("SELECT * FROM Students WHERE EmailAddress= '" + emailAddress + "'");
 
-        //Executes for every entry ing the results set
-        while (rs.next())
-        {
+        //Executes for every entry in the results set
+        while (rs.next()) {
 
             //Gets the values from the result set entry 
             studentId = rs.getInt("studentId");
@@ -84,30 +83,25 @@ public class UserManager {
         conn.close();
 
         //Compares encrypted password in database to plaintext password for equality using bCrypt and returns student if valid
-        boolean isPassValid = passHash.checkPassword(emailAddress, password);
+        boolean isPassValid = passHash.checkPassword(emailAddress, password, "Students");
 
-        if (isPassValid)
-        {
+        if (isPassValid) {
             CourseManager cm = new CourseManager();
             ArrayList<Course> studentCourses = cm.loadStudentCourses(studentId);
             Student student = new Student(emailAddress, password, firstName, lastName, dob, studentId, phoneNumber, studentCourses);
 
             //Loads the students course and the course's lessons
-
             //Returns the completed student object
             student.setStudentId(studentId);
             return student;
-            
-        }
 
-        else
-        {
+        } else {
             return null;
         }
     }
 
     public Student updateAttribute(String parameterName, String parameter, Student student) throws SQLException, ClassNotFoundException {
-        
+
         //Check name of parameter submitted from web form (through servlet) and update student object
         switch (parameterName) {
             case "emailaddress":
@@ -123,7 +117,7 @@ public class UserManager {
                 parameter = passHash.hashPassword(parameter);
                 break;
         }
-        
+
         //Connect to database and update parameter
         Class.forName(driver);
         Connection conn = DriverManager.getConnection(connectionString);
@@ -131,9 +125,82 @@ public class UserManager {
 
         stmt.executeUpdate("UPDATE Students SET " + parameterName + " = " + "\"" + parameter + "\" " + "WHERE StudentId= " + student.getStudentId());
         conn.close();
-        
+
         //Return updated student object
         return student;
     }
+
+    public Tutor logInTutor(String emailAddress, String password) throws SQLException, ClassNotFoundException {
+
+        Class.forName(driver);
+        Connection conn = DriverManager.getConnection(connectionString);
+        Statement stmt = conn.createStatement();
+
+        int tutorId = 0;
+        String realPassword = "";
+        String firstName = "";
+        String lastName = "";
+        Date dob = new Date();
+        String role = "";
+        String department = "";
+        int payGrade = 0;
+
+        //Selects every matching entry in the customers table in the database
+        ResultSet rs = stmt.executeQuery("SELECT * FROM Tutors WHERE EmailAddress= '" + emailAddress + "'");
+
+        //Executes for every entry in the results set
+        while (rs.next()) {
+
+            //Gets the values from the result set entry 
+            tutorId = rs.getInt("TutorId");
+            realPassword = rs.getString("Password");
+            firstName = rs.getString("FirstName");
+            lastName = rs.getString("LastName");
+            dob = rs.getDate("DateOfBirth");
+            role = rs.getString("Role");
+            department = rs.getString("Department");
+            payGrade = rs.getInt("PayGrade");
+        }
+
+        conn.close();
+
+        //Compares encrypted password in database to plaintext password for equality using bCrypt and returns tutor if valid
+        boolean isPassValid = passHash.checkPassword(emailAddress, password, "Tutors");
+
+        if (isPassValid) {
+            CourseManager cm = new CourseManager();
+            Tutor tutor = new Tutor(emailAddress, password, firstName, lastName, dob, role, department, tutorId, payGrade);
+
+            return tutor;
+
+        } else {
+            return null;
+        }
+    }
     
+    public Tutor updateAttribute(String parameterName, String parameter, Tutor tutor) throws SQLException, ClassNotFoundException {
+
+        //Check name of parameter submitted from web form (through servlet) and update tutor object
+        switch (parameterName) {
+            case "emailaddress":
+                tutor.setEmail(parameter);
+                break;
+
+            case "password":
+                tutor.setPassword(parameter);
+                parameter = passHash.hashPassword(parameter);
+                break;
+        }
+
+        //Connect to database and update parameter
+        Class.forName(driver);
+        Connection conn = DriverManager.getConnection(connectionString);
+        Statement stmt = conn.createStatement();
+
+        stmt.executeUpdate("UPDATE Tutors SET " + parameterName + " = " + "\"" + parameter + "\" " + "WHERE TutorId= " + tutor.getTutorId());
+        conn.close();
+
+        //Return updated tutor object
+        return tutor;
+    }
 }

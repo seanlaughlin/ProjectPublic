@@ -16,8 +16,8 @@ import java.util.Date;
  */
 public class StudentRegisterServlet extends HttpServlet {
 
-    private UserManager userManager = new UserManager();
-    private PassHash passHash = new PassHash();
+    private final UserManager userManager = new UserManager();
+    private final PassHash passHash = new PassHash();
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

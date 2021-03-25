@@ -43,10 +43,22 @@ public class Navbar extends HttpServlet {
                         + "<li><a href=\"" + request.getContextPath() + "/courses.jsp#start\">Courses</a></li>");
             
             //Check if user logged in and print out different links for logged in and not logged in users
-            if (session.getAttribute("loggedIn") != null) {
+            if (session.getAttribute("loggedIn") != null && session.getAttribute("student") != null) {
                         out.println("<li><a href=\"" + request.getContextPath() + "/student/account.jsp\">Account</a></li>"
                         + "<li><a href=\"" + request.getContextPath() + "/logout\">Logout</a></li>");
-            } else {
+            }
+            
+            else if(session.getAttribute("tutor") != null){
+                out.println("<li><a href=\"" + request.getContextPath() + "/tutor/account.jsp\">Account</a></li>"
+                        + "<li><a href=\"" + request.getContextPath() + "/logout\">Logout</a></li>");
+            }
+            
+            else if(session.getAttribute("admin") != null){
+                out.println("<li><a href=\"" + request.getContextPath() + "/admin/account.jsp\">Account</a></li>"
+                        + "<li><a href=\"" + request.getContextPath() + "/logout\">Logout</a></li>");
+            }
+            
+            else {
                 out.println("<li><a href=\"" + request.getContextPath() + "/register.jsp\">Register</a></li>"
                         + "<li><a href=\"" + request.getContextPath() + "/login.jsp\">Log in</a></li>");
             }

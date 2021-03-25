@@ -295,6 +295,10 @@ nav img {
     padding-bottom: 1.5rem;
 }
 
+.courses-content p {
+    padding: 0.5rem;
+}
+
 
 .image-box-content img{
     margin: 0 auto;
@@ -613,6 +617,26 @@ button:active {
     100% {
         transform: scale(0.90);
     }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity:0;
+  }
+  
+  
+  
+  30% {
+      opacity: 1;
+  }
+  
+  50% {
+      opacity: 1;
+  }
+  
+  100% {
+    opacity:0;
+  }
 }
 
 @media screen and (max-width: 1600px){

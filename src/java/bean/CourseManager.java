@@ -38,12 +38,13 @@ public class CourseManager {
             int courseId = rs.getInt("CourseId");
             String courseName = rs.getString("CourseName");
             String courseStatus = rs.getString("CourseStatus");
+            String description = rs.getString("Description");
 
             Tutor courseTutor;
             courseTutor = loadCourseTutor(courseId);
 
             //Creates a course object with the data from the database and calls the loadCourseLessons method to populate that course with its associated lessons
-            Course loadedCourse = new Course(courseId, courseName, courseStatus, loadCourseLessons(courseId), courseTutor);
+            Course loadedCourse = new Course(courseId, courseName, courseStatus, loadCourseLessons(courseId), courseTutor, description);
             Calendar today = Calendar.getInstance();
             today.set(Calendar.HOUR_OF_DAY, 0);
             
@@ -64,7 +65,7 @@ public class CourseManager {
         Class.forName(driver);
         Connection conn = DriverManager.getConnection(connectionString);
         Statement stmt = conn.createStatement();
-         stmt.executeUpdate("INSERT INTO Enrollments(StudentId, CourseId) " + "VALUES('" + studentId + "', '" + courseId + "')");
+         stmt.executeUpdate("INSERT INTO Enrollments(StudentId, CourseId, CourseStatus) " + "VALUES('" + studentId + "', '" + courseId + "', 'Beginner')");
         
         //If key was generated from statement, return true to confirm enrollment success, otherwise return false
         ResultSet rs = stmt.getGeneratedKeys();
@@ -87,7 +88,7 @@ public class CourseManager {
             Statement stmt = conn.createStatement();
 
             //Selects all entries in the Courses table of the database
-            ResultSet rs = stmt.executeQuery("SELECT Enrollments.StudentId, Enrollments.CourseId, Courses.CourseId, Courses.CourseName, Courses.CourseStatus, Courses.TutorId FROM Courses INNER JOIN Enrollments ON Courses.CourseId = Enrollments.CourseId WHERE Enrollments.CourseId = Courses.CourseId AND Enrollments.StudentId = '" + studentIdIn + "'");
+            ResultSet rs = stmt.executeQuery("SELECT Enrollments.StudentId, Enrollments.CourseId, Enrollments.CourseStatus, Courses.CourseId, Courses.CourseName, Courses.TutorId, Courses.Description FROM Courses INNER JOIN Enrollments ON Courses.CourseId = Enrollments.CourseId WHERE Enrollments.CourseId = Courses.CourseId AND Enrollments.StudentId = '" + studentIdIn + "'");
 
             //Executes while the results set has a next value
             while (rs.next()) {
@@ -97,13 +98,14 @@ public class CourseManager {
                 String courseName = rs.getString("CourseName");
                 String courseStatus = rs.getString("CourseStatus");
                 int tutorId = rs.getInt("TutorId");
+                String description = rs.getString("Description");
 
                 new Tutor();
                 Tutor courseTutor;
                 courseTutor = loadCourseTutor(courseId);
 
                 //Creates a course object with the data from the database and calls the loadCourseLessons method to populate that course with its associated lessons
-                Course loadedCourse = new Course(courseId, courseName, courseStatus, loadCourseLessons(courseId), courseTutor);
+                Course loadedCourse = new Course(courseId, courseName, courseStatus, loadCourseLessons(courseId), courseTutor, description);
 
                 studentCourses.add(loadedCourse);
 
@@ -217,16 +219,19 @@ public class CourseManager {
         return result;
     }
 
-    public Course updateAttribute(String parameterName, String parameter, Course course) throws SQLException, ClassNotFoundException {
+    public Course updateAttribute(String parameterName, String parameter, Course course, int studentId) throws SQLException, ClassNotFoundException {
 
         //Check name of parameter submitted from web form (through servlet) and update course object
+        String dbTable = "";
         switch (parameterName) {
             case "coursestatus":
                 course.setCourseStatus(parameter);
+                dbTable = "Enrollments";
                 break;
 
             case "coursename":
                 course.setCourseName(parameter);
+                dbTable = "Courses";
                 break;
 
         }
@@ -236,7 +241,7 @@ public class CourseManager {
         Connection conn = DriverManager.getConnection(connectionString);
         Statement stmt = conn.createStatement();
 
-        stmt.executeUpdate("UPDATE Courses SET " + parameterName + " = " + "\"" + parameter + "\" " + "WHERE CourseId= " + course.getCourseId());
+        stmt.executeUpdate("UPDATE "+ dbTable + " SET " + parameterName + " = " + "\"" + parameter + "\" " + "WHERE CourseId= " + course.getCourseId()+" AND StudentId= "+studentId);
         conn.close();
 
         //Return updated student object

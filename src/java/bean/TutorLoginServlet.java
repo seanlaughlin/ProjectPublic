@@ -5,15 +5,14 @@
  */
 package bean;
 
+import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -21,7 +20,7 @@ import java.util.logging.Logger;
  *
  * @author seanl
  */
-public class FutureCoursesServlet extends HttpServlet {
+public class TutorLoginServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,29 +35,35 @@ public class FutureCoursesServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException, ClassNotFoundException {
+
+        UserManager userManager = new UserManager();
+        RequestDispatcher dispatcher;
+
+        //Read in variables from web form request
+        String email = request.getParameter("emailaddress");
+        String password = request.getParameter("password");
+
+        //Create Tutor object and attempt to retrieve details 
+        Tutor tutor = userManager.logInTutor(email, password);
         
-        CourseManager cm = new CourseManager();
-        
-        //Load all courses with a date later than todays
-        ArrayList<Course> futureCourses = cm.loadFutureCourses();
-        
-        //Initialise date and time formatters for displaying course date/time
-        SimpleDateFormat sdf1 = new SimpleDateFormat("HH:mm");
-        SimpleDateFormat sdf2 = new SimpleDateFormat("dd/MM/yyyy");
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            
-            //Generate HTML to display each course that's currently available for registration, looping through futureCourses arraylist.
-            for(Course course : futureCourses){
-                String startDate = sdf2.format(course.getLessons().get(0).getTimeSlot());
-                String startTime = sdf1.format(course.getLessons().get(0).getTimeSlot().getTime());
-                out.println("<div class=\"course-box\"><div style=\"width: 20%\"><h3>" + course.getCourseName() + "</h3>");
-                out.println("<p><b>Start Date: </b>" + startDate + " " + startTime + "</p>");
-                out.println("<p> <b>Tutor: </b>" + course.getCourseTutor().getFirstName() + " " + course.getCourseTutor().getLastName() + "</p>");
-                out.println("<p><b>No. of lessons: </b>" + course.getLessons().size() +"</p></div>");
-                out.println("<div style='max-width: 80%'><p><b>Description: </b><br><p>"+course.getDescription()+"</p>");
-                out.println("<small><a href=\"CourseEnrollmentServlet?courseid=" + course.getCourseId() +"\">Register for course</a></small></div></div>");
-            }
+        //Get session and get student and admin objects in case already logged in
+        HttpSession session = request.getSession();
+        Student student = (Student) session.getAttribute("student");
+        Admin admin = (Admin) session.getAttribute("admin");
+
+        //Create Tutor session variable and send to account.jsp if login successful, otherwise send error message
+        if (tutor != null) {
+            session.setAttribute("tutor", tutor);
+            session.setAttribute("loggedIn", "true");
+            response.sendRedirect("tutor/account.jsp");
+        } else if (student != null || admin != null) {
+            dispatcher = request.getRequestDispatcher("login.jsp");
+            request.setAttribute("error", "You are already logged in.");
+            dispatcher.forward(request, response);
+        } else {
+            dispatcher = request.getRequestDispatcher("tutorlogin.jsp");
+            request.setAttribute("error", "Invalid login details.");
+            dispatcher.forward(request, response);
         }
     }
 
@@ -77,7 +82,7 @@ public class FutureCoursesServlet extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException | ClassNotFoundException ex) {
-            Logger.getLogger(FutureCoursesServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TutorLoginServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -95,7 +100,7 @@ public class FutureCoursesServlet extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException | ClassNotFoundException ex) {
-            Logger.getLogger(FutureCoursesServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TutorLoginServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

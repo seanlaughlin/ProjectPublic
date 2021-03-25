@@ -55,17 +55,17 @@ public class CourseEnrollmentServlet extends HttpServlet {
 
             //Get array of student courses to check if already registered
             ArrayList<Course> courses = student.getCourse();
-            boolean isAlreadyRegistered = false;
+            boolean isRegistered = false;
 
             //Set isAlreadyRegistered to true if course that matches request courseid is found
             for (Course course : courses) {
                 if (course.getCourseId() == courseId) {
-                    isAlreadyRegistered = true;
+                    isRegistered = true;
                 }
             }
 
             //Redirect with message advising already registered
-            if (isAlreadyRegistered) {
+            if (isRegistered) {
                 dispatcher = request.getRequestDispatcher("student/enroll.jsp");
                     request.setAttribute("enrollment", "You are already enrolled on this course.");
                     dispatcher.forward(request, response);

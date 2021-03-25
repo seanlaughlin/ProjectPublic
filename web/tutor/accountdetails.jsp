@@ -30,37 +30,47 @@
                     <form class="detailsform" id="detailsform">
                         <table id="detailstable">
                             <tr>
-                                <th>Student ID:</th>
-                                <td id="studentid">${student.studentId}</td>
+                                <th>Tutor ID:</th>
+                                <td id="studentid">${tutor.tutorId}</td>
                                 <td id="studentidedit">*</td>
                             </tr>
                             <tr>
                                 <th>Full name:</th>
-                                <td><input type="text" class="input" name="fullname" id="fullnamefield" value="${student.firstName} ${student.lastName}" readonly /></td>
+                                <td><input type="text" class="input" name="fullname" id="fullnamefield" value="${tutor.firstName} ${tutor.lastName}" readonly /></td>
                                 <td><small>*</small></td>
                             </tr>
                             <tr>
                                 <th>Date of birth:</th>
-                                <td><input type="text" class="input" name="dob" id="dobfield" value="${student.dobString}" readonly /></td>
+                                <td><input type="text" class="input" name="dob" id="dobfield" value="${tutor.dobString}" readonly /></td>
                                 <td><small>*</small></td>
                             </tr>
                             <tr>
-                                <th>Contact no:</th>
-                                <td><input type="text" class="input" name="phonenumber" id="phonenofield" value="${student.phoneNumber}" readonly /></td>
-                                <td><button class="detailsbutton" id="phonenoedit">Edit</button><small class="editconfirm">&check; updated.</small></td>
+                                <th>Role:</th>
+                                <td><input type="text" class="input" name="phonenumber" id="phonenofield" value="${tutor.role}" readonly /></td>
+                                <td><small></small></td>
+                            </tr>
+                            <tr>
+                                <th>Department:</th>
+                                <td><input type="text" class="input" name="phonenumber" id="phonenofield" value="${tutor.department}" readonly /></td>
+                                <td><small></small></td>
+                            </tr>
+                            <tr>
+                                <th>Paygrade:</th>
+                                <td><input type="text" class="input" name="phonenumber" id="phonenofield" value="${tutor.payGrade}" readonly /></td>
+                                <td><small></small></td>
                             </tr>
                             <tr>
                                 <th>Email:</th>
-                                <td><input type="text" class="input" name="emailaddress" id="emailfield" value="${student.email}" readonly /></td>
+                                <td><input type="text" class="input" name="emailaddress" id="emailfield" value="${tutor.email}" readonly /></td>
                                 <td><button class="detailsbutton" id="emailedit">Edit</button><small class="editconfirm">&check; updated.</small></td>
                             </tr>
                             <tr>
                                 <th>Password:</th>
-                                <td><input type="password" class="input" name="password" id="passwordfield" value="${student.password}" readonly /></td>
+                                <td><input type="password" class="input" name="password" id="passwordfield" value="${tutor.password}" readonly /></td>
                                 <td><button class="detailsbutton" id="passwordedit">Edit</button><small class="editconfirm">&check; updated.</small></td>
                             </tr>                            
-                        </table>
-                        <input type="hidden" id="servletpath" name="servletPath" value="../studentdetails">
+                        </table>  
+                        <input type="hidden" id="servletpath" name="servletPath" value="../tutordetails">
                     </form>
                     <small>* - Not editable. Please <a href="../index.jsp#contact">contact support</a> to request a change.</small>
                     <h3><a href="account.jsp">&#x21a9; Back to account home</a></h3>
