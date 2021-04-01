@@ -16,7 +16,7 @@ import java.util.Date;
 public class UserManager {
 
     private final String driver = "net.ucanaccess.jdbc.UcanaccessDriver";
-    private final String connectionString = "jdbc:ucanaccess://C:\\Users\\seanl\\Documents\\NetBeansProjects\\GCU\\data\\GCU_SkillsDB.accdb";
+    private final String connectionString = "jdbc:ucanaccess://C:\\Users\\seanl\\Documents\\NetBeansProjects\\GCU_1\\data\\GCU_SkillsDB.accdb";
     PassHash passHash = new PassHash();
 
     public int registerStudent(Student student) {
@@ -160,6 +160,7 @@ public class UserManager {
             role = rs.getString("Role");
             department = rs.getString("Department");
             payGrade = rs.getInt("PayGrade");
+
         }
 
         conn.close();
@@ -167,13 +168,18 @@ public class UserManager {
         //Compares encrypted password in database to plaintext password for equality using bCrypt and returns tutor if valid
         boolean isPassValid = passHash.checkPassword(emailAddress, password, "Tutors");
 
-        if (isPassValid) {
+        if (isPassValid)
+        {
             CourseManager cm = new CourseManager();
-            Tutor tutor = new Tutor(emailAddress, password, firstName, lastName, dob, role, department, tutorId, payGrade);
+
+            Tutor tutor = new Tutor(emailAddress, password, firstName, lastName, dob, tutorId, role, department, payGrade, cm.loadTutorCourses(tutorId));
 
             return tutor;
 
-        } else {
+        }
+
+        else
+        {
             return null;
         }
     }

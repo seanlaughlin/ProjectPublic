@@ -18,8 +18,8 @@ import java.util.stream.Collectors;
 public class CourseManager {
 
     private final String driver = "net.ucanaccess.jdbc.UcanaccessDriver";
-    private final String connectionString = "jdbc:ucanaccess://C:\\Users\\seanl\\Documents\\NetBeansProjects\\GCU\\data\\GCU_SkillsDB.accdb";
-    
+    private final String connectionString = "jdbc:ucanaccess://C:\\Users\\seanl\\Documents\\NetBeansProjects\\GCU_1\\data\\GCU_SkillsDB.accdb";
+
     //Returns all courses starting in the future, for display to prospective students
     public ArrayList<Course> loadFutureCourses() throws SQLException, ClassNotFoundException {
 
@@ -47,32 +47,31 @@ public class CourseManager {
             Course loadedCourse = new Course(courseId, courseName, courseStatus, loadCourseLessons(courseId), courseTutor, description);
             Calendar today = Calendar.getInstance();
             today.set(Calendar.HOUR_OF_DAY, 0);
-            
+
             //Check if course date is later than today and add course to array
-            if(loadedCourse.getLessons().get(0).getTimeSlot().after(today.getTime())){
-            allCourses.add(loadedCourse);
+            if (loadedCourse.getLessons().get(0).getTimeSlot().after(today.getTime())) {
+                allCourses.add(loadedCourse);
             }
         }
 
         conn.close();
-        
+
         return allCourses;
     }
-    
-    public boolean enrollStudent(int studentId, int courseId) throws SQLException, ClassNotFoundException{
-        
+
+    public boolean enrollStudent(int studentId, int courseId) throws SQLException, ClassNotFoundException {
+
         //Connect to database and insert studentid and courseid to table to record enrollment
         Class.forName(driver);
         Connection conn = DriverManager.getConnection(connectionString);
         Statement stmt = conn.createStatement();
-         stmt.executeUpdate("INSERT INTO Enrollments(StudentId, CourseId, CourseStatus) " + "VALUES('" + studentId + "', '" + courseId + "', 'Beginner')");
-        
+        stmt.executeUpdate("INSERT INTO Enrollments(StudentId, CourseId, CourseStatus) " + "VALUES('" + studentId + "', '" + courseId + "', 'Beginner')");
+
         //If key was generated from statement, return true to confirm enrollment success, otherwise return false
         ResultSet rs = stmt.getGeneratedKeys();
-        if(rs.next()){
+        if (rs.next()) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
@@ -150,7 +149,7 @@ public class CourseManager {
                 String department = rs.getString("Department");
                 int payGrade = rs.getInt("PayGrade");
 
-                courseTutor = new Tutor(emailAddress, firstName, lastName, dob, role, department, tutorId, payGrade);
+                courseTutor = new Tutor(emailAddress, firstName, lastName, dob, tutorId, role, department, payGrade);
 
             }
 
@@ -241,10 +240,107 @@ public class CourseManager {
         Connection conn = DriverManager.getConnection(connectionString);
         Statement stmt = conn.createStatement();
 
-        stmt.executeUpdate("UPDATE "+ dbTable + " SET " + parameterName + " = " + "\"" + parameter + "\" " + "WHERE CourseId= " + course.getCourseId()+" AND StudentId= "+studentId);
+        stmt.executeUpdate("UPDATE " + dbTable + " SET " + parameterName + " = " + "\"" + parameter + "\" " + "WHERE CourseId= " + course.getCourseId() + " AND StudentId= " + studentId);
         conn.close();
 
         //Return updated student object
         return course;
     }
+
+    public ArrayList<Course> loadTutorCourses(int tutorId) {
+
+        ArrayList<Course> tutorCourses = new ArrayList();
+
+        try {
+
+            Class.forName(driver);
+            Connection conn = DriverManager.getConnection(connectionString);
+            Statement stmt = conn.createStatement();
+
+            //Selects all entries in the Courses table of the database
+            ResultSet rs = stmt.executeQuery("SELECT * FROM Courses WHERE TutorId = '" + tutorId + "'");
+
+            //Executes while the results set has a next value
+            while (rs.next()) {
+
+                //Loads all values for an entry into an course object
+                int courseId = rs.getInt("CourseId");
+                String courseName = rs.getString("CourseName");
+                String courseStatus = rs.getString("CourseStatus");
+                String description = rs.getString("Description");
+
+                new Tutor();
+                Tutor courseTutor;
+                courseTutor = loadCourseTutor(courseId);
+
+                //Creates a course object with the data from the database and calls the loadCourseLessons method to populate that course with its associated lessons
+                Course loadedCourse = new Course(courseId, courseName, courseStatus, loadCourseLessons(courseId), courseTutor, description);
+                
+                //Get Calendar object of todays date
+                Calendar today = Calendar.getInstance();
+                today.set(Calendar.HOUR_OF_DAY, 0);
+
+                //Check if last lesson date is later than today and add course to array (prevents old courses from loading)
+                if (loadedCourse.getLessons().get(loadedCourse.getLessons().size() - 1).getTimeSlot().after(today.getTime())) {
+                    tutorCourses.add(loadedCourse);
+                }
+            }
+
+            conn.close();
+
+        } catch (Exception ex) {
+
+            String message = ex.getMessage();
+
+        } finally {
+
+            //returns the student object populated with a course
+            return tutorCourses;
+
+        }
+
+    }
+
+    public ArrayList<Student> loadCourseStudents(int courseId) {
+
+        ArrayList<Student> studentsOnCourse = new ArrayList<>();
+
+        try {
+
+            Class.forName(driver);
+            Connection conn = DriverManager.getConnection(connectionString);
+            Statement stmt = conn.createStatement();
+
+            //Selects all entries in the Courses table of the database
+            ResultSet rs = stmt.executeQuery("SELECT Students.StudentId, Students.EmailAddress, Students.FirstName, Students.LastName, Students.DateOfBirth, Students.PhoneNumber, Enrollments.CourseId FROM Enrollments INNER JOIN Students ON Enrollments.StudentId = Students.StudentId WHERE Enrollments.CourseId =  '" + courseId + "'");
+
+            while (rs.next()) {
+
+                int studentId = rs.getInt("StudentId");
+                String emailAddress = rs.getString("EmailAddress");
+                String firstName = rs.getString("FirstName");
+                String lastName = rs.getString("LastName");
+                Date dob = rs.getDate("DateOfBirth");
+                String phoneNumber = rs.getString("PhoneNumber");
+                
+                ArrayList<Course> studentCourse = loadStudentCourses(studentId);
+
+                Student loadedStudent = new Student(emailAddress, firstName, lastName, dob, studentId, phoneNumber, studentCourse);
+
+                studentsOnCourse.add(loadedStudent);
+
+            }
+
+        } catch (Exception ex) {
+
+            String message = ex.getMessage();
+
+        } finally {
+
+            return studentsOnCourse;
+
+        }
+
+    }
+
 }

@@ -12,12 +12,14 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 /**
  *
  * @author seanl
  */
-public class Navbar extends HttpServlet {
+public class TutorCoursesServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,41 +33,45 @@ public class Navbar extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
+        //Get session and user objects
+        HttpSession session = request.getSession();
+        Tutor tutor = (Tutor) session.getAttribute("tutor");
+        
+        //Load courses that user is registered on
+        CourseManager cm = new CourseManager();
+        ArrayList<Course> courses = cm.loadTutorCourses(tutor.getTutorId());
+        
         try (PrintWriter out = response.getWriter()) {
-            
-            //Get session object and context path
-            HttpSession session = request.getSession();
-            String path = request.getContextPath();
-            
-            out.format("<nav id=\"navbar\">%n"
-                    + "<img src=\"%1$s/images/GCU_SkillsLogoWordsSmall.png\" alt=\"GCU Skills\"/><ul>", path);
-            out.format("<li><a href=\"%1$s/index.jsp\">Home</a></li> "
-                        + "<li><a href=\"%1$s/index.jsp#about\">About</a></li>"
-                        + "<li><a href=\"%1$s/index.jsp#contact\" id=\"contactlink\">Contact</a></li> "
-                        + "<li><a href=\"%1$s/courses.jsp#start\">Courses</a></li>", path);
-            
-            //Check if user logged in and print different links for logged in and not logged in users
-            if (session.getAttribute("loggedIn") != null && session.getAttribute("student") != null) {
-                        out.format("<li><a href=\"%1$s/student/account.jsp\">Account</a></li>"
-                        + "<li><a href=\"%1$s/logout\">Logout</a></li>", path);
+            if (courses == null) {
+                out.println("There are no courses to display.");
+            } else {
+                out.println("<table class=\"lessonstable\">");
+                out.println("<tr>");
+                out.println("<th>Course ID</th>");
+                out.println("<th>Course Name</th>");
+                out.println("<th>Start Date</th>");
+                out.println("<th>No. Lessons</th>");
+                out.println("<th>Students Enrolled</th>");
+                out.println("<th></th>");
+                out.println("</tr>");
+                
+                //For each course, display row with details and link to see enrolled students
+                for (Course course : courses) {
+                    ArrayList<Student> courseStudents = cm.loadCourseStudents(course.getCourseId());
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                    String startDate = sdf.format(course.getLessons().get(0).getTimeSlot());
+                    out.println("<tr>");
+                    out.format("<td>%s</td>", course.getCourseId());
+                    out.format("<td>%s</td>", course.getCourseName());
+                    out.format("<td>%s</td>", startDate);
+                    out.format("<td>%s</td>", course.getLessons().size());
+                    out.format("<td>%s</td>", courseStudents.size());
+                    out.format("<td><small><a href=\"%1$s/tutor/coursestudents.jsp?courseId=%2$s\">View Students</small></td>", request.getContextPath(), course.getCourseId());
+                    out.println("</tr>");
+                }
+                out.println("</table>");
             }
-            
-            else if(session.getAttribute("tutor") != null){
-                out.format("<li><a href=\"%1$s/tutor/account.jsp\">Account</a></li>"
-                        + "<li><a href=\"%1$s/logout\">Logout</a></li>", path);
-            }
-            
-            else if(session.getAttribute("admin") != null){
-                out.format("<li><a href=\"%1$s/admin/account.jsp\">Account</a></li>"
-                        + "<li><a href=\"%1$s/logout\">Logout</a></li>", path);
-            }
-            
-            else {
-                out.format("<li><a href=\"%1$s/register.jsp\">Register</a></li>"
-                        + "<li><a href=\"%1$s/login.jsp\">Log in</a></li>", path);
-            }
-            out.println("</ul>\n"
-                    + "        </nav>");
         }
     }
 

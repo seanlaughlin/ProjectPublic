@@ -22,6 +22,8 @@
                 <div class="image-box-content">
                     <h2>Welcome, ${tutor.firstName} ${tutor.lastName}</h2>      
                     <h3><a href="accountdetails.jsp" class="dashlink">Account Details</a></h3>
+                    <h3><a href="yourcourses.jsp" class="dashlink">Your Courses</a></h3>
+                    <h3><a href="yourlessons.jsp" class="dashlink">Your Lessons</a></h3>
                 </div>
             </section>
         </div>

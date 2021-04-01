@@ -1,6 +1,6 @@
 <%-- 
-    Document   : enroll
-    Created on : 19 Mar 2021, 13:06:04
+    Document   : endlessons
+    Created on : 1 Apr 2021, 14:39:08
     Author     : seanl
 --%>
 
@@ -8,7 +8,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
     <head>
-        <title>Enroll | GCU_Skills</title>
+        <title>Update Lesson | GCU_Skills</title>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
         <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/favicon32.png" sizes="32x32"/>
@@ -20,8 +20,8 @@
         <div id="section-container">
             <section class="image-section" id="register">
                 <div class="form-box-content">
-                    <h2>${enrollment} </h2>
-                    <h3><a href="student/yourlessons.jsp">View Your Lessons</a></h3>
+                    <h2>${requestScope.lessonsUpdate} </h2>
+                    <h3><a href="tutor/${requestScope.returnURL}">Back to Course</a></h3>
                 </div>
             </section>
         </div>

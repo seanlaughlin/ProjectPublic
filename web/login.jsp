@@ -23,7 +23,7 @@
         <section class="image-section" id="login">
             <div class="form-box-content">
                 <h2>Log in to your Student account</h2>
-                <form action="${pageContext.servletContext.contextPath}/login" method="POST">    
+                <form action="${pageContext.request.contextPath}/login" method="POST">    
                     <label>     
                         <input type="text" class="input" name="emailaddress" placeholder="Email"/>                   
                         <div class="line-box">          

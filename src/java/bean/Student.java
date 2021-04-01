@@ -21,6 +21,16 @@ public class Student extends User {
         course = new ArrayList();
 
     }
+    
+        //Overloaded Constructor
+    public Student(String emailIn, String firstNameIn, String lastNameIn, Date dobIn, int studentIdIn, String phoneNumberIn) {
+
+        super(emailIn, firstNameIn, lastNameIn, dobIn);
+        studentId = studentIdIn;
+        phoneNumber = phoneNumberIn;
+        course = new ArrayList();
+
+    }
 
     //Overloaded Constructor
     public Student(String emailIn, String passwordIn, String firstNameIn, String lastNameIn, Date dobIn, String phoneNumberIn) {
@@ -36,6 +46,15 @@ public class Student extends User {
     public Student(String emailIn, String passwordIn, String firstNameIn, String lastNameIn, Date dobIn, int studentIdIn, String phoneNumberIn, ArrayList<Course> courseIn) {
 
         super(emailIn, passwordIn, firstNameIn, lastNameIn, dobIn);
+        studentId = studentIdIn;
+        phoneNumber = phoneNumberIn;
+        course = courseIn;
+
+    }
+    
+        public Student(String emailIn, String firstNameIn, String lastNameIn, Date dobIn, int studentIdIn, String phoneNumberIn, ArrayList<Course> courseIn) {
+
+        super(emailIn, firstNameIn, lastNameIn, dobIn);
         studentId = studentIdIn;
         phoneNumber = phoneNumberIn;
         course = courseIn;
