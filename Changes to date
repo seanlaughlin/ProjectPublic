@@ -1,3 +1,18 @@
+01/04/21
+
+StudentLessonsServlet now serves tutor too, renamed LessonsServlet.
+Added new constructor in student to allow student object with courses to be created without password, used for getting courseStatus of students on course for tutor.
+Renamed EndLessonsServlet to LessonStatusServlet as it now can be used by tutor to change lesson status as well as end
+
+New servlets are 
+	-CourseStudentServlet, loads ArrayList of all students from a course
+	-TutorCoursesServlet which loads all courses for a tutor
+
+Database PhoneNumber field changed from number to string to resolve error.
+AdminAuthFilter added to protect /admin/ directory, in preperation for creating admin side of system.
+
+Maybe some more wee tweaks here and there, think I've covered anything major but recommend updating all files from src, web and data to be sure.
+
 22/03/21
 
 Added in jakarta servlet jar, missing from lib previously.
