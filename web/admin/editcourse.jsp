@@ -17,7 +17,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js" type="text/javascript"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/toggle.js"></script>
-        <title>Edit Student Details | GCU_Skills</title>
+        <title>Edit Course Details | GCU_Skills</title>
         <script>
             function newPopup(url) {
                 popupWindow = window.open(
