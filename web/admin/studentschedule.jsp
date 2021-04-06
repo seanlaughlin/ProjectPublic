@@ -1,6 +1,6 @@
 <%-- 
-    Document   : viewcoursestudents
-    Created on : 5 Apr 2021, 00:02:54
+    Document   : studentschedule
+    Created on : 6 Apr 2021, 16:29:28
     Author     : seanl
 --%>
 
@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>View Course Students | GCU_Skills</title>
+        <title>Student Schedule | GCU_Skills</title>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
         <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/favicon32.png" sizes="32x32"/>
@@ -20,12 +20,9 @@
         <c:import url="../Navbar" />
         <section class="image-section" id="lessons">
             <div class="image-box-content" id="yourlessons">
-                <h2>Enrolled Students</h2>    
-                <small>Please note - prior to course start lessons cannot be set to On-Going or Completed.</small>
-                ${requestScope.message}
-                <c:import url="../CourseStudentsServlet" />
-                <button onclick="window.location.href = 'enrollstudent.jsp';">Enroll New</button><br>
-                <h3><a href="${pageContext.request.contextPath}/admin/coursemanagement.jsp">&#x21a9; Back to Course Management</a></h3>
+                <h2>Student Schedule</h2>    
+                <c:import url="../StudentLessonsServlet" />
+                <h3><a href="studentmanagement.jsp">&#x21a9; Back to Student Management</a></h3>
             </div>
         </section>
     </body>

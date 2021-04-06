@@ -46,28 +46,24 @@
                     <form action="../CourseEnrollmentServlet" method="POST">  
                         <label><small style="color:red">${requestScope.error}</small></label>
                         <label>     
-                            <input type="text" class="input" name="courseId" placeholder="Course ID" required/>                   
-                            <div class="line-box">          
-                                <div class="line"></div>        
-                            </div>
-
-                        </label> 
-
-                        <label>     
                             <input type="text" class="input" name="studentId" placeholder="Student ID" required/>                   
                             <div class="line-box">          
                                 <div class="line"></div>        
                             </div>  
-
                         </label>
-
+                        <label>     
+                            <input type="text" class="input" name="courseId" placeholder="Course ID" required/>                   
+                            <div class="line-box">          
+                                <div class="line"></div>        
+                            </div>
+                        </label> 
                         <button type="submit">Enroll</button>
                         <label>
                             <small><a href="JavaScript:newPopup('studentmanagement?isList=true');">View all Students</a></small>
                             <small><a href="JavaScript:newPopup('coursemanagement?isList=true');">View all Courses</a></small>
                         </label>
                     </form> 
-                        <a href="coursemanagement.jsp">Back to Course Management</a>
+                    <a href="coursemanagement.jsp">Back to Course Management</a>
                 </div>
             </section>
         </div>

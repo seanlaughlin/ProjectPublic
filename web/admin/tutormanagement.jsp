@@ -21,7 +21,7 @@
         <section class="image-section" id="lessons">
             <div class="image-box-content" id="yourlessons">
                 <h2>Registered Tutors</h2>
-                <small>To change registered courses visit <a href="coursemanagement.jsp">Course Management</a></small>
+                <small>To manage Courses and Lessons visit <a href="coursemanagement.jsp">Course Management</a></small>
                 <c:import url="tutormanagement" />
                 <button onclick="window.location.href = 'registertutor.jsp';">Add new Tutor</button>
                 <h3><a href="account.jsp">&#x21a9; Back to account home</a></h3>

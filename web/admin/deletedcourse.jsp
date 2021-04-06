@@ -22,7 +22,7 @@
             <section class="image-section" id="register">
                 <div class="image-box-content">
                     <h2>${message}</h2>
-                    <a href="coursemanagement.jsp">&#x21a9; Back to Course Management</a>
+                    <h3><a href="coursemanagement.jsp">&#x21a9; Back to Course Management</a></h3>
                 </div>
             </section>
         </div>

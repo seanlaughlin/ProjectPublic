@@ -1,14 +1,15 @@
 <%-- 
-    Document   : unenroll
-    Created on : 5 Apr 2021, 12:28:54
+    Document   : deletelesson
+    Created on : 6 Apr 2021, 15:58:58
     Author     : seanl
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!DOCTYPE html>
 <html>
     <head>
-        <title>Student Unenroll | GCU_Skills</title>
+        <title>Delete Lesson | GCU_Skills</title>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
         <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/favicon32.png" sizes="32x32"/>
@@ -19,9 +20,9 @@
         <c:import url="../Navbar" /> 
         <div id="section-container">
             <section class="image-section" id="register">
-                <div class="form-box-content">
-                    ${requestScope.message}
-                    <h3><a href="admin/viewcoursestudents.jsp?courseId=${requestScope.courseId}">&#x21a9;Back to View Course Students</a></h3>
+                <div class="image-box-content">
+                    <h2>${message}</h2>
+                    <h3><a href="admin/coursemanagement.jsp">&#x21a9; Back to Course Management</a></h3>
                 </div>
             </section>
         </div>

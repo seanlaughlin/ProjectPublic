@@ -21,7 +21,7 @@
             <section class="image-section" id="register">
                 <div class="form-box-content">
                     ${requestScope.message}
-                    <h3><a href="admin/coursemanagement.jsp">&#x21a9;Back to Course Management</a></h3>
+                    <h3><a href="admin/viewcoursestudents.jsp?courseId=${requestScope.courseId}">&#x21a9;Back to View Course Students</a></h3>
                 </div>
             </section>
         </div>

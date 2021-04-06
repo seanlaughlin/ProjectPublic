@@ -21,7 +21,7 @@
         <section class="image-section" id="lessons">
             <div class="image-box-content" id="yourlessons">
                 <h2>Registered Students</h2>   
-                <small>To change registered courses visit <a href="coursemanagement.jsp">Course Management</a></small>
+                <small>To manage Courses and Lessons visit <a href="coursemanagement.jsp">Course Management</a></small>
                 <c:import url="studentmanagement" />
                 <button onclick="window.location.href = '${pageContext.request.contextPath}/register.jsp';">Add new Student</button>
                 <h3><a href="account.jsp">&#x21a9; Back to account home</a></h3>

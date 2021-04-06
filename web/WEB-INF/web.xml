@@ -96,6 +96,10 @@
         <servlet-name>AdminDetails</servlet-name>
         <servlet-class>bean.servlets.admin.AdminDetails</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DeleteLesson</servlet-name>
+        <servlet-class>bean.servlets.admin.DeleteLesson</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>StudentRegisterServlet</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -191,6 +195,10 @@
     <servlet-mapping>
         <servlet-name>AdminDetails</servlet-name>
         <url-pattern>/admin/admindetails</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteLesson</servlet-name>
+        <url-pattern>/admin/deletelesson</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
