@@ -1,5 +1,13 @@
 06/04/21
 
+	-Bugfixes
+	-Added feature for Admin to view Course Lessons and delete them
+	-Added feature for Admin to view Student Lessons
+	
+Done now pending any more bugs.
+
+06/04/21
+
 Lots of wee changes and loads of extra Admin stuff added.
 
 	-Beginner status in CourseStudentsServlet no longer shows 'Mark as On-Going' and Mark as Complete' options until Course has begun.
