@@ -21,15 +21,15 @@
         <section class="image-section" id="login">
             <div class="form-box-content">
                 <h2>Log in as an Administrator</h2>
-                <form action="<c:out value="${pageContext.servletContext.contextPath}" />/adminlogin" method="POST">    
+                <form action="<c:out value="${pageContext.request.contextPath}" />/adminlogin" method="POST">    
                     <label>     
-                        <input type="text" class="input" name="emailaddress" placeholder="Email"/>                   
+                        <input type="email" class="input" name="emailaddress" placeholder="Email" required/>                   
                         <div class="line-box">          
                             <div class="line"></div>        
                         </div>    
                     </label>
                     <label>     
-                        <input type="password" class="input" name="password" placeholder="Password"/>        
+                        <input type="password" class="input" name="password" placeholder="Password" required/>        
                         <div class="line-box">          
                             <div class="line"></div>        
                         </div>    
@@ -37,8 +37,8 @@
                     <button type="submit">Log in</button>
                     <label><small style="color:red">${requestScope.error}</small></label>
                 </form> 
-                <small><a href="tutorlogin.jsp" class="bottomlink">Tutor login</a></small>
-                <small><a href="login.jsp" class="bottomlink">Student login</a></small>
+                <small><a href="${pageContext.request.contextPath}/tutorlogin.jsp" class="bottomlink">Tutor login</a></small>
+                <small><a href="${pageContext.request.contextPath}/login.jsp" class="bottomlink">Student login</a></small>
             </div>
         </section>
     </body>

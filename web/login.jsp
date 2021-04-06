@@ -25,13 +25,13 @@
                 <h2>Log in to your Student account</h2>
                 <form action="${pageContext.request.contextPath}/login" method="POST">    
                     <label>     
-                        <input type="text" class="input" name="emailaddress" placeholder="Email"/>                   
+                        <input type="email" class="input" name="emailaddress" placeholder="Email" required/>                   
                         <div class="line-box">          
                             <div class="line"></div>        
                         </div>    
                     </label>
                     <label>     
-                        <input type="password" class="input" name="password" placeholder="Password"/>        
+                        <input type="password" class="input" name="password" placeholder="Password" required/>        
                         <div class="line-box">          
                             <div class="line"></div>        
                         </div>    
@@ -42,8 +42,8 @@
                         <small>Don't have an account? <a href="register.jsp">Register</a></small>
                     </label>
                 </form> 
-                <small><a href="tutorlogin.jsp" class="bottomlink">Tutor login</a></small>
-                <small><a href="adminlogin.jsp" class="bottomlink">Administrator login</a></small>
+                <small><a href="${pageContext.request.contextPath}/tutorlogin.jsp" class="bottomlink">Tutor login</a></small>
+                <small><a href="${pageContext.request.contextPath}/adminlogin.jsp" class="bottomlink">Administrator login</a></small>
             </div>
         </section>
     </body>

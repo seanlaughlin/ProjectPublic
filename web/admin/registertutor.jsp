@@ -1,7 +1,7 @@
 <%-- 
-    Document   : register
-    Created on : 2 Mar 2021, 11:59:14
-    Author     : jackb
+    Document   : registertutor
+    Created on : 4 Apr 2021, 22:16:00
+    Author     : seanl
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -10,7 +10,7 @@
 
 <html>
     <head>
-        <title>Register | GCU_Skills</title>
+        <title>Register Tutor | GCU_Skills</title>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
         <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/favicon32.png" sizes="32x32"/>
@@ -32,12 +32,12 @@
         </script>
     </head>
     <body>
-        <c:import url="Navbar" /> 
+        <c:import url="../Navbar" /> 
         <div id="section-container">
             <section class="image-section" id="register">
                 <div class="form-box-content">
-                    <h2>Register a new Student Account</h2>
-                    <form action="<c:out value="${pageContext.servletContext.contextPath}" />/register" method="POST">  
+                    <h2>Register a new Tutor Account</h2>
+                    <form action="tutorregister" method="POST">  
                         <label><small style="color:red">${requestScope.error}</small></label>
                         <label>     
                             <input type="text" class="input" name="fname" placeholder="First name" required/>                   
@@ -52,33 +52,45 @@
                             </div>    
                         </label>
                         <label>     
+                            <input type="text" class="input" name="email" placeholder="Email" required/>                   
+                            <div class="line-box">          
+                                <div class="line"></div>        
+                            </div>    
+                        </label>
+                        <label>     
                             <input type="text" class="input" name="dob" onkeyup="addHyphon();" id="dob" placeholder="Date of birth (DDMMYYYY)" 
-                                   pattern="(0[1-9]|1[0-9]|2[0-9]|3[01])-(0[1-9]|1[012])-[0-9]{4}" required  title="Enter a date in this format DD-MM-YYYY" required/>               
+                                   pattern="(0[1-9]|1[0-9]|2[0-9]|3[01])-(0[1-9]|1[012])-[0-9]{4}" title="Enter a date in this format DD-MM-YYYY" required />               
                             <div class="line-box">          
                                 <div class="line"></div>        
                             </div>    
                         </label>  
                         <label>
-                            <input type="text" class="input" name="contactno" placeholder="Phone number" required />                   
+                            <input type="text" class="input" name="role" placeholder="Role" required />                   
                             <div class="line-box">          
                                 <div class="line"></div>        
                             </div>    
                         </label>                         
                         <label>     
-                            <input type="text" class="input" name="email" placeholder="Email" required/>                   
+                            <input type="text" class="input" name="department" placeholder="Department" required/>                   
                             <div class="line-box">          
                                 <div class="line"></div>        
                             </div>    
                         </label>         
                         <label>     
+                            <input type="text" class="input" name="paygrade" placeholder="Paygrade" required/>        
+                            <div class="line-box">          
+                                <div class="line"></div>        
+                            </div>    
+                        </label>
+                        <label>     
                             <input type="password" class="input" name="password" placeholder="Password" required/>        
                             <div class="line-box">          
                                 <div class="line"></div>        
                             </div>    
-                        </label>          
+                        </label>
                         <button type="submit">Register</button>
                         <label>
-                            <small>Already have an account? <a href="login.jsp">Log in</a></small>
+                            <small><a href="tutormanagement.jsp">&#x21a9; Back to Tutor Management</a></small>
                         </label>
                     </form> 
                 </div>

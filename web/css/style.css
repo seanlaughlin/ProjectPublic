@@ -358,8 +358,6 @@ td, th {
 }
 
 
-
-
 #courseinfo {
     background-image: url('../images/courseinfo.jpg');
     background-size: cover;
@@ -404,6 +402,7 @@ form{
     text-align: center;
 }
 
+
 ::placeholder {
     color: white;
 }
@@ -444,8 +443,18 @@ textarea {
     resize: none;
 }
 
+[type="time"] {
+  background:transparent;
+  color: white;
+  box-shadow: none;
+  border: none;
+  margin: 0 1rem;
+}
+
 textarea::placeholder{
-    padding-top: 5.5rem;
+    padding-top: 4rem;
+    margin-bottom: 0;
+    padding-bottom: 0;
 }
 
 .line-box {  

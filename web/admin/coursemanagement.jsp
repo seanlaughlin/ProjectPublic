@@ -1,6 +1,6 @@
 <%-- 
-    Document   : yourcourses
-    Created on : 1 Apr 2021, 12:18:10
+    Document   : coursemanagement
+    Created on : 4 Apr 2021, 22:57:21
     Author     : seanl
 --%>
 
@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Your Courses | GCU_Skills</title>
+        <title>Course Management | GCU_Skills</title>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
         <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/favicon32.png" sizes="32x32"/>
@@ -20,8 +20,9 @@
         <c:import url="../Navbar" />
         <section class="image-section" id="lessons">
             <div class="image-box-content" id="yourlessons">
-                <h2>Your Courses</h2>    
-                <c:import url="../TutorCoursesServlet" />
+                <h2>Registered Courses</h2>    
+                <c:import url="coursemanagement" />
+                <button onclick="window.location.href = 'registercourse.jsp';">Add new Course</button>
                 <h3><a href="account.jsp">&#x21a9; Back to account home</a></h3>
             </div>
         </section>

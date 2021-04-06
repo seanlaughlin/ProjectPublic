@@ -2,55 +2,99 @@
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee          http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
         <servlet-name>StudentRegisterServlet</servlet-name>
-        <servlet-class>bean.StudentRegisterServlet</servlet-class>
+        <servlet-class>bean.servlets.StudentRegisterServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>StudentLoginServlet</servlet-name>
-        <servlet-class>bean.StudentLoginServlet</servlet-class>
+        <servlet-class>bean.servlets.StudentLoginServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>StudentDetailsServlet</servlet-name>
-        <servlet-class>bean.StudentDetailsServlet</servlet-class>
+        <servlet-class>bean.servlets.StudentDetailsServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>StudentLessonsServlet</servlet-name>
-        <servlet-class>bean.LessonsServlet</servlet-class>
+        <servlet-class>bean.servlets.LessonsServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>EndLessonsServlet</servlet-name>
-        <servlet-class>bean.LessonStatusServlet</servlet-class>
+        <servlet-class>bean.servlets.LessonStatusServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>FutureCoursesServlet</servlet-name>
-        <servlet-class>bean.FutureCoursesServlet</servlet-class>
+        <servlet-class>bean.servlets.FutureCoursesServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>CourseEnrollmentServlet</servlet-name>
-        <servlet-class>bean.CourseEnrollmentServlet</servlet-class>
+        <servlet-class>bean.servlets.CourseEnrollmentServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>LogoutServlet</servlet-name>
-        <servlet-class>bean.LogoutServlet</servlet-class>
+        <servlet-class>bean.servlets.LogoutServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Navbar</servlet-name>
-        <servlet-class>bean.Navbar</servlet-class>
+        <servlet-class>bean.servlets.Navbar</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>TutorLoginServlet</servlet-name>
-        <servlet-class>bean.TutorLoginServlet</servlet-class>
+        <servlet-class>bean.servlets.TutorLoginServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>TutorDetailsServlet</servlet-name>
-        <servlet-class>bean.TutorDetailsServlet</servlet-class>
+        <servlet-class>bean.servlets.TutorDetailsServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>TutorCoursesServlet</servlet-name>
-        <servlet-class>bean.TutorCoursesServlet</servlet-class>
+        <servlet-class>bean.servlets.TutorCoursesServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>CourseStudentsServlet</servlet-name>
-        <servlet-class>bean.CourseStudentsServlet</servlet-class>
+        <servlet-class>bean.servlets.CourseStudentsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminLoginServlet</servlet-name>
+        <servlet-class>bean.servlets.admin.AdminLoginServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminTutorManagement</servlet-name>
+        <servlet-class>bean.servlets.admin.AdminTutorManagement</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminStudentManagement</servlet-name>
+        <servlet-class>bean.servlets.admin.AdminStudentManagement</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteUser</servlet-name>
+        <servlet-class>bean.servlets.admin.DeleteUser</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TutorRegister</servlet-name>
+        <servlet-class>bean.servlets.admin.TutorRegister</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminCourseManagement</servlet-name>
+        <servlet-class>bean.servlets.admin.AdminCourseManagement</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CourseRegister</servlet-name>
+        <servlet-class>bean.servlets.admin.CourseRegister</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteCourse</servlet-name>
+        <servlet-class>bean.servlets.admin.DeleteCourse</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CourseDetails</servlet-name>
+        <servlet-class>bean.servlets.admin.CourseDetailsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LessonRegister</servlet-name>
+        <servlet-class>bean.servlets.admin.LessonRegister</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminDetails</servlet-name>
+        <servlet-class>bean.servlets.admin.AdminDetails</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>StudentRegisterServlet</servlet-name>
@@ -103,6 +147,50 @@
     <servlet-mapping>
         <servlet-name>CourseStudentsServlet</servlet-name>
         <url-pattern>/CourseStudentsServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminLoginServlet</servlet-name>
+        <url-pattern>/adminlogin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminTutorManagement</servlet-name>
+        <url-pattern>/admin/tutormanagement</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminStudentManagement</servlet-name>
+        <url-pattern>/admin/studentmanagement</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteUser</servlet-name>
+        <url-pattern>/admin/deleteuser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TutorRegister</servlet-name>
+        <url-pattern>/admin/tutorregister</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminCourseManagement</servlet-name>
+        <url-pattern>/admin/coursemanagement</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CourseRegister</servlet-name>
+        <url-pattern>/admin/courseregister</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteCourse</servlet-name>
+        <url-pattern>/admin/deletecourse</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CourseDetails</servlet-name>
+        <url-pattern>/admin/coursedetails</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LessonRegister</servlet-name>
+        <url-pattern>/admin/lessonregister</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminDetails</servlet-name>
+        <url-pattern>/admin/admindetails</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
