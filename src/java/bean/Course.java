@@ -63,6 +63,16 @@ public class Course {
         description = descriptionIn;
 
     }
+    
+    public Course(String courseNameIn, String courseStatusIn, Tutor courseTutorIn, String descriptionIn)
+    {
+
+        courseName = courseNameIn;
+        courseStatus = courseStatusIn;
+        courseTutor = courseTutorIn;
+        description = descriptionIn;
+
+    }
 
     //Getters
     public int getCourseId() {return courseId;}

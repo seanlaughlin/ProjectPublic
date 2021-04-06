@@ -1,6 +1,5 @@
 package bean;
 
-import java.security.cert.CertificateParsingException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -40,10 +39,32 @@ public class Tutor extends User
 
     }
 
+    //Overloaded Constructor
+    public Tutor(String usernameIn, String firstNameIn, String lastNameIn, Date dobIn, int tutorIdIn, String roleIn, String departmentIn, int payGradeIn, ArrayList<Course> tutorCoursesIn) {
+
+        super(usernameIn, firstNameIn, lastNameIn, dobIn);
+        tutorId = tutorIdIn;
+        role = roleIn;
+        department = departmentIn;
+        payGrade = payGradeIn;
+        tutorCourses = tutorCoursesIn;
+
+    }
+
     public Tutor(String usernameIn, String passwordIn, String firstNameIn, String lastNameIn, Date dobIn, int tutorIdIn, String roleIn, String departmentIn, int payGradeIn) {
 
         super(usernameIn, passwordIn, firstNameIn, lastNameIn, dobIn);
         tutorId = tutorIdIn;
+        role = roleIn;
+        department = departmentIn;
+        payGrade = payGradeIn;
+        tutorCourses = new ArrayList<>();
+
+    }
+    
+    public Tutor(String usernameIn, String passwordIn, String firstNameIn, String lastNameIn, Date dobIn, String roleIn, String departmentIn, int payGradeIn) {
+
+        super(usernameIn, passwordIn, firstNameIn, lastNameIn, dobIn);
         role = roleIn;
         department = departmentIn;
         payGrade = payGradeIn;
