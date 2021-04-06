@@ -6,15 +6,13 @@
 package bean.servlets.admin;
 
 import bean.CourseManager;
-import java.io.IOException;
-import jakarta.servlet.*;
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -22,7 +20,7 @@ import java.util.logging.Logger;
  *
  * @author seanl
  */
-public class LessonRegister extends HttpServlet {
+public class DeleteLesson extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,44 +30,32 @@ public class LessonRegister extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
-     * @throws java.text.ParseException
-     * @throws java.lang.ClassNotFoundException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, ParseException, ClassNotFoundException {
+            throws ServletException, IOException, SQLException, ClassNotFoundException {
+        
+        //Get lessonId from request
+        int lessonId = Integer.parseInt(request.getParameter("lessonId"));
         
         CourseManager cm = new CourseManager();
         RequestDispatcher rd;
         String message = null;
-        String error = null;
-        
-        //Get Lesson details from request
-        int courseId = Integer.parseInt(request.getParameter("courseid"));
-        String lessonDate = request.getParameter("lessondate");
-        String lessonTime = request.getParameter("lessontime");
-        
-        //Convert into Timestamp via Date as SDF doesn't support Timestamp
-        Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(lessonDate+" "+ lessonTime);
-        Timestamp ts = new Timestamp(date.getTime());
-        
-        //Call method to add Lesson to db and store returned result
-        boolean isAdded = cm.addCourseLesson(courseId, ts);
-        
-        //Set message depending on if added successfully
-        if(isAdded){
-            message = "Lesson added successfully for Course #" + courseId;
-            request.setAttribute("message", message);
-        }
-        else{
-            error = "Unable to add lesson. Please check details and try again.";
-            request.setAttribute("error", error);
+
+        //Call method to delete course and store returned result
+        boolean isLessonDeleted = cm.deleteLesson(lessonId);
+
+        //Check if deleted and set message
+        if (isLessonDeleted) {
+            message = "Lesson deleted successfully.";
+        } else {
+            message = "Unable to delete Lesson. Lesson may not exist or may have already been deleted.";
         }
         
-        //Direct back to add Lesson (in case further lessons to be added) and message will be displayed
-        rd = request.getRequestDispatcher("addlesson.jsp");
+        //Put message in request and direct to page displaying message indicating success or failure
+        rd = request.getRequestDispatcher("deletelesson.jsp");
+        request.setAttribute("message", message);
         rd.forward(request, response);
-        }
-    
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -85,8 +71,8 @@ public class LessonRegister extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
-        } catch (ParseException | ClassNotFoundException ex) {
-            Logger.getLogger(LessonRegister.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(DeleteLesson.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -103,8 +89,8 @@ public class LessonRegister extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
-        } catch (ParseException | ClassNotFoundException ex) {
-            Logger.getLogger(LessonRegister.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(DeleteLesson.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -115,7 +101,7 @@ public class LessonRegister extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Allows Admin to add Lessons to existing Courses.";
+        return "Used by Admin to delete Lessons.";
     }// </editor-fold>
 
 }

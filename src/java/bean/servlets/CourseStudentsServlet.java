@@ -41,7 +41,7 @@ public class CourseStudentsServlet extends HttpServlet {
         int courseId = Integer.parseInt(request.getParameter("courseId"));
         CourseManager cm = new CourseManager();
         ArrayList<Student> courseStudents = cm.loadCourseStudents(courseId);
-        
+
         //Get calendar object with todays date
         Calendar today = Calendar.getInstance();
         today.set(Calendar.HOUR_OF_DAY, 0);
@@ -75,9 +75,14 @@ public class CourseStudentsServlet extends HttpServlet {
                 out.format("<td>%1$s %2$s</td>", student.getFirstName(), student.getLastName());
                 out.format("<td>%s</td>", studentDob);
                 out.format("<td>%s</td>", student.getEmail());
-                
+
                 //Check if Course has started by comparing first Lesson date to object with todays date to see if before
-                hasCourseStarted = studentCourse.getLessons().get(0).getTimeSlot().before(today.getTime());
+                try {
+                    hasCourseStarted = studentCourse.getLessons().get(0).getTimeSlot().before(today.getTime());
+                } //Set to false if course has no Lessons (causes exception)
+                catch (IndexOutOfBoundsException e) {
+                    hasCourseStarted = false;
+                }
 
                 //Display different options to change course status and text colors depending on current Course status
                 switch (courseStatus) {
@@ -99,17 +104,16 @@ public class CourseStudentsServlet extends HttpServlet {
 
                     case "Beginner":
                         out.format("<td><span style=\"color: #0065BF\">%s</span></td>", courseStatus);
-                        if(hasCourseStarted){
-                        out.format("<td><ul style=\"list-style: none\"><li><small><a href=\"../EndLessonsServlet?courseId=%1$s&studentId=%2$s&lessonStatus=On-Going\">Mark as On-Going</a></small></li>", studentCourse.getCourseId(), student.getStudentId());
-                        out.format("<small><li><a href=\"../EndLessonsServlet?courseId=%1$s&studentId=%2$s&lessonStatus=Completed\">Mark as Completed</a></small></li>", studentCourse.getCourseId(), student.getStudentId());
-                        }
-                        else {
+                        if (hasCourseStarted) {
+                            out.format("<td><ul style=\"list-style: none\"><li><small><a href=\"../EndLessonsServlet?courseId=%1$s&studentId=%2$s&lessonStatus=On-Going\">Mark as On-Going</a></small></li>", studentCourse.getCourseId(), student.getStudentId());
+                            out.format("<small><li><a href=\"../EndLessonsServlet?courseId=%1$s&studentId=%2$s&lessonStatus=Completed\">Mark as Completed</a></small></li>", studentCourse.getCourseId(), student.getStudentId());
+                        } else {
                             out.println("<td><ul style=\"list-style:none\">");
                         }
                         out.format("<small><li><a href=\"../EndLessonsServlet?courseId=%1$s&studentId=%2$s&lessonStatus=Not-complete\">End Lessons</a></small></li></ul></td>", studentCourse.getCourseId(), student.getStudentId());
                         break;
                 }
-                out.format("<td><small><a href=\""+request.getContextPath()+"/CourseEnrollmentServlet?studentId=%1$s&courseId=%2$s&unEnroll=true\" style=\"color:red\">Unenroll</a></small></td>", student.getStudentId(), studentCourse.getCourseId()); 
+                out.format("<td><small><a href=\"" + request.getContextPath() + "/CourseEnrollmentServlet?studentId=%1$s&courseId=%2$s&unEnroll=true\" style=\"color:red\">Unenroll</a></small></td>", student.getStudentId(), studentCourse.getCourseId());
                 out.println("</tr>");
             }
             out.println("</table>");

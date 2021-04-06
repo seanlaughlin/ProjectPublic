@@ -103,6 +103,7 @@ public class AdminStudentManagement extends HttpServlet {
                     if (!isList) {
                         out.println("<th></th>");
                         out.println("<th></th>");
+                        out.println("<th></th>");
                         out.println("</tr>");
                     }
 
@@ -145,6 +146,7 @@ public class AdminStudentManagement extends HttpServlet {
 
                         //If the request is not for a simple list of details only and interaction with data is required, display links
                         if (!isList) {
+                            out.format("<td><small><a href=\"studentmanagement?action=schedule&studentId=%d\">View Schedule</a></small></td>", student.getStudentId());
                             out.format("<td><small><a href=\"studentmanagement?action=edit&studentId=%d\">Edit</a></small></td>", student.getStudentId());
                             out.format("<td><small><a href=\"deleteuser?userType=student&userId=%d\" style=\"color: red\">Delete</a></small></td>", student.getStudentId());
                         }

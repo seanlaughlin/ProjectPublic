@@ -97,14 +97,15 @@ public class AdminCourseManagement extends HttpServlet {
                             out.println("<th></th>");
                         }
                         out.println("</tr>");
-                        
+
                         //For each Course object in array of all Courses, output table row
                         for (Course course : allCourses) {
                             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                            courseId = course.getCourseId();
                             ArrayList<Student> courseStudents = cm.loadCourseStudents(course.getCourseId());
 
                             out.println("<tr>");
-                            out.format("<td>%s</td>", course.getCourseId());
+                            out.format("<td>%s</td>", courseId);
                             out.format("<td>%s</td>", course.getCourseName());
                             out.format("<td>%s</td>", course.getCourseStatus());
                             out.format("<td>%1$s %2$s</td>", course.getCourseTutor().getFirstName(), course.getCourseTutor().getLastName());
@@ -128,13 +129,13 @@ public class AdminCourseManagement extends HttpServlet {
                                 out.format("<td></td>");
                                 out.format("<td></td>");
                             }
-                            
+
                             //If the request is not for a simple list of details only and interaction with data is required, display links
                             if (!isList) {
-                                out.format("<td><small><a href=\"viewcoursestudents.jsp?courseId=%s\">View Students</small></td>", course.getCourseId());
-                                out.println("<td><small><a href=\"addlesson.jsp\">Add Lesson</small></td>");
-                                out.format("<td><small><a href=\"coursemanagement?courseId=%s&action=edit\">Edit Course</small></td>", course.getCourseId());
-                                out.format("<td><small><a href=\"deletecourse?courseId=%s\" style=\"color:red\">Delete</small></td>", course.getCourseId());
+                                out.format("<td><small><a href=\"viewcoursestudents.jsp?courseId=%s\">View/Manage Students</small></td>", courseId);
+                                out.format("<td><small><a href=\"viewlessons.jsp?courseId=%s\">View/Manage Lessons</small></td>", courseId);
+                                out.format("<td><small><a href=\"coursemanagement?courseId=%s&action=edit\">Edit Details</small></td>", courseId);
+                                out.format("<td><small><a href=\"deletecourse?courseId=%s\" style=\"color:red\">Delete</small></td>", courseId);
                             }
 
                         }

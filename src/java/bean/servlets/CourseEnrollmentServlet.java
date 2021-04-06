@@ -105,6 +105,7 @@ public class CourseEnrollmentServlet extends HttpServlet {
 
                 if (isDeleted) {
                     message = "Student unenrolled successfully.";
+                    request.setAttribute("courseId", courseId);
                 } else {
                     message = "Unable to remove enrollment. It may have already been removed from the database.";
                 }
@@ -126,6 +127,7 @@ public class CourseEnrollmentServlet extends HttpServlet {
                 }
                 rd = request.getRequestDispatcher("admin/studentenrolled.jsp");
                 request.setAttribute("message", message);
+                request.setAttribute("courseId", courseId);
                 rd.forward(request, response);
             } //Send to login with message if not logged in
             else {

@@ -186,6 +186,22 @@ public class CourseManager {
 
         return deleted;
     }
+    
+        //Delete entry in Lessons table by Lesson ID
+        public boolean deleteLesson(int lessonId) throws SQLException, ClassNotFoundException {
+
+        boolean deleted = false;
+
+        Class.forName(driver);
+        Connection conn = DriverManager.getConnection(connectionString);
+        Statement stmt = conn.createStatement();
+        int delete = stmt.executeUpdate("DELETE FROM Lessons WHERE lessonId=" + lessonId);
+        if (delete != 0) {
+            deleted = true;
+        }
+
+        return deleted;
+    }
 
     //Load all Courses for Student by Student ID
     public ArrayList<Course> loadStudentCourses(int studentIdIn) {
@@ -417,6 +433,33 @@ public class CourseManager {
 
         //Return updated course object
         return course;
+    }
+    
+        public Course loadCourse(int courseId) throws SQLException, ClassNotFoundException {
+
+        Class.forName(driver);
+            Connection conn = DriverManager.getConnection(connectionString);
+            Statement stmt = conn.createStatement();
+            Course loadedCourse = null;
+            
+            //Selects all entries in the Courses table of the database
+            ResultSet rs = stmt.executeQuery("SELECT * FROM Courses WHERE CourseId= " + courseId);
+
+            //Executes while the results set has a next value
+            while (rs.next()) {
+
+                //Loads all values for an entry into an course object
+                String courseName = rs.getString("CourseName");
+                String courseStatus = rs.getString("CourseStatus");
+                String description = rs.getString("Description");
+                
+                Tutor courseTutor = loadCourseTutor(courseId);
+
+                //Creates a course object with the data from the database and calls the loadCourseLessons method to populate that course with its associated lessons
+                loadedCourse = new Course(courseId, courseName, courseStatus, loadCourseLessons(courseId), courseTutor, description);
+            }
+            conn.close();
+            return loadedCourse;     
     }
 
     //Load all Courses for a Tutor by Tutor ID

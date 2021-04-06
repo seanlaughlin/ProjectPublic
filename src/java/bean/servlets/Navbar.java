@@ -37,6 +37,8 @@ public class Navbar extends HttpServlet {
             HttpSession session = request.getSession();
             String path = request.getContextPath();
             
+            String userType;
+            
             //Output links that do not change dynamically first
             out.format("<nav id=\"navbar\">%n"
                     + "<img src=\"%1$s/images/GCU_SkillsLogoWordsSmall.png\" alt=\"GCU Skills\"/><ul>", path);
@@ -45,19 +47,19 @@ public class Navbar extends HttpServlet {
                         + "<li><a href=\"%1$s/index.jsp#contact\" id=\"contactlink\">Contact</a></li> "
                         + "<li><a href=\"%1$s/courses.jsp#start\">Courses</a></li>", path);
             
-            //Check if user logged in and print different links for logged in and not logged in users/user types
-            if (session.getAttribute("loggedIn") != null && session.getAttribute("student") != null) {
-                        out.format("<li><a href=\"%1$s/student/account.jsp\">Account</a></li>"
-                        + "<li><a href=\"%1$s/logout\">Logout</a></li>", path);
+            if(session.getAttribute("admin")!=null){
+                userType = "admin";
+            }
+            else if(session.getAttribute("tutor")!=null){
+                userType = "tutor";
+            }
+            else{
+                userType = "student";
             }
             
-            else if(session.getAttribute("tutor") != null){
-                out.format("<li><a href=\"%1$s/tutor/account.jsp\">Account</a></li>"
-                        + "<li><a href=\"%1$s/logout\">Logout</a></li>", path);
-            }
-            
-            else if(session.getAttribute("admin") != null){
-                out.format("<li><a href=\"%1$s/admin/account.jsp\">Account</a></li>"
+            //Check if user logged in and print different links if logged in
+            if (session.getAttribute("loggedIn") != null) {
+                        out.format("<li><a href=\""+request.getContextPath()+"/"+userType+"/"+"account.jsp\">Account</a></li>"
                         + "<li><a href=\"%1$s/logout\">Logout</a></li>", path);
             }
             
