@@ -1,3 +1,31 @@
+06/04/21
+
+Lots of wee changes and loads of extra Admin stuff added.
+
+	-Beginner status in CourseStudentsServlet no longer shows 'Mark as On-Going' and Mark as Complete' options until Course has begun.
+	-Solved issue where links to alternate between different login pages weren't working when clicked after being referred from a protected directory
+		(added context path variable at start of link URL).
+	-Added HTML input validation to email fields in login screens and set as required fields.
+	-Fixed SQL query in loadAllTutors (was looking up Students table, now looking up correct Tutors table).
+	-Removed CourseId from SQL query in loadAllStudents() as doesnt exist in table and not required.
+	-New constructor added in tutor to match registerTutor SQL query
+	-Added loadAllCourses in coursemanager to load all courses for administrator
+	-Renamed Course updateAttribute method updateLessonsStatus, makes more sense.
+	-Changed updateCourseAttribute, only needs to return boolean as Course object isn't stored in session
+	-Added Lessons array to addCourse
+	-Added new Course constructor that takes coursename,coursestatus, tutorid, description to register course (registers with 0 Lessons to be added later)
+	-Changed addCourse to take courseName, courseStatus, tutorId and description rather than course object as course object requires tutor object which would need new method as loadTutor takes courseId
+	-Unenroll method added, deleteCourse method added
+	-Moved servlets and filters to seperate sub directories for convenience inc admin directory
+
+Various other small changes to fix bigs etc.
+
+Super chunky right now (sorry lol), and I am positive that with time the number of servlets could be easily halved, but we can try to get everything else done and can be looked at if there's time.
+If you're really puzzling over a servlets function, there's a servlet description right at the end of the code, or send me a message.
+
+Database has been cleaned to leave only an Admin account so you guys can check the features of adding Tutors, Courses, Lessons, Students.
+
+
 01/04/21
 
 StudentLessonsServlet now serves tutor too, renamed LessonsServlet.
