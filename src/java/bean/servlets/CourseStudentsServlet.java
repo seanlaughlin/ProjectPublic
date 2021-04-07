@@ -5,6 +5,7 @@
  */
 package bean.servlets;
 
+import bean.Admin;
 import bean.Course;
 import bean.CourseManager;
 import bean.Student;
@@ -14,6 +15,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -46,6 +48,9 @@ public class CourseStudentsServlet extends HttpServlet {
         Calendar today = Calendar.getInstance();
         today.set(Calendar.HOUR_OF_DAY, 0);
         boolean hasCourseStarted;
+        
+        HttpSession session = request.getSession();
+        boolean adminRequest = (Admin) session.getAttribute("admin") != null;
 
         Course studentCourse = null;
         try (PrintWriter out = response.getWriter()) {
@@ -57,7 +62,9 @@ public class CourseStudentsServlet extends HttpServlet {
             out.println("<th>Email Address</th>");
             out.println("<th>Lessons Status</th>");
             out.println("<th></th>");
+            if(adminRequest){
             out.println("<th></th>");
+            }
             out.println("</tr>");
 
             //Print new row for each student in ArrayList with student details
@@ -111,7 +118,9 @@ public class CourseStudentsServlet extends HttpServlet {
                         out.format("<small><li><a href=\"../EndLessonsServlet?courseId=%1$s&studentId=%2$s&lessonStatus=Not-complete\">End Lessons</a></small></li></ul></td>", studentCourse.getCourseId(), student.getStudentId());
                         break;
                 }
+                if(adminRequest){
                 out.format("<td><small><a href=\"" + request.getContextPath() + "/CourseEnrollmentServlet?studentId=%1$s&courseId=%2$s&unEnroll=true\" style=\"color:red\">Unenroll</a></small></td>", student.getStudentId(), studentCourse.getCourseId());
+                }
                 out.println("</tr>");
             }
             out.println("</table>");
