@@ -130,10 +130,9 @@ public class CourseEnrollmentServlet extends HttpServlet {
 
                 //True if enrolled successfully, set message depending on success and forward to page advising user
                 boolean enrolled = cm.enrollStudent(studentId, courseId);
-                if (enrolled) {
-                    pageTitle = "Enrolment";
-                    message = "Enrollment successful.";
-                    returnURL = "admin/viewcoursestudents.jsp?courseId=" + courseId;;
+                returnURL = "admin/viewcoursestudents.jsp?courseId=" + courseId;
+                pageTitle = "Enrolment";
+                if (enrolled) { 
                 } else {
                     message = "Enrollment failed. Please check the information and try again.";
                 }
