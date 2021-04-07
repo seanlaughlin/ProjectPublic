@@ -86,7 +86,7 @@ public class CourseStudentsServlet extends HttpServlet {
                 }
 
                 //Display different options to change course status and text colors depending on current Course status
-                out.format("<td><span style=\"color: %1$s\">%2$ss</span></td>", colour, courseStatus);
+                out.format("<td><span style=\"color: %1$s\">%2$s</span></td>", colour, courseStatus);
                 switch (courseStatus) {
                     case "Not-complete":
                         out.println("<td><small style=\"color: red\">Lessons Ended</small></td>");
