@@ -23,7 +23,7 @@
                 <h2>Course Lessons</h2>    
                 <c:import url="../StudentLessonsServlet" />
                 <button onclick="window.location.href = 'addlesson.jsp';">Add Lesson</button>
-                <h3><a href="coursemanagement.jsp">&#x21a9; Back to Course Management</a></h3>
+                <h3><a href="coursemanagement.jsp">&#x21a9; Back to course management</a></h3>
             </div>
         </section>
     </body>

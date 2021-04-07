@@ -22,7 +22,7 @@
             <div class="image-box-content" id="yourlessons">
                 <h2>Tutor Schedule</h2>    
                 <c:import url="../StudentLessonsServlet" />
-                <h3><a href="tutormanagement.jsp">&#x21a9; Back to Tutor Management</a></h3>
+                <h3><a href="tutormanagement.jsp">&#x21a9; Back to tutor management</a></h3>
             </div>
         </section>
     </body>

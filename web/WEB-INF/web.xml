@@ -9,10 +9,6 @@
         <servlet-class>bean.servlets.StudentLoginServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>StudentDetailsServlet</servlet-name>
-        <servlet-class>bean.servlets.StudentDetailsServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>StudentLessonsServlet</servlet-name>
         <servlet-class>bean.servlets.LessonsServlet</servlet-class>
     </servlet>
@@ -41,10 +37,6 @@
         <servlet-class>bean.servlets.TutorLoginServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>TutorDetailsServlet</servlet-name>
-        <servlet-class>bean.servlets.TutorDetailsServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>TutorCoursesServlet</servlet-name>
         <servlet-class>bean.servlets.TutorCoursesServlet</servlet-class>
     </servlet>
@@ -65,10 +57,6 @@
         <servlet-class>bean.servlets.admin.AdminStudentManagement</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>DeleteUser</servlet-name>
-        <servlet-class>bean.servlets.admin.DeleteUser</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>TutorRegister</servlet-name>
         <servlet-class>bean.servlets.admin.TutorRegister</servlet-class>
     </servlet>
@@ -79,10 +67,6 @@
     <servlet>
         <servlet-name>CourseRegister</servlet-name>
         <servlet-class>bean.servlets.admin.CourseRegister</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>DeleteCourse</servlet-name>
-        <servlet-class>bean.servlets.admin.DeleteCourse</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>CourseDetails</servlet-name>
@@ -97,8 +81,16 @@
         <servlet-class>bean.servlets.admin.AdminDetails</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>DeleteLesson</servlet-name>
-        <servlet-class>bean.servlets.admin.DeleteLesson</servlet-class>
+        <servlet-name>DeleteServlet</servlet-name>
+        <servlet-class>bean.servlets.admin.DeleteServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LoginServlet</servlet-name>
+        <servlet-class>bean.servlets.LoginServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DetailsServlet</servlet-name>
+        <servlet-class>bean.servlets.DetailsServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>StudentRegisterServlet</servlet-name>
@@ -107,10 +99,6 @@
     <servlet-mapping>
         <servlet-name>StudentLoginServlet</servlet-name>
         <url-pattern>/login</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>StudentDetailsServlet</servlet-name>
-        <url-pattern>/studentdetails</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>StudentLessonsServlet</servlet-name>
@@ -141,10 +129,6 @@
         <url-pattern>/tutorlogin</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>TutorDetailsServlet</servlet-name>
-        <url-pattern>/tutordetails</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>TutorCoursesServlet</servlet-name>
         <url-pattern>/TutorCoursesServlet</url-pattern>
     </servlet-mapping>
@@ -165,10 +149,6 @@
         <url-pattern>/admin/studentmanagement</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>DeleteUser</servlet-name>
-        <url-pattern>/admin/deleteuser</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>TutorRegister</servlet-name>
         <url-pattern>/admin/tutorregister</url-pattern>
     </servlet-mapping>
@@ -179,10 +159,6 @@
     <servlet-mapping>
         <servlet-name>CourseRegister</servlet-name>
         <url-pattern>/admin/courseregister</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>DeleteCourse</servlet-name>
-        <url-pattern>/admin/deletecourse</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CourseDetails</servlet-name>
@@ -197,8 +173,16 @@
         <url-pattern>/admin/admindetails</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>DeleteLesson</servlet-name>
-        <url-pattern>/admin/deletelesson</url-pattern>
+        <servlet-name>DeleteServlet</servlet-name>
+        <url-pattern>/admin/delete</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/LoginServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DetailsServlet</servlet-name>
+        <url-pattern>/details</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>

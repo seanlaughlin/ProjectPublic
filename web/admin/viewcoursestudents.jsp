@@ -25,7 +25,7 @@
                 ${requestScope.message}
                 <c:import url="../CourseStudentsServlet" />
                 <button onclick="window.location.href = 'enrollstudent.jsp';">Enroll New</button><br>
-                <h3><a href="${pageContext.request.contextPath}/admin/coursemanagement.jsp">&#x21a9; Back to Course Management</a></h3>
+                <h3><a href="${pageContext.request.contextPath}/admin/coursemanagement.jsp">&#x21a9; Back to course management</a></h3>
             </div>
         </section>
     </body>

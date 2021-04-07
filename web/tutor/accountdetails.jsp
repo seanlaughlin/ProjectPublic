@@ -1,5 +1,11 @@
 <%-- 
     Document   : accountdetails
+    Created on : 7 Apr 2021, 11:34:36
+    Author     : seanl
+--%>
+
+<%-- 
+    Document   : accountdetails
     Created on : 5 Mar 2021, 18:20:51
     Author     : seanl
 --%>
@@ -70,7 +76,7 @@
                                 <td><button class="detailsbutton" id="passwordedit">Edit</button><small class="editconfirm">&check; updated.</small></td>
                             </tr>                            
                         </table>  
-                        <input type="hidden" id="servletpath" name="servletPath" value="../tutordetails">
+                        <input type="hidden" id="servletpath" name="servletPath" value="${pageContext.request.contextPath}/details">
                     </form>
                     <small>* - Not editable. Please <a href="../index.jsp#contact">contact support</a> to request a change.</small>
                     <h3><a href="account.jsp">&#x21a9; Back to account home</a></h3>

@@ -77,7 +77,7 @@
                             </div>    
                         </label>         
                         <label>     
-                            <input type="text" class="input" name="paygrade" placeholder="Paygrade" required/>        
+                            <input type="number" class="input" name="paygrade" placeholder="Paygrade" required/>        
                             <div class="line-box">          
                                 <div class="line"></div>        
                             </div>    

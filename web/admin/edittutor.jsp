@@ -68,9 +68,9 @@
                                 <td><button class="detailsbutton" id="emailedit">Edit</button><small class="editconfirm">&check; updated.</small></td>
                             </tr>                          
                         </table>  
-                        <input type="hidden" id="servletpath" name="servletPath" value="${pageContext.request.contextPath}/tutordetails">
+                        <input type="hidden" id="servletpath" name="servletPath" value="${pageContext.request.contextPath}/details">
                     </form>
-                    <h3><a href="tutormanagement.jsp">&#x21a9; Back to Tutor Management</a></h3>
+                    <h3><a href="tutormanagement.jsp">&#x21a9; Back to tutor management</a></h3>
                 </div>
             </section>
         </div>

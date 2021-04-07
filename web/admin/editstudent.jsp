@@ -56,13 +56,11 @@
                                 <th>Email:</th>
                                 <td><input type="text" class="input" name="emailaddress" id="emailfield" value="${selectedStudent.email}" readonly /></td>
                                 <td><button class="detailsbutton" id="emailedit">Edit</button><small class="editconfirm">&check; updated.</small></td>
-                            </tr>
-                            <tr>
-                            </tr>                            
+                            </tr>                          
                         </table>
-                        <input type="hidden" id="servletpath" name="servletPath" value="${pageContext.request.contextPath}/studentdetails">
+                        <input type="hidden" id="servletpath" name="servletPath" value="${pageContext.request.contextPath}/details">
                     </form>
-                    <h3><a href="studentmanagement.jsp">&#x21a9; Back to Student Management</a></h3>
+                    <h3><a href="studentmanagement.jsp">&#x21a9; Back to student management</a></h3>
                 </div>
             </section>
         </div>
