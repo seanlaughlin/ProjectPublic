@@ -30,7 +30,7 @@
         <div class="section-container">
             <section class="image-section" id="courses-list">
                 <div class="courses-content">
-                    <h2>Courses currently available <% out.print(request.getServletPath());%></h2> 
+                    <h2>Courses currently available</h2> 
                     <c:import url="FutureCoursesServlet" />
                 </div>
             </section>
