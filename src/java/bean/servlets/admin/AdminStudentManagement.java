@@ -68,6 +68,11 @@ public class AdminStudentManagement extends HttpServlet {
                     }
                 }
                 rd = request.getRequestDispatcher("editstudent.jsp");
+                
+                //If Tutor or Course were previously being edited, removes object from session, adds Student object for use by DetailsServlet
+                session.removeAttribute("selectedTutor");
+                session.removeAttribute("selectedCourse");
+                
                 session.setAttribute("selectedStudent", selected);
                 rd.forward(request, response);
                 break;
@@ -95,7 +100,7 @@ public class AdminStudentManagement extends HttpServlet {
                     out.println("<tr>");
                     out.println("<th>Student ID</th>");
                     out.println("<th>Name</th>");
-                    out.println("<th>Date of Birth</th>");
+                    out.println("<th>DOB</th>");
                     out.println("<th>Email Address</th>");
                     out.println("<th>Phone No.</th>");
                     out.println("<th>Registered Courses</th>");
@@ -148,7 +153,7 @@ public class AdminStudentManagement extends HttpServlet {
                         if (!isList) {
                             out.format("<td><small><a href=\"studentmanagement?action=schedule&studentId=%d\">View Schedule</a></small></td>", student.getStudentId());
                             out.format("<td><small><a href=\"studentmanagement?action=edit&studentId=%d\">Edit</a></small></td>", student.getStudentId());
-                            out.format("<td><small><a href=\"deleteuser?userType=student&userId=%d\" style=\"color: red\">Delete</a></small></td>", student.getStudentId());
+                            out.format("<td><small><a href=\"delete?studentId=%d\" style=\"color: red\">Delete</a></small></td>", student.getStudentId());
                         }
                         out.println("</tr>");
                     }

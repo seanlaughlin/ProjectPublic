@@ -9,6 +9,8 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -154,7 +156,7 @@ public class CourseManager {
             return false;
         }
     }
-    
+
     //Remove entry in Enrollments table by student and course id
     public boolean unenrollStudent(int studentId, int courseId) throws SQLException, ClassNotFoundException {
 
@@ -186,9 +188,9 @@ public class CourseManager {
 
         return deleted;
     }
-    
-        //Delete entry in Lessons table by Lesson ID
-        public boolean deleteLesson(int lessonId) throws SQLException, ClassNotFoundException {
+
+    //Delete entry in Lessons table by Lesson ID
+    public boolean deleteLesson(int lessonId) throws SQLException, ClassNotFoundException {
 
         boolean deleted = false;
 
@@ -317,7 +319,9 @@ public class CourseManager {
 
                 //Adds the lesson object to the lessonsArrayList
                 lessonsArrayList.add(lesson);
-
+                
+                //Sort in order of date and time (asc)
+                Collections.sort(lessonsArrayList, (Lesson o1, Lesson o2) -> o1.getTimeSlot().compareTo(o2.getTimeSlot()));
             }
 
         } catch (ClassNotFoundException | SQLException ex) {
@@ -332,15 +336,15 @@ public class CourseManager {
         }
 
     }
-    
+
     //Add Lesson to Lessons table in DB by Course ID
-    public boolean addCourseLesson(int courseId, Timestamp timeSlot) throws ClassNotFoundException{
-         try {
+    public boolean addCourseLesson(int courseId, Timestamp timeSlot) throws ClassNotFoundException {
+        try {
             //Connect to database and insert courseId and timeSlot to Lessons table
             Class.forName(driver);
             Connection conn = DriverManager.getConnection(connectionString);
             Statement stmt = conn.createStatement();
-            stmt.executeUpdate("INSERT INTO Lessons(Timeslot, CourseId) " + "VALUES('" + timeSlot + "', '" + courseId+"')");
+            stmt.executeUpdate("INSERT INTO Lessons(Timeslot, CourseId) " + "VALUES('" + timeSlot + "', '" + courseId + "')");
 
             //If key was generated from statement, return true to confirm success, otherwise return false
             ResultSet rs = stmt.getGeneratedKeys();
@@ -353,7 +357,7 @@ public class CourseManager {
             return false;
         }
     }
-    
+
     //Load all Courses in DB
     public ArrayList<Course> loadAllCourses() {
 
@@ -434,32 +438,32 @@ public class CourseManager {
         //Return updated course object
         return course;
     }
-    
-        public Course loadCourse(int courseId) throws SQLException, ClassNotFoundException {
+
+    public Course loadCourse(int courseId) throws SQLException, ClassNotFoundException {
 
         Class.forName(driver);
-            Connection conn = DriverManager.getConnection(connectionString);
-            Statement stmt = conn.createStatement();
-            Course loadedCourse = null;
-            
-            //Selects all entries in the Courses table of the database
-            ResultSet rs = stmt.executeQuery("SELECT * FROM Courses WHERE CourseId= " + courseId);
+        Connection conn = DriverManager.getConnection(connectionString);
+        Statement stmt = conn.createStatement();
+        Course loadedCourse = null;
 
-            //Executes while the results set has a next value
-            while (rs.next()) {
+        //Selects all entries in the Courses table of the database
+        ResultSet rs = stmt.executeQuery("SELECT * FROM Courses WHERE CourseId= " + courseId);
 
-                //Loads all values for an entry into an course object
-                String courseName = rs.getString("CourseName");
-                String courseStatus = rs.getString("CourseStatus");
-                String description = rs.getString("Description");
-                
-                Tutor courseTutor = loadCourseTutor(courseId);
+        //Executes while the results set has a next value
+        while (rs.next()) {
 
-                //Creates a course object with the data from the database and calls the loadCourseLessons method to populate that course with its associated lessons
-                loadedCourse = new Course(courseId, courseName, courseStatus, loadCourseLessons(courseId), courseTutor, description);
-            }
-            conn.close();
-            return loadedCourse;     
+            //Loads all values for an entry into an course object
+            String courseName = rs.getString("CourseName");
+            String courseStatus = rs.getString("CourseStatus");
+            String description = rs.getString("Description");
+
+            Tutor courseTutor = loadCourseTutor(courseId);
+
+            //Creates a course object with the data from the database and calls the loadCourseLessons method to populate that course with its associated lessons
+            loadedCourse = new Course(courseId, courseName, courseStatus, loadCourseLessons(courseId), courseTutor, description);
+        }
+        conn.close();
+        return loadedCourse;
     }
 
     //Load all Courses for a Tutor by Tutor ID
@@ -474,7 +478,7 @@ public class CourseManager {
             Statement stmt = conn.createStatement();
 
             //Selects all entries in the Courses table of the database
-            ResultSet rs = stmt.executeQuery("SELECT * FROM Courses WHERE TutorId = '" + tutorId + "'");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM Courses WHERE TutorId = " + tutorId);
 
             //Executes while the results set has a next value
             while (rs.next()) {
@@ -496,8 +500,12 @@ public class CourseManager {
                 Calendar today = Calendar.getInstance();
                 today.set(Calendar.HOUR_OF_DAY, 0);
 
-                //Check if last lesson date is later than today and add course to array (prevents old courses from loading)
-                if (loadedCourse.getLessons().get(loadedCourse.getLessons().size() - 1).getTimeSlot().after(today.getTime())) {
+                //Check if last lesson date is later than today and add course to array (prevents old courses from loading). Adds Course if exception occurs in reading Lessons (in catch)
+                try {
+                    if (loadedCourse.getLessons().get(loadedCourse.getLessons().size() - 1).getTimeSlot().after(today.getTime())) {
+                        tutorCourses.add(loadedCourse);
+                    }
+                } catch (Exception e) {
                     tutorCourses.add(loadedCourse);
                 }
             }

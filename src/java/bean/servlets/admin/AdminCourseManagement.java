@@ -83,8 +83,8 @@ public class AdminCourseManagement extends HttpServlet {
                         out.println("<table class=\"lessonstable\">");
                         out.println("<tr>");
                         out.println("<th>Course ID</th>");
-                        out.println("<th>Course Name</th>");
-                        out.println("<th>Course Status</th>");
+                        out.println("<th>Name</th>");
+                        out.println("<th>Status</th>");
                         out.println("<th>Tutor</th>");
                         out.println("<th>Students</th>");
                         out.println("<th>Lessons</th>");
@@ -120,7 +120,6 @@ public class AdminCourseManagement extends HttpServlet {
                                     Timestamp timestamp = lesson.getTimeSlot();
                                     ts.add(timestamp);
                                 }
-                                Collections.sort(ts);
                                 String startDate = sdf.format(ts.get(0));
                                 String endDate = sdf.format(ts.get(ts.size() - 1));
                                 out.format("<td>%s</td>", startDate);
@@ -135,7 +134,7 @@ public class AdminCourseManagement extends HttpServlet {
                                 out.format("<td><small><a href=\"viewcoursestudents.jsp?courseId=%s\">View/Manage Students</small></td>", courseId);
                                 out.format("<td><small><a href=\"viewlessons.jsp?courseId=%s\">View/Manage Lessons</small></td>", courseId);
                                 out.format("<td><small><a href=\"coursemanagement?courseId=%s&action=edit\">Edit Details</small></td>", courseId);
-                                out.format("<td><small><a href=\"deletecourse?courseId=%s\" style=\"color:red\">Delete</small></td>", courseId);
+                                out.format("<td><small><a href=\"delete?courseId=%s\" style=\"color:red\">Delete</small></td>", courseId);
                             }
 
                         }

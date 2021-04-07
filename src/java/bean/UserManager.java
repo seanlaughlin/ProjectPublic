@@ -131,7 +131,7 @@ public class UserManager {
             lastName = rs.getString("LastName");
             dob = rs.getDate("DateOfBirth");
             superUser = rs.getBoolean("superuser");
-            admin = new Admin(emailAddress, password, firstName, lastName, dob, adminId, superUser);
+            admin = new Admin(emailAddress, firstName, lastName, dob, adminId, superUser);
         }
 
         conn.close();
@@ -348,7 +348,7 @@ public class UserManager {
             Statement stmt = conn.createStatement();
 
             //Selects all entries in the Courses table of the database
-            ResultSet rs = stmt.executeQuery("SELECT TutorId, EmailAddress, FirstName, LastName, DateOfBirth, Role, Department, PayGrade FROM Tutors");
+            ResultSet rs = stmt.executeQuery("SELECT TutorId, EmailAddress, FirstName, LastName, DateOfBirth, Role, Department, Paygrade FROM Tutors");
 
             while (rs.next()) {
 
@@ -359,7 +359,7 @@ public class UserManager {
                 Date dob = rs.getDate("DateOfBirth");
                 String role = rs.getString("Role");
                 String department = rs.getString("Department");
-                int payGrade = rs.getInt("PayGrade");
+                int payGrade = rs.getInt("Paygrade");
                 CourseManager cm = new CourseManager();
 
                 ArrayList<Course> tutorCourses = cm.loadTutorCourses(tutorId);

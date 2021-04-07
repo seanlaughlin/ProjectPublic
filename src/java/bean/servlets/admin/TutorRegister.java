@@ -66,15 +66,21 @@ public class TutorRegister extends HttpServlet {
                 rd.forward(request, response);
             } //Return tutorId in request and redirect to page confirming registration
             else {
-                String message;
-                message = "<h2>Tutor registered successfully.</h2>";
-                request.setAttribute("tutorId", i);
-                rd = request.getRequestDispatcher("tutorregistered.jsp");
+                
+                //Variables for dynamic confirmation page
+                String message = "Tutor registered successfully.";
+                String returnURL = "tutormanagement.jsp";
+                String pageTitle = "Register Tutor";
+                
+                //Set variables in request and forward to confirmation page
+                rd = request.getRequestDispatcher("message.jsp");
+                request.setAttribute("returnURL", returnURL);
+                request.setAttribute("pageTitle", pageTitle);
                 request.setAttribute("message", message);
                 rd.forward(request, response);
             }
 
-        } catch (ParseException ex) {
+        } catch (Exception ex) {
             rd = request.getRequestDispatcher("registertutor.jsp");
             request.setAttribute("error", "Registration error.");
             rd.forward(request, response);

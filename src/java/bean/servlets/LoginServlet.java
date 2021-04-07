@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package bean.servlets.admin;
+package bean.servlets;
 
 import bean.Admin;
 import bean.Student;
@@ -25,7 +25,7 @@ import java.util.logging.Logger;
  *
  * @author seanl
  */
-public class AdminLoginServlet extends HttpServlet {
+public class LoginServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,42 +35,12 @@ public class AdminLoginServlet extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
-     * @throws java.sql.SQLException
-     * @throws java.lang.ClassNotFoundException
      */
-protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException, ClassNotFoundException {
-
-        UserManager userManager = new UserManager();
-        RequestDispatcher dispatcher;
-
-        //Read in variables from web form request
-        String email = request.getParameter("emailaddress");
-        String password = request.getParameter("password");
-
-        //Create Admin object and attempt to retrieve details 
-        Admin admin = userManager.logInAdmin(email, password);
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         
-        //Get session and get Student and Tutor objects in case already logged in
-        HttpSession session = request.getSession();
-        Student student = (Student) session.getAttribute("student");
-        Tutor tutor = (Tutor) session.getAttribute("tutor");
-
-        //Create Admin session variable and send to account.jsp if login successful, otherwise send error message
-        if (admin != null) {
-            session.setAttribute("admin", admin);
-            session.setAttribute("loggedIn", "true");
-            response.sendRedirect("admin/account.jsp");
-        } else if (student != null || tutor != null) {
-            dispatcher = request.getRequestDispatcher("adminlogin.jsp");
-            request.setAttribute("error", "You are already logged in.");
-            dispatcher.forward(request, response);
-        } else {
-            dispatcher = request.getRequestDispatcher("adminlogin.jsp");
-            request.setAttribute("error", "Invalid login details.");
-            dispatcher.forward(request, response);
         }
-    }
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -84,11 +54,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (SQLException | ClassNotFoundException ex) {
-            Logger.getLogger(TutorLoginServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -102,11 +68,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (SQLException | ClassNotFoundException ex) {
-            Logger.getLogger(TutorLoginServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**

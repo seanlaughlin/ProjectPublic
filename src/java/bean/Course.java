@@ -15,8 +15,7 @@ public class Course {
     private String description;
 
     //Zero-Parameter Constructor
-    public Course()
-    {
+    public Course() {
 
         courseId = 0;
         courseName = "";
@@ -27,8 +26,7 @@ public class Course {
 
     }
 
-    public Course(int courseIdIn)
-    {
+    public Course(int courseIdIn) {
 
         courseId = courseIdIn;
         courseName = "";
@@ -38,10 +36,9 @@ public class Course {
         description = "";
 
     }
-    
+
     //Overloaded Constructor
-    public Course(int courseIdIn, String courseNameIn, String courseStatusIn, Tutor courseTutorIn)
-    {
+    public Course(int courseIdIn, String courseNameIn, String courseStatusIn, Tutor courseTutorIn) {
 
         courseId = courseIdIn;
         courseName = courseNameIn;
@@ -50,10 +47,9 @@ public class Course {
         courseTutor = courseTutorIn;
 
     }
-    
+
     //Overloaded Constructor
-    public Course(int courseIdIn, String courseNameIn, String courseStatusIn, ArrayList<Lesson> lessonsIn, Tutor courseTutorIn, String descriptionIn)
-    {
+    public Course(int courseIdIn, String courseNameIn, String courseStatusIn, ArrayList<Lesson> lessonsIn, Tutor courseTutorIn, String descriptionIn) {
 
         courseId = courseIdIn;
         courseName = courseNameIn;
@@ -63,9 +59,8 @@ public class Course {
         description = descriptionIn;
 
     }
-    
-    public Course(String courseNameIn, String courseStatusIn, Tutor courseTutorIn, String descriptionIn)
-    {
+
+    public Course(String courseNameIn, String courseStatusIn, Tutor courseTutorIn, String descriptionIn) {
 
         courseName = courseNameIn;
         courseStatus = courseStatusIn;
@@ -74,29 +69,81 @@ public class Course {
 
     }
 
+    //Returns colour for text for each status
+    public String getStatusColour() {
+
+        String statusColour = "";
+        switch (courseStatus) {
+            case "Beginner":
+                statusColour = "#0065BF";
+                break;
+
+            case "On-Going":
+                statusColour = "orange";
+                break;
+
+            case "Not-complete":
+                statusColour = "red";
+                break;
+
+            case "Completed":
+                statusColour = "green";
+                break;
+                
+            default:
+                statusColour = "white";
+                break;
+        }
+        return statusColour;
+    }
+
     //Getters
-    public int getCourseId() {return courseId;}
+    public int getCourseId() {
+        return courseId;
+    }
 
-    public String getCourseName() {return courseName;}
+    public String getCourseName() {
+        return courseName;
+    }
 
-    public String getCourseStatus() {return courseStatus;}
+    public String getCourseStatus() {
+        return courseStatus;
+    }
 
-    public ArrayList<Lesson> getLessons() {return lessons;}
+    public ArrayList<Lesson> getLessons() {
+        return lessons;
+    }
 
-    public Tutor getCourseTutor() {return courseTutor;}
-    
-    public String getDescription() {return description;}
+    public Tutor getCourseTutor() {
+        return courseTutor;
+    }
+
+    public String getDescription() {
+        return description;
+    }
 
     //Setters
-    public void setCourseId(int courseIdIn) {courseId = courseIdIn;}
+    public void setCourseId(int courseIdIn) {
+        courseId = courseIdIn;
+    }
 
-    public void setCourseName(String courseNameIn) {courseName = courseNameIn;}
+    public void setCourseName(String courseNameIn) {
+        courseName = courseNameIn;
+    }
 
-    public void setCourseStatus(String courseStatusIn) {courseStatus= courseStatusIn;}
+    public void setCourseStatus(String courseStatusIn) {
+        courseStatus = courseStatusIn;
+    }
 
-    public void setLessons(ArrayList<Lesson> lessonsIn) {lessons = lessonsIn;}
+    public void setLessons(ArrayList<Lesson> lessonsIn) {
+        lessons = lessonsIn;
+    }
 
-    public void setCourseTutor(Tutor courseTutorIn) {courseTutor = courseTutorIn;}
-    
-    public void setDescription(String descriptionIn) {description = descriptionIn;}
+    public void setCourseTutor(Tutor courseTutorIn) {
+        courseTutor = courseTutorIn;
+    }
+
+    public void setDescription(String descriptionIn) {
+        description = descriptionIn;
+    }
 }

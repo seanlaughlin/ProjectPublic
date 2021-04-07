@@ -70,6 +70,7 @@ public class CourseStudentsServlet extends HttpServlet {
                     }
                 }
                 String courseStatus = studentCourse.getCourseStatus();
+                String colour = studentCourse.getStatusColour();
                 out.println("<tr>");
                 out.format("<td>%s</td>", student.getStudentId());
                 out.format("<td>%1$s %2$s</td>", student.getFirstName(), student.getLastName());
@@ -79,31 +80,28 @@ public class CourseStudentsServlet extends HttpServlet {
                 //Check if Course has started by comparing first Lesson date to object with todays date to see if before
                 try {
                     hasCourseStarted = studentCourse.getLessons().get(0).getTimeSlot().before(today.getTime());
-                } //Set to false if course has no Lessons (causes exception)
+                } //Set to false if Course has no Lessons (causes exception)
                 catch (IndexOutOfBoundsException e) {
                     hasCourseStarted = false;
                 }
 
                 //Display different options to change course status and text colors depending on current Course status
+                out.format("<td><span style=\"color: %1$s\">%2$ss</span></td>", colour, courseStatus);
                 switch (courseStatus) {
                     case "Not-complete":
-                        out.format("<td><span style=\"color: red\">%s</span></td>", courseStatus);
                         out.println("<td><small style=\"color: red\">Lessons Ended</small></td>");
                         break;
 
                     case "Completed":
-                        out.format("<td><span style=\"color: green\">%s</span></td>", courseStatus);
                         out.println("<td><small style=\"color: green\">Course Completed</small></td>");
                         break;
 
                     case "On-Going":
-                        out.format("<td><span style=\"color: orange\">%s</span></td>", courseStatus);
                         out.format("<td><small><ul style=\"list-style: none\"><li><a href=\"../EndLessonsServlet?courseId=%1$s&studentId=%2$s&lessonStatus=Completed\">Mark as Completed</a></small></li>", studentCourse.getCourseId(), student.getStudentId());
                         out.format("<small><li><a href=\"../EndLessonsServlet?courseId=%1$s&studentId=%2$s&lessonStatus=Not-complete\">End Lessons</a></small></li></ul></td>", studentCourse.getCourseId(), student.getStudentId());
                         break;
 
                     case "Beginner":
-                        out.format("<td><span style=\"color: #0065BF\">%s</span></td>", courseStatus);
                         if (hasCourseStarted) {
                             out.format("<td><ul style=\"list-style: none\"><li><small><a href=\"../EndLessonsServlet?courseId=%1$s&studentId=%2$s&lessonStatus=On-Going\">Mark as On-Going</a></small></li>", studentCourse.getCourseId(), student.getStudentId());
                             out.format("<small><li><a href=\"../EndLessonsServlet?courseId=%1$s&studentId=%2$s&lessonStatus=Completed\">Mark as Completed</a></small></li>", studentCourse.getCourseId(), student.getStudentId());

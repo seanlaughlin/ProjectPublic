@@ -43,6 +43,11 @@ public class CourseEnrollmentServlet extends HttpServlet {
         HttpSession session = request.getSession();
         CourseManager cm = new CourseManager();
 
+        //Initialise variables for dynamic confirmation page
+        String message = null;
+        String pageTitle = null;
+        String returnURL = null;
+
         //Get student object from session
         Student student = (Student) session.getAttribute("student");
 
@@ -99,9 +104,11 @@ public class CourseEnrollmentServlet extends HttpServlet {
                 int studentId = Integer.parseInt(request.getParameter("studentId"));
                 int courseId = Integer.parseInt(request.getParameter("courseId"));
 
+                pageTitle = "Unenroll";
+                returnURL = "admin/viewcoursestudents.jsp?courseId=" + courseId;
+
                 //true if unenrolled successfully, set message depending on success and forward to page advising user
                 boolean isDeleted = cm.unenrollStudent(studentId, courseId);
-                String message = null;
 
                 if (isDeleted) {
                     message = "Student unenrolled successfully.";
@@ -109,25 +116,32 @@ public class CourseEnrollmentServlet extends HttpServlet {
                 } else {
                     message = "Unable to remove enrollment. It may have already been removed from the database.";
                 }
-                rd = request.getRequestDispatcher("admin/unenroll.jsp");
+                
+                //Forward user to page confirming action with message
+                rd = request.getRequestDispatcher("admin/message.jsp");
+                request.setAttribute("pageTitle", pageTitle);
+                request.setAttribute("returnURL", returnURL);
                 request.setAttribute("message", message);
                 rd.forward(request, response);
-            } //Checks if admin logged in and enrolls student (if not unenroll request will be enroll)
+            } //Checks if admin logged in and enrolls student (if not unenroll request will be enroll request)
             else if (session.getAttribute("admin") != null) {
-                String message;
                 int studentId = Integer.parseInt(request.getParameter("studentId"));
                 int courseId = Integer.parseInt(request.getParameter("courseId"));
 
                 //True if enrolled successfully, set message depending on success and forward to page advising user
                 boolean enrolled = cm.enrollStudent(studentId, courseId);
                 if (enrolled) {
+                    pageTitle = "Enrolment";
                     message = "Enrollment successful.";
                 } else {
                     message = "Enrollment failed. Please check the information and try again.";
                 }
-                rd = request.getRequestDispatcher("admin/studentenrolled.jsp");
+                
+                //Forward user to page confirming action with message
+                rd = request.getRequestDispatcher("admin/message.jsp");
+                request.setAttribute("pageTitle", pageTitle);
+                request.setAttribute("returnURL", returnURL);
                 request.setAttribute("message", message);
-                request.setAttribute("courseId", courseId);
                 rd.forward(request, response);
             } //Send to login with message if not logged in
             else {

@@ -20,10 +20,10 @@ public class Admin extends User {
     }
 
     //Overloaded Constructor
-    public Admin(String emailIn, String passwordIn, String firstNameIn, String lastNameIn, Date dobIn, int adminIdIn, boolean superUserIn)
+    public Admin(String emailIn, String firstNameIn, String lastNameIn, Date dobIn, int adminIdIn, boolean superUserIn)
     {
 
-        super(emailIn, passwordIn, firstNameIn, lastNameIn, dobIn);
+        super(emailIn, firstNameIn, lastNameIn, dobIn);
         adminId = adminIdIn;
         superUser = superUserIn;
 
