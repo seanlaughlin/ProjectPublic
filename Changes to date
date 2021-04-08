@@ -1,0 +1,141 @@
+08/04/21
+
+All comments added to Java classes.
+Cleaned up web.xml as had old mappings that were no longer used or have been renamed (deleted servlets etc).
+Changed some paths in jsp files to match updated names for servlets.
+Various small bugfixes.
+
+06/04/21
+
+	-Bugfixes
+	-Added feature for Admin to view Course Lessons and delete them
+	-Added feature for Admin to view Student Lessons
+	
+Done now pending any more bugs.
+
+06/04/21
+
+Lots of wee changes and loads of extra Admin stuff added.
+
+	-Beginner status in CourseStudentsServlet no longer shows 'Mark as On-Going' and Mark as Complete' options until Course has begun.
+	-Solved issue where links to alternate between different login pages weren't working when clicked after being referred from a protected directory
+		(added context path variable at start of link URL).
+	-Added HTML input validation to email fields in login screens and set as required fields.
+	-Fixed SQL query in loadAllTutors (was looking up Students table, now looking up correct Tutors table).
+	-Removed CourseId from SQL query in loadAllStudents() as doesnt exist in table and not required.
+	-New constructor added in tutor to match registerTutor SQL query
+	-Added loadAllCourses in coursemanager to load all courses for administrator
+	-Renamed Course updateAttribute method updateLessonsStatus, makes more sense.
+	-Changed updateCourseAttribute, only needs to return boolean as Course object isn't stored in session
+	-Added Lessons array to addCourse
+	-Added new Course constructor that takes coursename,coursestatus, tutorid, description to register course (registers with 0 Lessons to be added later)
+	-Changed addCourse to take courseName, courseStatus, tutorId and description rather than course object as course object requires tutor object which would need new method as loadTutor takes courseId
+	-Unenroll method added, deleteCourse method added
+	-Moved servlets and filters to seperate sub directories for convenience inc admin directory
+
+Various other small changes to fix bigs etc.
+
+Super chunky right now (sorry lol), and I am positive that with time the number of servlets could be easily halved, but we can try to get everything else done and can be looked at if there's time.
+If you're really puzzling over a servlets function, there's a servlet description right at the end of the code, or send me a message.
+
+Database has been cleaned to leave only an Admin account so you guys can check the features of adding Tutors, Courses, Lessons, Students.
+**Admin account details: admin@admin.admin pass: naw**
+
+
+01/04/21
+
+StudentLessonsServlet now serves tutor too, renamed LessonsServlet.
+Added new constructor in student to allow student object with courses to be created without password, used for getting courseStatus of students on course for tutor.
+Renamed EndLessonsServlet to LessonStatusServlet as it now can be used by tutor to change lesson status as well as end
+
+New servlets are 
+	-CourseStudentServlet, loads ArrayList of all students from a course
+	-TutorCoursesServlet which loads all courses for a tutor
+
+Database PhoneNumber field changed from number to string to resolve error.
+AdminAuthFilter added to protect /admin/ directory, in preperation for creating admin side of system.
+
+Maybe some more wee tweaks here and there, think I've covered anything major but recommend updating all files from src, web and data to be sure.
+
+22/03/21
+
+Added in jakarta servlet jar, missing from lib previously.
+All Java scriptlets removed from .jsp pages and replaced with JSTL/EL to reduce error likelihood and conform to best practice.
+Navbar is no longer a .jsp, now generates dynamically from Navbar servlet to fix issue with display on logout page.
+Logout servlet added (in place of java that was in logout.jsp)
+Student auth filter added, all student account related .jsps moved to /student folder, which is the path that the student auth filter protects.
+Some code tidying and commenting in servlets.
+
+19/03/21
+
+User.java added dobString, to easily output date in dd/mm/yy format when details are displayed
+Added two new methods to CourseManager:
+	- loadFutureCourses() to populate courses page with courses starting after current date
+	- enrollStudent() adds studentId and courseId to enrollment table and returns boolean to confirm if completed successfully
+
+Created CourseEnrollmentServlet, to enroll students on courses from the courses page. 
+Created FutureCoursesServlet, to generate the HTML to display courses starting after current date (using loadFutureCourses() method)
+Updated StudentLessonsServlet to display message when no courses available
+Minor tweak to StudentLoginServlet, functions the same.
+
+Some new HTML as well, wee bits here and there.
+Think that's everything that's new/been changed, but have updated my entire src and web folders to be safe., probs best download the lot just to be sure.
+
+18/03/21
+
+yourlessons.jsp page now generates lesson table dynamically based on Courses/Lessons db tables.
+Added updateAttribute method for Course objects in CourseManager to allow for end lessons function.
+Created two new servlets, StudentLessonsServlet, which generates the HTML table, and EndLessonsServlet, which handles the request to end lessons and updates lesson status.
+
+15/03/21
+
+Bugfixes
+Context path changed from /GCU_Skills to /GCU due to NetBeans issues
+Added template for your lessons page and course info page
+
+10/03/21
+
+Comments added to the code for
+  -PassHash.java
+  -UserManager.java
+  -StudentLoginServlet.java
+  -StudentRegisterServlet.java
+  -StudentDetailsServlet.java
+  
+  Minor CSS tweaking for contact box to make it more responsive across devices
+  
+Files are in src/java/bean
+
+09/03/21
+
+Added form validation for registration form to prevent submission when some fields are blank.
+Changed the addHyphon js function that adds in hyphons in date of birth. The function now clears the whole field when the backspace key is pressed, to prevent double hyphons
+occuring when someone tries to delete and retype characters.
+
+08/03/21
+
+Changed database (and JDBC) to MS access
+Removed address attribute from servlets, webforms and other classes
+Added account details page and related servlet which uses 'toggle.js' - jQUery script i've written/adapted to send info to servlet to be written to database and 
+confirm without need to reload the page.
+Some CSS tweaks including making sure new page and functionality is neat on mobiles and tablet as well as desktop
+Added a favicon
+Updated files are in Data, src and web folders, can be copied directly to the GCU_Skills project folder
+
+**IMPORTANT**
+You'll need to change the path to the database file in the UserManager and PassHash methods to match the location on your computer.
+
+You'll need to add all the libraries I've put in the 'lib' folder to the project for it to run, and your netbeans server will need to be set to Apache TomCat
+which you may have to install. Jack or myself will be able to help with this if needed since we've both got it up and running.
+Once TomCat is set up and all libraries have been added just press the play button in netbeans and the project should open in browser.
+
+05/03/21
+
+Working with SQLite pending me sorting my issues with ucanaccess JDBC.
+Moved some stuff into different folders within 'web' to make it a bit neater.
+Created StudentRegistrationServlet and StudentLoginServlet to act as controller classes for registration and login.
+HTML files have now been replaced with jsp files to allow dynamic processing, old HTML files are still in a folder in 'web'.
+Changed login method and included encryption for passwords.
+Added some logic within pages that check whether user is logged in.
+Temporarily have made new Student objects initialise with a blank 'new Date ();' because sqlite doesn't seem to support read/write of date objects.
+Navbar is now a seperate file to minimise code duplication. It's included in all pages.
