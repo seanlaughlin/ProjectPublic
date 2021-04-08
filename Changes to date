@@ -1,3 +1,10 @@
+08/04/21
+
+All comments added to Java classes.
+Cleaned up web.xml as had old mappings that were no longer used or have been renamed (deleted servlets etc).
+Changed some paths in jsp files to match updated names for servlets.
+Various small bugfixes.
+
 06/04/21
 
 	-Bugfixes
