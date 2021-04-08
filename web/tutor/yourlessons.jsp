@@ -21,7 +21,7 @@
         <section class="image-section" id="lessons">
             <div class="image-box-content" id="yourlessons">
                 <h2>Your Lessons</h2>    
-                <c:import url="../StudentLessonsServlet" />
+                <c:import url="../LessonsServlet" />
                 <h3><a href="account.jsp">&#x21a9; Back to account home</a></h3>
             </div>
         </section>

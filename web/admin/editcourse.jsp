@@ -45,6 +45,11 @@
                                 <td><button class="detailsbutton" id="coursenameedit">Edit</button><small class="editconfirm">&check; updated.</small></td>
                             </tr>
                             <tr>
+                                <th>Course Status:</th>
+                                <td><input type="text" class="input" name="coursestatus" id="coursestatusfield" value="${selectedCourse.courseStatus}" readonly /></td>
+                                <td><button class="detailsbutton" id="coursestatusedit">Edit</button><small class="editconfirm">&check; updated.</small></td>
+                            </tr>
+                            <tr>
                                 <th>Description:</th>
                                 <td><input type="text" class="input" name="description" id="descriptionfield" value="${selectedCourse.description}" readonly /></td>
                                 <td><button class="detailsbutton" id="descriptionedit">Edit</button><small class="editconfirm">&check; updated.</small></td>

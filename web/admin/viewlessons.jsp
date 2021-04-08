@@ -21,7 +21,7 @@
         <section class="image-section" id="lessons">
             <div class="image-box-content" id="yourlessons">
                 <h2>Course Lessons</h2>    
-                <c:import url="../StudentLessonsServlet" />
+                <c:import url="../LessonsServlet" />
                 <button onclick="window.location.href = 'addlesson.jsp';">Add Lesson</button>
                 <h3><a href="coursemanagement.jsp">&#x21a9; Back to course management</a></h3>
             </div>

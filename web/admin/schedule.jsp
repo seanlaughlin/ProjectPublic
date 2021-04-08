@@ -21,7 +21,7 @@
         <section class="image-section" id="lessons">
             <div class="image-box-content" id="yourlessons">
                 <h2>${requestScope.pageTitle} Schedule</h2>    
-                <c:import url="../StudentLessonsServlet" />
+                <c:import url="../LessonsServlet" />
                 <h3><a href="${requestScope.returnURL}">&#x21a9; Back</a></h3>
             </div>
         </section>

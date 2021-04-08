@@ -9,11 +9,11 @@
         <servlet-class>bean.servlets.StudentLoginServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>StudentLessonsServlet</servlet-name>
+        <servlet-name>LessonsServlet</servlet-name>
         <servlet-class>bean.servlets.LessonsServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>EndLessonsServlet</servlet-name>
+        <servlet-name>LessonStatusServlet</servlet-name>
         <servlet-class>bean.servlets.LessonStatusServlet</servlet-class>
     </servlet>
     <servlet>
@@ -85,13 +85,10 @@
         <servlet-class>bean.servlets.admin.DeleteServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>LoginServlet</servlet-name>
-        <servlet-class>bean.servlets.LoginServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>DetailsServlet</servlet-name>
         <servlet-class>bean.servlets.DetailsServlet</servlet-class>
     </servlet>
+    
     <servlet-mapping>
         <servlet-name>StudentRegisterServlet</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -101,20 +98,16 @@
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>StudentLessonsServlet</servlet-name>
-        <url-pattern>/StudentLessonsServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>EndLessonsServlet</servlet-name>
-        <url-pattern>/EndLessonsServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>FutureCoursesServlet</servlet-name>
         <url-pattern>/FutureCoursesServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CourseEnrollmentServlet</servlet-name>
         <url-pattern>/CourseEnrollmentServlet</url-pattern>
+    </servlet-mapping>
+        <servlet-mapping>
+        <servlet-name>LessonStatusServlet</servlet-name>
+        <url-pattern>/LessonStatusServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LogoutServlet</servlet-name>
@@ -135,6 +128,10 @@
     <servlet-mapping>
         <servlet-name>CourseStudentsServlet</servlet-name>
         <url-pattern>/CourseStudentsServlet</url-pattern>
+    </servlet-mapping>
+        <servlet-mapping>
+        <servlet-name>LessonsServlet</servlet-name>
+        <url-pattern>/LessonsServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AdminLoginServlet</servlet-name>
@@ -175,10 +172,6 @@
     <servlet-mapping>
         <servlet-name>DeleteServlet</servlet-name>
         <url-pattern>/admin/delete</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>LoginServlet</servlet-name>
-        <url-pattern>/LoginServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DetailsServlet</servlet-name>
