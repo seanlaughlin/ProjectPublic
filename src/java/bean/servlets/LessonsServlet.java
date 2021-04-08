@@ -6,7 +6,6 @@ import bean.CourseManager;
 import bean.Lesson;
 import bean.Student;
 import bean.Tutor;
-import bean.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -124,7 +123,6 @@ public class LessonsServlet extends HttpServlet {
                     String courseStatus = course.getCourseStatus();
                     String courseName = course.getCourseName();
                     int courseId = course.getCourseId();
-                    int numberOfLessons = course.getLessons().size();
                     
                     
                     out.println("<table class=\"lessonstable\">");
@@ -189,7 +187,7 @@ public class LessonsServlet extends HttpServlet {
 
                         //Display option to end Lessons if Course has yet to begin or is currently underway. Link calls the EndLessonsServlet and sends the servlet the course ID.
                         if (course.getCourseStatus().equals("On-Going") || course.getCourseStatus().equals("Beginner")) {
-                            out.format("<a href=\"%1$s/EndLessonsServlet?courseId=%2$d&studentId=%3$d\" class=\"bottomlink\" style=\"color: red\">End Lessons</a>", request.getContextPath(), courseId, studentId);
+                            out.format("<a href=\"%1$s/LessonStatusServlet?courseId=%2$d&studentId=%3$d\" class=\"bottomlink\" style=\"color: red\">End Lessons</a>", request.getContextPath(), courseId, studentId);
                         }
                     }
                 }

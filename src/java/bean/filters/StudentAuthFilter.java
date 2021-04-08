@@ -29,17 +29,21 @@ public class StudentAuthFilter implements Filter {
 
         //Check if logged in
         boolean isLoggedIn = (session != null && session.getAttribute("student") != null);
+        
+        //Check other user types not logged in
         boolean loggedInAsStaff = ((session.getAttribute("tutor") != null) || (session.getAttribute("admin") != null));
+        
+        //Check if login request by checking if request comes from student login
         String loginURI = httpRequest.getContextPath() + "/login";
         boolean isLoginRequest = httpRequest.getRequestURI().equals(loginURI);
         boolean isLoginPage = httpRequest.getRequestURI().endsWith("login.jsp");
 
-        // Forwards to student home if already logged in
+        // Forward to student home if already logged in
         if (isLoggedIn && (isLoginRequest || isLoginPage)) {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/student/account.jsp");
             dispatcher.forward(request, response);
 
-            // Send to page as logged in user if logged in
+            // Send to requested page as logged in user if logged in
         } else if (isLoggedIn || isLoginRequest) {
             chain.doFilter(request, response);
 

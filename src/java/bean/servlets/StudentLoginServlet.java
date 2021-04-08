@@ -36,11 +36,11 @@ public class StudentLoginServlet extends HttpServlet {
         UserManager userManager = new UserManager();
         RequestDispatcher dispatcher;
         
-        //Read in variables from web form request
+        //Read in login information from web form request
         String email = request.getParameter("emailaddress");
         String password = request.getParameter("password");
         
-        //Create Student object and attempt to retrieve details 
+        //Create Student object and attempt to log in and populate with info from DB 
         Student student = userManager.logInStudent(email, password);
         
         //Get other user objects from session to make sure no other user is logged in
@@ -48,7 +48,7 @@ public class StudentLoginServlet extends HttpServlet {
         Tutor tutor = (Tutor) session.getAttribute("tutor");
         Admin admin = (Admin) session.getAttribute("admin");
             
-        //Create Student session variable and send to account.jsp if login successful, otherwise send error message
+        //Create Student session variable and send to student/account.jsp if login successful, otherwise send error message
         if (student != null && (tutor == null && admin == null)) {
             session.setAttribute("student", student);
             session.setAttribute("loggedIn", "true");
@@ -114,7 +114,7 @@ public class StudentLoginServlet extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Login servlet used by Student.";
+        return "Processes Student login and creates Student session object.";
     }// </editor-fold>
 
 }

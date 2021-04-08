@@ -44,19 +44,19 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
         UserManager userManager = new UserManager();
         RequestDispatcher dispatcher;
 
-        //Read in variables from web form request
+        //Read in login information from web form request
         String email = request.getParameter("emailaddress");
         String password = request.getParameter("password");
 
-        //Create Admin object and attempt to retrieve details 
+        //Create Admin object and attempt to log in and populate with info from DB
         Admin admin = userManager.logInAdmin(email, password);
         
-        //Get session and get Student and Tutor objects in case already logged in
+        //Get other user objects from session to make sure no other user is logged in
         HttpSession session = request.getSession();
         Student student = (Student) session.getAttribute("student");
         Tutor tutor = (Tutor) session.getAttribute("tutor");
 
-        //Create Admin session variable and send to account.jsp if login successful, otherwise send error message
+        //Create Admin session variable and send to admin/account.jsp if login successful, otherwise send error message
         if (admin != null) {
             session.setAttribute("admin", admin);
             session.setAttribute("loggedIn", "true");
@@ -116,7 +116,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
      */
     @Override
     public String getServletInfo() {
-        return "Short description";
+        return "Processes Admin login and creates Admin session object.";
     }// </editor-fold>
 
 }

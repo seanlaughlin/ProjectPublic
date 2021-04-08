@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package bean.servlets.admin;
 
 import bean.Course;
@@ -20,7 +15,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 
 /**
  *
@@ -47,10 +41,11 @@ public class AdminCourseManagement extends HttpServlet {
         //Check if request was for a simple list of Courses (for reference) or not
         boolean isList = Boolean.parseBoolean(request.getParameter("isList"));
 
+        //Load all Courses in DB
         CourseManager cm = new CourseManager();
         ArrayList<Course> allCourses = cm.loadAllCourses();
 
-        //Get name of action requested from webpage, default to display if no action parameter
+        //Get name of action requested from webpage, default to display if no action parameter in request
         String action = request.getParameter("action");
         if (action == null) {
             action = "display";
@@ -63,17 +58,21 @@ public class AdminCourseManagement extends HttpServlet {
             case ("edit"):
                 courseId = Integer.parseInt(request.getParameter("courseId"));
                 Course selected = null;
+                
+                //Loop through all Courses to find Course with ID that matches ID passed from request
                 for (Course course : allCourses) {
                     if (courseId == course.getCourseId()) {
                         selected = course;
                     }
                 }
+                
+                //Store Course in session to be used by next servlet
                 rd = request.getRequestDispatcher("editcourse.jsp");
                 session.setAttribute("selectedCourse", selected);
                 rd.forward(request, response);
                 break;
 
-            //Prints table of all Tutors 
+            //Prints table of all Courses 
             case ("display"):
                 response.setContentType("text/html;charset=UTF-8");
                 try (PrintWriter out = response.getWriter()) {
@@ -111,6 +110,8 @@ public class AdminCourseManagement extends HttpServlet {
                             out.format("<td>%1$s %2$s</td>", course.getCourseTutor().getFirstName(), course.getCourseTutor().getLastName());
                             out.format("<td>%s</td>", courseStudents.size());
                             out.format("<td>%s</td>", course.getLessons().size());
+                            
+                            //If Course has Lessons, print start date and end date by first and last Lesson dates
                             if (!(course.getLessons().isEmpty())) {
 
                                 //Store all lesson times in array and sort to find first and last lesson date

@@ -58,10 +58,10 @@ public class StudentRegisterServlet extends HttpServlet {
             String phone = request.getParameter("contactno").trim();
             String sDob = request.getParameter("dob");
 
-            //Convert sDob string from request to Date object
+            //Convert sDob string from request to Date object to be put in DB
             Date dob = new SimpleDateFormat("dd-MM-yyyy").parse(sDob);
 
-            //Create new Student object with details read in
+            //Create new Student object with details from request
             Student student = new Student(email, password, firstName, lastName, dob, phone);
 
             //Register Student in database, if successful will return studentId which is > 0

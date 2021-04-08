@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package bean.servlets;
 
 import bean.Student;
@@ -41,18 +36,26 @@ public class DetailsServlet extends HttpServlet {
         try (out) {
 
             UserManager userManager = new UserManager();
+            
+            //Get session, and get names of all parameters in session and passed from request
             HttpSession session = request.getSession();
             Enumeration e1 = request.getParameterNames();
             String parameterName;
             Enumeration e2 = session.getAttributeNames();
+            
             String userType = "";
             int userId = 0;
             Student student = null;
             String message = "";
+            
+            //Check if request is made by admin by checking if admin logged in
             boolean adminRequest = session.getAttribute("admin") != null;
-
+            
+            //Get name of parameter to be changed from request
             parameterName = (String) e1.nextElement();
             String parameter = request.getParameter(parameterName);
+            
+            //Loops for all variables stored in session for context of request, edit details and write success message (read by toggle.js)
             while (e2.hasMoreElements()) {
                 String sessionAttribute = (String) e2.nextElement();
                 switch (sessionAttribute) {
@@ -68,7 +71,8 @@ public class DetailsServlet extends HttpServlet {
                         tutor = userManager.updateAttribute(parameterName, parameter, tutor);
                         response.getWriter().write("Success");
                         break;
-
+                    
+                    //selectedStudent and selectedTutor are both from admin request to edit user details
                     case "selectedStudent":
 
                         if (adminRequest) {
@@ -90,8 +94,6 @@ public class DetailsServlet extends HttpServlet {
                         break;
                 }
             }
-            //Output message to confirm operation has been completed (read by toggle.js)
-
         } catch (Exception e) {
             response.getWriter().write("Error");
         }
@@ -142,7 +144,7 @@ public class DetailsServlet extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Short description";
+        return "Used by AJAX script toggle.js to edit user details";
     }// </editor-fold>
 
 }

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package bean.servlets.admin;
 
 import bean.CourseManager;
@@ -52,10 +47,10 @@ public class LessonRegister extends HttpServlet {
         Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(lessonDate+" "+ lessonTime);
         Timestamp ts = new Timestamp(date.getTime());
         
-        //Call method to add Lesson to db and store returned result
+        //Call method to add Lesson to DB and store returned result to check success
         boolean isAdded = cm.addCourseLesson(courseId, ts);
         
-        //Set message depending on if added successfully
+        //Set message to be displayed depending on if added successfully
         if(isAdded){
             message = "Lesson added successfully for Course #" + courseId;
             request.setAttribute("message", message);

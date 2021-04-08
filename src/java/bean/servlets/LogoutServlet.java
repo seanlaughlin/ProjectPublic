@@ -77,7 +77,7 @@ public class LogoutServlet extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Short description";
+        return "Logs user out by invalidating session.";
     }// </editor-fold>
 
 }

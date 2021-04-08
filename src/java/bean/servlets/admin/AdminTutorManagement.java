@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package bean.servlets.admin;
 
 import bean.Course;
@@ -80,10 +75,12 @@ public class AdminTutorManagement extends HttpServlet {
                 rd.forward(request, response);
                 break;
             
-            //Stores tutorId in request to be used by LessonsServlet and directs to tutorschedule (which includes LessonsServlet as import)
+            //Stores tutorId in request to be used by LessonsServlet and directs to schedule (which includes LessonsServlet as import)
             case ("schedule"):
+                rd = request.getRequestDispatcher("schedule.jsp");
+                request.setAttribute("pageTitle", "Tutor");
+                request.setAttribute("returnURL", "tutormanagement.jsp");
                 tutorId = Integer.parseInt(request.getParameter("tutorId"));
-                rd = request.getRequestDispatcher("tutorschedule.jsp");
                 request.setAttribute("tutorId", tutorId);
                 rd.forward(request, response);
                 break;
@@ -101,7 +98,7 @@ public class AdminTutorManagement extends HttpServlet {
                     out.println("<th>Role</th>");
                     out.println("<th>Department</th>");
                     out.println("<th>Paygrade</th>");
-                    out.println("<th>Registered Courses</th>");
+                    out.println("<th>Current Courses</th>");
                     out.println("<th></th>");
                     out.println("<th></th>");
                     out.println("<th></th>");

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package bean.servlets.admin;
 
 import bean.CourseManager;
@@ -38,7 +33,7 @@ public class CourseRegister extends HttpServlet {
         CourseManager cm = new CourseManager();
         RequestDispatcher rd;
 
-        //Read variables in from web form request and trim any whitespace
+        //Read parameters from web form request and trim any whitespace
         String coursename = request.getParameter("coursename").trim();
         int tutorid = Integer.parseInt(request.getParameter("tutorid").trim());
         String description = request.getParameter("description").trim();
@@ -53,7 +48,7 @@ public class CourseRegister extends HttpServlet {
             request.setAttribute("error", "Registration error.");
             rd.forward(request, response);
 
-        } //Return courseId in request message and direct to page to add course lessons
+        } //Return courseId in request message and direct to page to add Course Lessons
         else {
             String message;
             message = "Course registered successfully. Course ID: " + courseId;
@@ -108,7 +103,7 @@ public class CourseRegister extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Allows Admin to register Course and directs to page to add course Lessons";
+        return "Used by Admin to register Course and directs to page to add Course Lessons";
     }// </editor-fold>
 
 }

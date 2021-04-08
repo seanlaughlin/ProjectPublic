@@ -39,7 +39,7 @@ public class TutorCoursesServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        //Get session and user objects
+        //Get session and user objects to check if Admin or Tutor making request
         int tutorId = 0;
         HttpSession session = request.getSession();
         Admin admin = (Admin) session.getAttribute("admin");
@@ -53,10 +53,11 @@ public class TutorCoursesServlet extends HttpServlet {
         tutorId = tutor.getTutorId();
         }
         
-        //Load courses that user is registered on
+        //Load courses that Tutor is registered on
         CourseManager cm = new CourseManager();
         ArrayList<Course> courses = cm.loadTutorCourses(tutorId);
         
+        //Print table with Courses, display message if no Courses
         try (PrintWriter out = response.getWriter()) {
             if (courses == null) {
                 out.println("There are no courses to display.");
@@ -130,7 +131,7 @@ public class TutorCoursesServlet extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Gets all Courses that a Tutor is registered on. Used by Tutor and Admin.";
+        return "Used by Tutor and Admin to get a table of Courses that a Tutor is registered on.";
     }// </editor-fold>
 
 }

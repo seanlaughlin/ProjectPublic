@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package bean.servlets.admin;
 
 import bean.CourseManager;
@@ -38,8 +33,11 @@ public class DeleteServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException, ClassNotFoundException {
 
+        //Get parameter name and value from request 
         Enumeration enumeration = request.getParameterNames();
-        String parameterName = "";
+        String parameterName = (String) enumeration.nextElement();
+        int id = Integer.parseInt(request.getParameter(parameterName));
+
         CourseManager cm = new CourseManager();
         UserManager um = new UserManager();
         String deletedType = "";
@@ -47,14 +45,8 @@ public class DeleteServlet extends HttpServlet {
         String message = "";
         boolean isDeleted = false;
         RequestDispatcher rd;
-        int id = 0;
 
-        while (enumeration.hasMoreElements()) {
-            parameterName = (String) enumeration.nextElement();
-        }
-
-        id = Integer.parseInt(request.getParameter(parameterName));
-
+        //Check object type to be deleted and delete with id provided
         switch (parameterName) {
 
             case "courseId":
@@ -82,17 +74,18 @@ public class DeleteServlet extends HttpServlet {
                 break;
 
             default:
-                deletedType = "object";
+                deletedType = "Object";
                 isDeleted = false;
                 returnLinkKey = "student";
         }
+        
+        //Set message to be displayed depending on deletion success
         if (isDeleted) {
             message = "The " + deletedType + " has been deleted successfully.";
         } else {
             message = "Unable to delete." + deletedType + " may not exist or may have already been deleted.";
         }
 
-        //Check if deleted and set message
         //Put message in request and direct to page displaying message indicating success or failure
         rd = request.getRequestDispatcher("deleted.jsp");
         request.setAttribute("attribute", deletedType);
@@ -145,7 +138,7 @@ public class DeleteServlet extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Used by Admin to delete Lessons.";
+        return "Used by Admin to delete Student, Tutor, Course or Lesson from DB.";
     }// </editor-fold>
 
 }

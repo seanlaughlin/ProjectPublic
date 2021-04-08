@@ -43,7 +43,7 @@ public class TutorLoginServlet extends HttpServlet {
         UserManager userManager = new UserManager();
         RequestDispatcher dispatcher;
 
-        //Read in variables from web form request
+        //Read in login information from web form request
         String email = request.getParameter("emailaddress");
         String password = request.getParameter("password");
 
@@ -115,7 +115,7 @@ public class TutorLoginServlet extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Login servlet used by Tutor.";
+        return "Processes Tutor login and creates Tutor session object.";
     }// </editor-fold>
 
 }

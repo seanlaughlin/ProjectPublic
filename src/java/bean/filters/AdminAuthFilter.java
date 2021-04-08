@@ -30,21 +30,25 @@ public class AdminAuthFilter implements Filter {
 
         //Check if logged in
         boolean isLoggedIn = (session != null && session.getAttribute("admin") != null);
-        String loginURI = httpRequest.getContextPath() + "/adminlogin";
+        
+        //Check other user types not logged in
         boolean loggedInStudentTutor = ((session.getAttribute("tutor") != null) || (session.getAttribute("student") != null));
+        
+        //Check if login request by checking if request comes from admin login
+        String loginURI = httpRequest.getContextPath() + "/adminlogin";
         boolean isLoginRequest = httpRequest.getRequestURI().equals(loginURI);
         boolean isLoginPage = httpRequest.getRequestURI().endsWith("adminlogin.jsp");
 
-        // Forwards to admin home if already logged in
+        // Forward to admin home if already logged in and trying to log in
         if (isLoggedIn && (isLoginRequest || isLoginPage)) {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/account.jsp");
             dispatcher.forward(request, response);
 
-            // Send to page as logged in user if logged in
+        // Send to requested page as logged in user if logged in
         } else if (isLoggedIn || isLoginRequest) {
             chain.doFilter(request, response);
 
-            // Forward to login page if not logged in
+        // Forward to login page if not logged in
         } else {
             RequestDispatcher dispatcher = request.getRequestDispatcher("../adminlogin.jsp");
             if(loggedInStudentTutor){

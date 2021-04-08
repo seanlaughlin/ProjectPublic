@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package bean.servlets.admin;
 
 import bean.Course;
@@ -47,7 +42,7 @@ public class CourseDetailsServlet extends HttpServlet {
         parameterName = (String) enumeration.nextElement();
         String parameter = request.getParameter(parameterName);
 
-        //Send variables to updateCourseAttribute method to update database
+        //Send values to updateCourseAttribute method to update database
         boolean isUpdated = cm.updateCourseAttribute(parameterName, parameter, course.getCourseId());
 
         //Output message to confirm operation has been completed (read by toggle.js)
@@ -100,7 +95,7 @@ public class CourseDetailsServlet extends HttpServlet {
      */
     @Override
         public String getServletInfo() {
-        return "Short description";
+        return "Used by AJAX script toggle.js to edit Course details";
     }// </editor-fold>
 
 }

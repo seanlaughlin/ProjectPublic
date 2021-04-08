@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package bean.servlets.admin;
 
 import bean.PassHash;
@@ -13,7 +8,6 @@ import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -38,6 +32,11 @@ public class TutorRegister extends HttpServlet {
         PassHash passHash = new PassHash();
         RequestDispatcher rd;
 
+        //Variables for dynamic confirmation page
+        String returnURL = "tutormanagement.jsp";
+        String pageTitle = "Register Tutor";
+        String message = "";
+
         try {
 
             //Read variables in from web form request and trim any whitespace
@@ -59,30 +58,25 @@ public class TutorRegister extends HttpServlet {
             //Register student in database, if successful will return studentId which is > 0
             int i = userManager.registerTutor(tutor);
 
-            //Send error message if registration was unsuccessful
+            //Set error message if registration was unsuccessful
             if (i == 0) {
-                rd = request.getRequestDispatcher("registertutor.jsp");
-                request.setAttribute("error", "Registration error.");
-                rd.forward(request, response);
-            } //Return tutorId in request and redirect to page confirming registration
-            else {
-                
-                //Variables for dynamic confirmation page
-                String message = "Tutor registered successfully.";
-                String returnURL = "tutormanagement.jsp";
-                String pageTitle = "Register Tutor";
-                
-                //Set variables in request and forward to confirmation page
-                rd = request.getRequestDispatcher("message.jsp");
-                request.setAttribute("returnURL", returnURL);
-                request.setAttribute("pageTitle", pageTitle);
-                request.setAttribute("message", message);
-                rd.forward(request, response);
+                message = "Registration error.";
+            } else {
+                message = "Tutor registered successfully.";;
             }
+            //Set dynamic information in request and forward to confirmation page
+            rd = request.getRequestDispatcher("message.jsp");
+            request.setAttribute("returnURL", returnURL);
+            request.setAttribute("pageTitle", pageTitle);
+            request.setAttribute("message", message);
+            rd.forward(request, response);
 
         } catch (Exception ex) {
-            rd = request.getRequestDispatcher("registertutor.jsp");
-            request.setAttribute("error", "Registration error.");
+            message = "Registration error.";
+            rd = request.getRequestDispatcher("message.jsp");
+            request.setAttribute("returnURL", returnURL);
+            request.setAttribute("pageTitle", pageTitle);
+            request.setAttribute("message", message);
             rd.forward(request, response);
         }
 
@@ -125,7 +119,7 @@ public class TutorRegister extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Short description";
+        return "Used by Admin to register Tutor and directs to page displaying message indicating success/failure.";
     }// </editor-fold>
 
 }

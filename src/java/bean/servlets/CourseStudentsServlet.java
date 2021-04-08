@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package bean.servlets;
 
 import bean.Admin;
@@ -39,20 +34,23 @@ public class CourseStudentsServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        //Get courseId from request and load students on course into ArrayList
+        //Get courseId from request and load Students on Course into ArrayList
         int courseId = Integer.parseInt(request.getParameter("courseId"));
         CourseManager cm = new CourseManager();
         ArrayList<Student> courseStudents = cm.loadCourseStudents(courseId);
 
-        //Get calendar object with todays date
+        //Get calendar object with todays date to check if Course has started
         Calendar today = Calendar.getInstance();
         today.set(Calendar.HOUR_OF_DAY, 0);
         boolean hasCourseStarted;
         
+        //Get session and check if Admin is logged in (is making request)
         HttpSession session = request.getSession();
         boolean adminRequest = (Admin) session.getAttribute("admin") != null;
-
+        
         Course studentCourse = null;
+        
+        //List each Student on Course
         try (PrintWriter out = response.getWriter()) {
             out.println("<table class=\"lessonstable\">");
             out.println("<tr>");
@@ -62,12 +60,14 @@ public class CourseStudentsServlet extends HttpServlet {
             out.println("<th>Email Address</th>");
             out.println("<th>Lessons Status</th>");
             out.println("<th></th>");
+            
+            //If its an Admin request, create new header cells for column with unenroll option
             if(adminRequest){
             out.println("<th></th>");
             }
             out.println("</tr>");
 
-            //Print new row for each student in ArrayList with student details
+            //Print new row for each Student in ArrayList with Student details
             for (Student student : courseStudents) {
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                 String studentDob = sdf.format(student.getDob());
@@ -104,20 +104,22 @@ public class CourseStudentsServlet extends HttpServlet {
                         break;
 
                     case "On-Going":
-                        out.format("<td><small><ul style=\"list-style: none\"><li><a href=\"../EndLessonsServlet?courseId=%1$s&studentId=%2$s&lessonStatus=Completed\">Mark as Completed</a></small></li>", studentCourse.getCourseId(), student.getStudentId());
-                        out.format("<small><li><a href=\"../EndLessonsServlet?courseId=%1$s&studentId=%2$s&lessonStatus=Not-complete\">End Lessons</a></small></li></ul></td>", studentCourse.getCourseId(), student.getStudentId());
+                        out.format("<td><small><ul style=\"list-style: none\"><li><a href=\"../LessonStatusServlet?courseId=%1$s&studentId=%2$s&lessonStatus=Completed\">Mark as Completed</a></small></li>", studentCourse.getCourseId(), student.getStudentId());
+                        out.format("<small><li><a href=\"../LessonStatusServlet?courseId=%1$s&studentId=%2$s&lessonStatus=Not-complete\">End Lessons</a></small></li></ul></td>", studentCourse.getCourseId(), student.getStudentId());
                         break;
 
                     case "Beginner":
                         if (hasCourseStarted) {
-                            out.format("<td><ul style=\"list-style: none\"><li><small><a href=\"../EndLessonsServlet?courseId=%1$s&studentId=%2$s&lessonStatus=On-Going\">Mark as On-Going</a></small></li>", studentCourse.getCourseId(), student.getStudentId());
-                            out.format("<small><li><a href=\"../EndLessonsServlet?courseId=%1$s&studentId=%2$s&lessonStatus=Completed\">Mark as Completed</a></small></li>", studentCourse.getCourseId(), student.getStudentId());
+                            out.format("<td><ul style=\"list-style: none\"><li><small><a href=\"../LessonStatusServlet?courseId=%1$s&studentId=%2$s&lessonStatus=On-Going\">Mark as On-Going</a></small></li>", studentCourse.getCourseId(), student.getStudentId());
+                            out.format("<small><li><a href=\"../LessonStatusServlet?courseId=%1$s&studentId=%2$s&lessonStatus=Completed\">Mark as Completed</a></small></li>", studentCourse.getCourseId(), student.getStudentId());
                         } else {
                             out.println("<td><ul style=\"list-style:none\">");
                         }
-                        out.format("<small><li><a href=\"../EndLessonsServlet?courseId=%1$s&studentId=%2$s&lessonStatus=Not-complete\">End Lessons</a></small></li></ul></td>", studentCourse.getCourseId(), student.getStudentId());
+                        out.format("<small><li><a href=\"../LessonStatusServlet?courseId=%1$s&studentId=%2$s&lessonStatus=Not-complete\">End Lessons</a></small></li></ul></td>", studentCourse.getCourseId(), student.getStudentId());
                         break;
                 }
+                
+                //If its an Admin request insert cell with link to unenroll Student
                 if(adminRequest){
                 out.format("<td><small><a href=\"" + request.getContextPath() + "/CourseEnrollmentServlet?studentId=%1$s&courseId=%2$s&unEnroll=true\" style=\"color:red\">Unenroll</a></small></td>", student.getStudentId(), studentCourse.getCourseId());
                 }

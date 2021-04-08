@@ -29,6 +29,8 @@ public class TutorAuthFilter implements Filter {
 
         //Check if logged in
         boolean isLoggedIn = (session != null && session.getAttribute("tutor") != null);
+        
+        //Check other user types not logged in
         boolean loggedInStudentAdmin = ((session.getAttribute("student") != null) || (session.getAttribute("admin") != null));
         String loginURI = httpRequest.getContextPath() + "/tutorlogin";
         boolean isLoginRequest = httpRequest.getRequestURI().equals(loginURI);
@@ -39,7 +41,7 @@ public class TutorAuthFilter implements Filter {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/tutor/account.jsp");
             dispatcher.forward(request, response);
 
-            // Send to page as logged in user if logged in
+            // Send to requested page as logged in user if logged in
         } else if (isLoggedIn || isLoginRequest) {
             chain.doFilter(request, response);
 

@@ -69,7 +69,7 @@ public class Course {
 
     }
 
-    //Returns colour for text for each status
+    //Returns colour for text for each Lesson status
     public String getStatusColour() {
 
         String statusColour = "";

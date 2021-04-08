@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package bean.servlets.admin;
 
 import bean.Course;
@@ -42,14 +37,19 @@ public class AdminStudentManagement extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException, ClassNotFoundException {
 
+        //Get session object
         HttpSession session = request.getSession();
         int studentId;
         RequestDispatcher rd = null;
 
+        //Load all Students in DB
         UserManager um = new UserManager();
         ArrayList<Student> allStudents = um.loadAllStudents();
+        
+        //Check if request was for a simple list of Students (for reference) or not
         boolean isList = Boolean.parseBoolean(request.getParameter("isList"));
 
+        //Get name of action requested from webpage, default to display if no action parameter in request
         String action = request.getParameter("action");
         if (action == null) {
             action = "display";
@@ -58,7 +58,7 @@ public class AdminStudentManagement extends HttpServlet {
         //Direct user to relevant page/perform requested action depending on action parameter
         switch (action) {
 
-            //Stores Student object in session to be used by StudentDetailsServlet and directs to edittutor page (Which uses StudentDetailsServlet)
+            //Stores Student object in session to be used by DetailsServlet and directs to edittutor page (Which uses DetailsServlet)
             case ("edit"):
                 studentId = Integer.parseInt(request.getParameter("studentId"));
                 Student selected = null;
@@ -77,7 +77,7 @@ public class AdminStudentManagement extends HttpServlet {
                 rd.forward(request, response);
                 break;
 
-            //Stores studentId in request to be used by LessonsServlet and directs to studentschedule (which includes LessonsServlet as import)
+            //Stores studentId in request to be used by LessonsServlet and directs to schedule.jsp (which includes LessonsServlet as import)
             case ("schedule"):
                 selected = null;
                 studentId = Integer.parseInt(request.getParameter("studentId"));
@@ -86,7 +86,11 @@ public class AdminStudentManagement extends HttpServlet {
                         student = selected;
                     }
                 }
-                rd = request.getRequestDispatcher("studentschedule.jsp");
+                rd = request.getRequestDispatcher("schedule.jsp");
+                
+                //Set dynamic attributes to be displayed in schedule.jsp and forward
+                request.setAttribute("pageTitle", "Student");
+                request.setAttribute("returnURL", "studentmanagement.jsp");
                 request.setAttribute("studentId", studentId);
                 rd.forward(request, response);
                 break;
@@ -105,6 +109,8 @@ public class AdminStudentManagement extends HttpServlet {
                     out.println("<th>Phone No.</th>");
                     out.println("<th>Registered Courses</th>");
                     out.println("<th>Course Status</th>");
+                    
+                    //If the request is not for a simple list, add header cells for columns with links
                     if (!isList) {
                         out.println("<th></th>");
                         out.println("<th></th>");
@@ -124,6 +130,8 @@ public class AdminStudentManagement extends HttpServlet {
                         out.format("<td>%s</td>", studentDob);
                         out.format("<td>%s</td>", student.getEmail());
                         out.format("<td>%s</td>", student.getPhoneNumber());
+                        
+                        //Check if Student has Courses to prevent exception and keep formatting correct
                         switch (studentCourses.size()) {
                             case 0:
                                 out.format("<td><i>No registered courses</i></td>");

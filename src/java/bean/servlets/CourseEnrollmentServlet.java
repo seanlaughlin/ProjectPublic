@@ -133,6 +133,7 @@ public class CourseEnrollmentServlet extends HttpServlet {
                 returnURL = "admin/viewcoursestudents.jsp?courseId=" + courseId;
                 pageTitle = "Enrolment";
                 if (enrolled) { 
+                    message = "Enrolled successfully.";
                 } else {
                     message = "Enrollment failed. Please check the information and try again.";
                 }
