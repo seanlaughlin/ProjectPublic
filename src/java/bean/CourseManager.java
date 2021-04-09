@@ -21,8 +21,9 @@ import java.util.stream.Collectors;
 //Used to control all CRUD operations relating to Course and Lesson objects and DB tables
 public class CourseManager {
 
+    String catalinaHome = System.getenv("CATALINA_HOME");
     private final String driver = "net.ucanaccess.jdbc.UcanaccessDriver";
-    private final String connectionString = "jdbc:ucanaccess://C:\\Users\\seanl\\Documents\\NetBeansProjects\\GCU_1\\data\\GCU_SkillsDB.accdb";
+    private final String connectionString = "jdbc:ucanaccess://"+catalinaHome+"\\webapps\\GCU_SkillsDB.accdb";
 
     //COURSE METHODS
     
@@ -516,6 +517,7 @@ public class CourseManager {
                 String courseName = rs.getString("CourseName");
                 String courseStatus = rs.getString("CourseStatus");
                 String description = rs.getString("Description");
+                
 
                 new Tutor();
                 Tutor courseTutor;
@@ -524,13 +526,13 @@ public class CourseManager {
                 //Creates a course object with the data from the database and calls the loadCourseLessons method to populate that course with its associated lessons
                 Course loadedCourse = new Course(courseId, courseName, courseStatus, loadCourseLessons(courseId), courseTutor, description);
 
-                //Get Calendar object of todays date
+                //Get Calendar object of todays date and last Lesson date
                 Calendar today = Calendar.getInstance();
                 today.set(Calendar.HOUR_OF_DAY, 0);
-
+                Timestamp lastLessonDate = loadedCourse.getLessons().get(loadedCourse.getLessons().size() - 1).getTimeSlot();
                 //Check if last lesson date is later than today and add course to array (prevents old courses from loading). Adds Course if exception occurs in reading Lessons (if no Lessons)
                 try {
-                    if (loadedCourse.getLessons().get(loadedCourse.getLessons().size() - 1).getTimeSlot().after(today.getTime())) {
+                    if (lastLessonDate.after(today.getTime()) || lastLessonDate.equals(today.getTime())) {
                         tutorCourses.add(loadedCourse);
                     }
                 } catch (Exception e) {
