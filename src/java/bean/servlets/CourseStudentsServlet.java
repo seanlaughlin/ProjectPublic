@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -85,8 +86,9 @@ public class CourseStudentsServlet extends HttpServlet {
                 out.format("<td>%s</td>", student.getEmail());
 
                 //Check if Course has started by comparing first Lesson date to object with todays date to see if before
+                Timestamp courseStart = studentCourse.getLessons().get(0).getTimeSlot();
                 try {
-                    hasCourseStarted = studentCourse.getLessons().get(0).getTimeSlot().before(today.getTime());
+                    hasCourseStarted = (courseStart.before(today.getTime())) || (courseStart.equals(today.getTime()));
                 } //Set to false if Course has no Lessons (causes exception)
                 catch (IndexOutOfBoundsException e) {
                     hasCourseStarted = false;
